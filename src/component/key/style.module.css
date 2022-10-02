@@ -1,0 +1,91 @@
+:root {
+    --whiteKeyWidth: calc((100% / 7) - 1px);
+    --whiteKeyHeight: 270px;
+}
+
+.whiteKey {
+    background-color: hsl(27, 100%, 99%);
+    box-sizing: border-box;
+    height: var(--whiteKeyHeight);
+    width: var(--whiteKeyWidth);
+    border-style: solid;
+    border-color: hsl(27, 100%, 10%);
+    border-width: 2px;
+    border-radius: 0 0 5px 5px;
+    margin-right: 1px;
+}
+
+.whiteKey:active {
+    background-image: linear-gradient(
+  260deg,
+  hsl(0deg 0% 100%) 0%,
+  hsl(0deg 0% 100%) 3%,
+  hsl(0deg 0% 100%) 7%,
+  hsl(0deg 0% 100%) 12%,
+  hsl(0deg 0% 100%) 19%,
+  hsl(0deg 0% 100%) 31%,
+  hsl(0deg 0% 100%) 55%,
+  hsl(26deg 5% 92%) 70%,
+  hsl(26deg 5% 85%) 80%,
+  hsl(26deg 4% 77%) 86%,
+  hsl(26deg 4% 70%) 92%,
+  hsl(26deg 3% 62%) 96%,
+  hsl(26deg 3% 55%) 100%
+    );
+    height: calc(var(--whiteKeyHeight) - 5px);
+    position: relative;
+    top: -5px;
+}
+
+.blackKey {
+    /* background-color: hsl(0, 0%, 22%); */
+    background-image: linear-gradient(
+  180deg,
+  hsl(0deg 0% 0%) 4%,
+  hsl(344deg 0% 5%) 70%,
+  hsl(344deg 0% 9%) 82%,
+  hsl(344deg 0% 12%) 88%,
+  hsl(344deg 0% 15%) 92%,
+  hsl(344deg 0% 19%) 94%,
+  hsl(0deg 0% 22%) 96%,
+  hsl(26deg 1% 27%) 97%,
+  hsl(26deg 1% 32%) 98%,
+  hsl(26deg 2% 38%) 99%,
+  hsl(26deg 2% 43%) 99%,
+  hsl(26deg 2% 49%) 100%,
+  hsl(26deg 3% 55%) 100%
+);
+
+    box-sizing: border-box;
+    height: calc((2/3)*(var(--whiteKeyHeight)));
+    width: calc((2/3)*(var(--whiteKeyWidth)));
+    margin-left: calc((1/3)*(var(--whiteKeyWidth)));
+    border-radius: 0 0 7px 7px;
+}
+
+.blackKey:active {
+    background-image: linear-gradient(
+  0deg,
+  hsl(0deg 0% 0%) 0%,
+  hsl(344deg 0% 5%) 21%,
+  hsl(344deg 0% 9%) 46%,
+  hsl(344deg 0% 12%) 71%,
+  hsl(344deg 0% 15%) 84%,
+  hsl(344deg 0% 19%) 90%,
+  hsl(0deg 0% 22%) 94%,
+  hsl(60deg 0% 27%) 96%,
+  hsl(60deg 0% 32%) 98%,
+  hsl(60deg 0% 37%) 99%,
+  hsl(60deg 0% 42%) 99%,
+  hsl(60deg 0% 48%) 100%,
+  hsl(60deg 0% 53%) 100%
+    );
+}
+
+.blackKey:first-child {
+    margin-left: calc((2/3)*(var(--whiteKeyWidth)));
+}
+
+.blackKey:nth-child(2) {
+    margin-right: var(--whiteKeyWidth);
+}

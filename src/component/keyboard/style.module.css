@@ -1,0 +1,29 @@
+:root {
+    --keyboardWidth: 600px;
+}
+.container {
+    width: var(--keyboardWidth);
+    margin: 0 auto;
+}
+
+.chromaticChoose {
+    height: 60px;
+}
+.chromaticChooseP {
+    display: inline-block;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.diatonicKeys {
+    box-sizing: border-box;
+    width: var(--keyboardWidth);
+}
+
+.chromaticKeys {
+    position: absolute;
+    top: 0px; 
+    z-index: 1;
+    box-sizing: border-box;
+    width: var(--keyboardWidth);
+}
