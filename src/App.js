@@ -1,12 +1,16 @@
 import './App.css';
 
 import { Keyboard } from './component/keyboard';
+import { Note } from './component/note';
 
 
 
 function App() {
   return (
-    <Keyboard />
+    <div>
+      <Note />
+      <Keyboard />
+    </div>
   );
 }
 
