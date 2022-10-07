@@ -2,7 +2,6 @@
     background-image: url('./graph/staff.png');
     background-size: 100px;
     background-repeat: repeat-x;
-    /* border: 1px solid red; */
     width: 600px;
     height: 400px;
     margin: 0 auto;
@@ -14,10 +13,56 @@
     top: 16px;
     z-index: 1;
 }
+.fSharp {
+    display: none;
+    height: 65px;
+    position: relative;
+    top: -18px;
+    left: 25px;
+}
 
-.note {
+.fFlat {
+    display: inline-block;
+    height: 60px;
+    position: relative;
+    top: -34px;
+    left: 25px;
+}
+
+.fNote {
     height: 20px;
     position: relative;
     top: -40px;
+    left: 30px;
+    }
+    
+    /* dlaczego mi to tak formatuje? */
+    .gSharp {
+        display: inline-block;
+        height: 65px;
+        position: relative;
+        top: -30px;
+        left: 25px;
+    }
+    
+    .gFlat {
+        display: none;
+        height: 60px;
+        position: relative;
+        top: -46px;
+        left: 25px;
+    }
+    
+    .gNote {
+        height: 20px;
+        position: relative;
+        top: -52px;
+        left: 30px;
+    }
 
+.aNote {
+    height: 20px;
+    position: relative;
+    top: -64px;
+    left: 30px;
 }

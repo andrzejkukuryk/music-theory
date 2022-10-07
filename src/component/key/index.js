@@ -39,6 +39,11 @@ export function Key(props) {
         props.type === 'black' ? pauseSound(chromaticScale) : pauseSound(diatonicScale);
     };
 
+    const handleClickButton = () => {
+        console.log(props.tone);
+        props.setPlayedNote(props.tone);
+    };
+
     const playSound = (scale) => {
         scale[props.index].play();
     };
@@ -52,10 +57,10 @@ export function Key(props) {
     };
 
     if (props.type === 'black') {
-        return <button className={styles.blackKey} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} onMouseOut={handleMouseUp} ></button >
+        return <button className={styles.blackKey} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} onMouseOut={handleMouseUp} onClick={handleClickButton} ></button >
     };
 
     return (
-        <button className={styles.whiteKey} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} onMouseOut={handleMouseUp} ></button>
+        <button className={styles.whiteKey} onMouseDown={handleMouseDown} onMouseUp={handleMouseUp} onMouseOut={handleMouseUp} onClick={handleClickButton} ></button>
     )
 }
