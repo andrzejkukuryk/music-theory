@@ -1,3 +1,12 @@
+:root {
+    --c1: -6px;
+    --d1: -16px;
+    --e1: -28px;
+    --f1: -40px;
+    --g1: -52px;
+    --a1: -64px;
+    --b1: -76px;
+}
 .container {
     background-image: url('./graph/staff.png');
     background-size: 100px;
@@ -13,16 +22,25 @@
     top: 16px;
     z-index: 1;
 }
+.note {
+    height: 20px;
+    position: relative;
+    left: 30px;
+}
+
+.d {
+    top: var(--d1);
+}
 .fSharp {
     display: none;
     height: 65px;
     position: relative;
-    top: -18px;
+    top: calc(var(--f1) + 22px);
     left: 25px;
 }
 
 .fFlat {
-    display: inline-block;
+    display: none;
     height: 60px;
     position: relative;
     top: -34px;
@@ -41,7 +59,7 @@
         display: inline-block;
         height: 65px;
         position: relative;
-        top: -30px;
+        top: calc(var(--g1) + 22px);
         left: 25px;
     }
     
@@ -56,7 +74,7 @@
     .gNote {
         height: 20px;
         position: relative;
-        top: -52px;
+        top: var(--g1);
         left: 30px;
     }
 
