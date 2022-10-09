@@ -11,7 +11,7 @@ function App() {
 
   return (
     <div>
-      <Note note={note} /> /* ustaw note='C' zeby ruszyć */
+      <Note note={note ? note : 'X'} /> 
       <Keyboard setNote={setNote} />
     </div>
   );

@@ -9,17 +9,14 @@
 }
 
 .note {
+    display: inline-block;
     height: 20px;
     position: relative;
     left: 30px;
 }
 
-.flat {
+.noteDisabled {
     display: none;
-    height: 60px;
-    position: relative;
-    top: -34px;
-    left: 25px;
 }
 
 .c {
@@ -87,4 +84,55 @@
 
 .bSharp {
     top: calc(var(--b1) + 22px);
+}
+.flat {
+    display: inline-block;
+    height: 60px;
+    position: relative;
+    left: 25px;
+}
+
+.flatDisabled {
+    display: none;
+}
+
+.cFlat {
+    top: calc(var(--c1) + 5px);
+}
+
+.dFlat {
+    top: calc(var(--d1) + 5px);
+}
+
+.eFlat {
+    top: calc(var(--e1) + 5px);
+}
+
+.fFlat {
+    top: calc(var(--f1) + 5px);
+}
+
+.gFlat {
+    top: calc(var(--g1) + 5px);
+}
+
+.aFlat {
+    top: calc(var(--a1) + 5px);
+}
+
+.bFlat {
+    top: calc(var(--b1) + 5px);
+}
+
+.lowerLine {
+    display: inline-block;
+    height: 4px;
+    width: 46px;
+    position: relative;
+    top: -14px;
+    left: -11px;
+}
+
+.lineDisabled {
+    display: none;
 }

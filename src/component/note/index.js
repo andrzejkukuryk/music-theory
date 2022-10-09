@@ -5,14 +5,17 @@ import clef from './graph/clef.png';
 import note from './graph/wholeNote.png';
 import sharp from './graph/sharp.png';
 import flat from './graph/flat.png';
+import line from './graph/line.png';
 
 var classNames = require('classnames');
 
 export function Note(props) {
     let pitch = props.note[0];
+    let playedNote = props.note;
 
     const noteOnStaff = classNames({
-        note: true,
+        note: pitch !== 'X',
+        noteDisabled: pitch === 'X',
         c: pitch === 'C',
         d: pitch === 'D',
         e: pitch === 'E',
@@ -24,7 +27,7 @@ export function Note(props) {
 
     const sharpOnStaff = classNames({
         sharp: true,
-        sharpDisabled: false,
+        sharpDisabled: playedNote.length === 1 || playedNote[1] === 'b',
         cSharp: pitch === 'C',
         dSharp: pitch === 'D',
         eSharp: pitch === 'E',
@@ -34,13 +37,32 @@ export function Note(props) {
         bSharp: pitch === 'B'
     });
 
+    const flatOnStaff = classNames({
+        flat: true,
+        flatDisabled: playedNote.length === 1 || playedNote[1] === '#',
+        cFlat: pitch === 'C',
+        dFlat: pitch === 'D',
+        eFlat: pitch === 'E',
+        fFlat: pitch === 'F',
+        gFlat: pitch === 'G',
+        aFlat: pitch === 'A',
+        bFlat: pitch === 'B'
+    });
+
+    const addedLine = classNames({
+        lowerLine: true,
+        upperLine: false,
+        lineDisabled: pitch !== 'C'
+    });
+
 
     return (
         <div className={styles.container}>
             <img className={styles.clef} src={clef} alt='treble clef'></img>
             <img className={sharpOnStaff} src={sharp} alt='sharp'></img>
-            <img className={styles.fFlat} src={flat} alt='flat'></img>
+            <img className={flatOnStaff} src={flat} alt='flat'></img>
             <img className={noteOnStaff} src={note} alt='whole note'></img>
+            <img className={addedLine} src={line} alt='added line'></img>
             <p>{props.note}</p>
         </div>
     );
