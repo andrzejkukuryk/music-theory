@@ -136,3 +136,12 @@
 .lineDisabled {
     display: none;
 }
+.noteCaption {
+    display: block;
+    font-size: 3em;
+    text-align: center;
+}
+
+.noteCaptionDisabled {
+    display: none;
+}

@@ -10,10 +10,11 @@ export function Keyboard(props) {
     const [chromatic, setChromatic] = useState(sharped);
     const [playedNote, setPlayedNote] = useState(null);
 
-    useEffect(() => {
-        props.setNote(playedNote);
-    }, [playedNote]
-    );
+    // useEffect(() => {
+    //     props.setNote(playedNote);
+    // }, [playedNote]);
+
+    props.setNote(playedNote);
 
     const handleClickChromatic = ({ target }) => {
         target.value === TYPE_FLATED ? setChromatic(flated) : setChromatic(sharped);

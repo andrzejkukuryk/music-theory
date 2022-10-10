@@ -55,6 +55,11 @@ export function Note(props) {
         lineDisabled: pitch !== 'C'
     });
 
+    const caption = classNames({
+        noteCaption: true,
+        noteCaptionDisabled: pitch === 'X'
+    });
+
 
     return (
         <div className={styles.container}>
@@ -63,7 +68,7 @@ export function Note(props) {
             <img className={flatOnStaff} src={flat} alt='flat'></img>
             <img className={noteOnStaff} src={note} alt='whole note'></img>
             <img className={addedLine} src={line} alt='added line'></img>
-            <p>{props.note}</p>
+            <p className={caption}>Played note: {props.note}</p>
         </div>
     );
 };
