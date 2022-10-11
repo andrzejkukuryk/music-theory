@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Key } from '../key';
 import styles from "./style.module.css";
 import { diatonic, flated, sharped } from '../../theory.js';
@@ -8,13 +8,6 @@ const TYPE_FLATED = 'flated';
 
 export function Keyboard(props) {
     const [chromatic, setChromatic] = useState(sharped);
-    const [playedNote, setPlayedNote] = useState(null);
-
-    // useEffect(() => {
-    //     props.setNote(playedNote);
-    // }, [playedNote]);
-
-    props.setNote(playedNote);
 
     const handleClickChromatic = ({ target }) => {
         target.value === TYPE_FLATED ? setChromatic(flated) : setChromatic(sharped);
@@ -34,10 +27,10 @@ export function Keyboard(props) {
         </div>
             <div style={{ position: 'relative' }}>
             <div className={styles.diatonicKeys}>
-                    {diatonic.map((note, index) => <Key key={index} tone={note} index={index} type='white' setPlayedNote={setPlayedNote} />)} 
+                    {diatonic.map((note, index) => <Key key={index} tone={note} index={index} type='white' pressedKey={props.pressedKey} />)} 
             </div>
             <div className={styles.chromaticKeys}>
-                    {chromatic.map((note, index) => <Key key={index} tone={note} index={index} type='black' setPlayedNote={setPlayedNote} />)}
+                    {chromatic.map((note, index) => <Key key={index} tone={note} index={index} type='black' pressedKey={props.pressedKey} />)}
             </div>
         </div>
     </div>

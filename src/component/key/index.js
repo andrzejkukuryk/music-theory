@@ -13,8 +13,6 @@ import a from './sounds/a.mp3';
 import bb from './sounds/bb.mp3';
 import b from './sounds/b.mp3';
 
-
-export function Key(props) {
     const cSound = new Audio(c);
     const dbSound = new Audio(db);
     const dSound = new Audio(d);
@@ -27,6 +25,9 @@ export function Key(props) {
     const aSound = new Audio(a);
     const bbSound = new Audio(bb);
     const bSound = new Audio(b);
+
+export function Key(props) {
+
 
     const diatonicScale = [cSound, dSound, eSound, fSound, gSound, aSound, bSound];
     const chromaticScale = [dbSound, ebSound, gbSound, abSound, bbSound];
@@ -41,7 +42,7 @@ export function Key(props) {
 
     const handleClickButton = () => {
         console.log(props.tone);
-        props.setPlayedNote(props.tone);
+        props.pressedKey(props.tone);
     };
 
     const playSound = (scale) => {

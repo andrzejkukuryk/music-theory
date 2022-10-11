@@ -3,16 +3,23 @@ import './App.css';
 
 import { Keyboard } from './component/keyboard';
 import { Note } from './component/note';
+import { Scale } from './component/scale';
 
 
 
 function App() {
-  const [note, setNote] = useState(null);
+  const [note, setNote] = useState('X');
+
+  const pressedKey = (newNote) => {
+    setNote(newNote);
+
+  };
 
   return (
     <div>
-      <Note note={note ? note : 'X'} /> 
-      <Keyboard setNote={setNote} />
+      <Scale note={note} />
+      <Note note={note} />
+      <Keyboard pressedKey={pressedKey} />
     </div>
   );
 }
