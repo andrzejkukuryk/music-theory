@@ -18,7 +18,7 @@ function App() {
   return (
     <div>
       <Scale note={note} />
-      <Note note={note} />
+      {/* <Note note={note} /> */}
       <Keyboard pressedKey={pressedKey} />
     </div>
   );
