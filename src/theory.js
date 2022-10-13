@@ -4,14 +4,16 @@ export const flated = ['Db', 'Eb', 'Gb', 'Ab', 'Bb'];
 
 export let scale = [...diatonic];
 export let range = [...scale, scale[0]];
+export let sharpsCounter = 0;
+export let flatsCounter = 0;
 
 export const resetScale = () => {
     scale = [...diatonic];
 };
 
 export const circleOfFifths = (prime) => {
-    let sharpsCounter = 0;
-    let flatsCounter = 0;
+    sharpsCounter = 0;
+    flatsCounter = 0;
 
     const stepFwd = () => {
         scale.push(...scale.splice(0, 4));

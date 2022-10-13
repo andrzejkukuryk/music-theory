@@ -19,7 +19,7 @@
     background-image: url('./graph/staff.png');
     background-size: 100px;
     background-repeat: repeat-x;
-    width: 800px;
+    width: 990px;
     height: 400px;
     margin: 0 auto;
     border: 1px solid red;
@@ -32,6 +32,78 @@
     z-index: 1;
 }
 
+.sharpOnStaff {
+    display: inline-block;
+    height: 65px;
+    position: relative;
+    margin-right: 3px;
+}
+
+.sharpDisabled {
+    display: none;
+}
+
+.fSharp {
+    top: calc(var(--f2) + 22px);
+}
+
+.cSharp {
+    top: calc(var(--c2) + 22px);
+}
+
+.gSharp {
+    top: calc(var(--g2) + 22px);
+}
+
+.dSharp {
+    top: calc(var(--d2) + 22px);
+}
+
+.aSharp {
+    top: calc(var(--a1) + 22px);
+}
+
+.eSharp {
+    top: calc(var(--e2) + 22px);
+}
+
+.bSharp {
+    top: calc(var(--b1) + 22px);
+}
+
+.flatOnStaff {
+    display: inline-block;
+    height: 60px;
+    position: relative;
+}
+
+.flatDisabled {
+    display: none;
+}
+
+.bFlat {
+    top: calc(var(--b1) + 5px);
+}
+
+.eFlat {
+    top: calc(var(--e2) + 5px);
+}
+
+.aFlat {
+    top: calc(var(--a1) + 5px);
+}
+
+.dFlat {
+    top: calc(var(--d2) + 5px);
+}
+
+.gFlat {
+    top: calc(var(--g1) + 5px);
+}
+
+.cFlat {
+    top: calc(var(--c2) + 5px);
+}
 .note {
     display: inline-block;
     height: 20px;
@@ -50,11 +122,22 @@
     width: 46px;
     position: relative;
     top: -14px;
-    left: -11px;
+    left: -36px;
+        margin-right: -18px;
+    }
+    
+    .upperLine {
+        display: inline-block;
+        height: 4px;
+        width: 46px;
+        position: relative;
+        top: -156px;
+        left: -36px;
+        margin-right: -18px;
 }
 
 .lineDisabled {
-    display: none;
+    opacity: 0;
 }
 
 .c1 {
