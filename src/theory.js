@@ -12,6 +12,34 @@ export const resetScale = () => {
 };
 
 export const circleOfFifths = (prime) => {
+    let rightPrime = '';
+    const setRightPrime = (orgPrime) => {
+        switch (orgPrime) {
+            case 'C#':
+            case 'Db':
+                rightPrime = 'C#';
+                break;
+            case 'D#':
+            case 'Eb':
+                rightPrime = 'Eb';
+                break;
+            case 'F#':
+            case 'Gb':
+                rightPrime = 'Gb';
+                break;
+            case 'G#':
+            case 'Ab':
+                rightPrime = 'Ab';
+                break;
+            case 'A#':
+            case 'Bb':
+                rightPrime = 'Bb';
+                break;
+            default:
+                rightPrime = orgPrime;
+        }
+    };
+
     sharpsCounter = 0;
     flatsCounter = 0;
 
@@ -29,12 +57,12 @@ export const circleOfFifths = (prime) => {
     const runCircle = () => {
         resetScale();
         sharpsCounter = 0;
-        while (prime !== scale[0] && sharpsCounter < 11) {
+        while (rightPrime !== scale[0] && sharpsCounter < 11) {
             stepFwd();
         }
         if (sharpsCounter === 11) {
             resetScale();
-            while (prime !== scale[0] && flatsCounter < 11) {
+            while (rightPrime !== scale[0] && flatsCounter < 11) {
                 stepBwd();
             }
         }
@@ -43,7 +71,7 @@ export const circleOfFifths = (prime) => {
     const setRange = () => {
         range = [...scale, scale[0]];
     }
-
+    setRightPrime(prime);
     runCircle();
     setRange();
 };

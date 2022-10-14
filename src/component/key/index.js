@@ -26,11 +26,10 @@ import b from './sounds/b.mp3';
     const bbSound = new Audio(bb);
     const bSound = new Audio(b);
 
-export function Key(props) {
-
-
     const diatonicScale = [cSound, dSound, eSound, fSound, gSound, aSound, bSound];
     const chromaticScale = [dbSound, ebSound, gbSound, abSound, bbSound];
+
+export function Key(props) {
 
     const handleMouseDown = () => {
         props.type === 'black' ? playSound(chromaticScale) : playSound(diatonicScale);
@@ -41,7 +40,6 @@ export function Key(props) {
     };
 
     const handleClickButton = () => {
-        console.log(props.tone);
         props.pressedKey(props.tone);
     };
 
