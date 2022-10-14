@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { circleOfFifths, range } from "../../theory";
 import './styles.css';
 import clef from './graph/clef.png';
@@ -10,6 +10,7 @@ import line from './graph/line.png';
 var classNames = require('classnames');
 
 export function Scale(props) {
+    const [notes, setNotes] = useState([]);
     const [sharpsNumber, setSharpsNumber] = useState(0);
     const [flatsNumber, setFlatsNumber] = useState(0);
     const [sharps, setSharps] = useState([]);
@@ -18,22 +19,21 @@ export function Scale(props) {
     const sharpsOrder = ['sharpDisabled', 'fSharp', 'cSharp', 'gSharp', 'dSharp', 'aSharp', 'eSharp', 'bSharp'];
     const flatsOrder = ['flatDisabled', 'bFlat', 'eFlat', 'aFlat', 'dFlat', 'gFlat', 'cFlat'];
 
-    const diatonicRange = [];
-    range.map(note => diatonicRange.push(note[0]));
+    const diatonicNotes = [];
+    notes.map(note => diatonicNotes.push(note[0]));
 
-    const indexOfB = diatonicRange.indexOf('B');
+    const indexOfB = diatonicNotes.indexOf('B');
 
     const countSigns = () => {
-        const scale = [...range];
+        const scale = [...notes];
         scale.pop();
 
         const scaleFiltered = scale.filter(note => note.length > 1);
         // console.log(scaleFiltered);
         if (scaleFiltered.length > 0) {
             // console.log(scaleFiltered[0][1]);
-            // scaleFiltered[0][1] === '#' ? setSigns(scaleFiltered.length, 0) : setSigns(0, scaleFiltered.length);
+            scaleFiltered[0][1] === '#' ? setSignsNumber(scaleFiltered.length, 0) : setSignsNumber(0, scaleFiltered.length);
         }
-        // console.log('sharps Number: ', sharpsNumber);
     };
 
     const setSignsNumber = (sharps, flats) => {
@@ -104,14 +104,18 @@ export function Scale(props) {
         );  
     };
 
+    useEffect(
+        () => {
+            setNotes(range);
+            countSigns();
+            orderSigns();
+        }, [props]);
+
+
     if (props.note !== 'X') {
         circleOfFifths(props.note);
 
     };
-
-    countSigns();
-    // setSignsNumber(1, 0);
-    // orderSigns();
 
 
     return (
@@ -119,8 +123,8 @@ export function Scale(props) {
             <img className='clef' src={clef} alt='treble clef'></img>
             {sharps.map((sign, index) => writeSharps(sign, index))}
             {flats.map((sign, index) => writeFlats(sign, index))}
-            {range.map((sound, index) => writeNote(sound, index))}
-            <p>{range.join(', ')}</p>
+            {notes.map((sound, index) => writeNote(sound, index))}
+            <p>{notes.join(', ')}</p>
         </div>
     );
 
