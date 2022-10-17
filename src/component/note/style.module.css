@@ -22,65 +22,142 @@
     top: 16px;
     z-index: 1;
 }
+
 .note {
+    display: inline-block;
     height: 20px;
     position: relative;
     left: 30px;
+}
+
+.noteDisabled {
+    display: none;
+}
+
+.c {
+    top: var(--c1);
 }
 
 .d {
     top: var(--d1);
 }
-.fSharp {
-    display: none;
+
+.e {
+    top: var(--e1);
+}
+
+.f {
+    top: var(--f1);
+}
+
+.g {
+    top: var(--g1);
+}
+
+.a {
+    top: var(--a1);
+}
+
+.b {
+    top: var(--b1);
+}
+
+.sharp {
+    display: inline-block;
     height: 65px;
     position: relative;
-    top: calc(var(--f1) + 22px);
     left: 25px;
+}
+
+.sharpDisabled {
+    display: none;
+}
+
+.cSharp {
+    top: calc(var(--c1) + 22px);
+}
+
+.dSharp {
+    top: calc(var(--d1) + 22px);
+}
+
+.eSharp {
+    top: calc(var(--e1) + 22px);
+}
+
+.fSharp {
+    top: calc(var(--f1) + 22px);
+}
+
+.gSharp {
+    top: calc(var(--g1) + 22px);
+}
+
+.aSharp {
+    top: calc(var(--a1) + 22px);
+}
+
+.bSharp {
+    top: calc(var(--b1) + 22px);
+}
+
+.flat {
+    display: inline-block;
+    height: 60px;
+    position: relative;
+    left: 25px;
+}
+
+.flatDisabled {
+    display: none;
+}
+
+.cFlat {
+    top: calc(var(--c1) + 5px);
+}
+
+.dFlat {
+    top: calc(var(--d1) + 5px);
+}
+
+.eFlat {
+    top: calc(var(--e1) + 5px);
 }
 
 .fFlat {
-    display: none;
-    height: 60px;
-    position: relative;
-    top: -34px;
-    left: 25px;
+    top: calc(var(--f1) + 5px);
 }
 
-.fNote {
-    height: 20px;
-    position: relative;
-    top: -40px;
-    left: 30px;
-    }
-    
-    /* dlaczego mi to tak formatuje? */
-    .gSharp {
-        display: inline-block;
-        height: 65px;
-        position: relative;
-        top: calc(var(--g1) + 22px);
-        left: 25px;
-    }
-    
-    .gFlat {
-        display: none;
-        height: 60px;
-        position: relative;
-        top: -46px;
-        left: 25px;
-    }
-    
-    .gNote {
-        height: 20px;
-        position: relative;
-        top: var(--g1);
-        left: 30px;
-    }
+.gFlat {
+    top: calc(var(--g1) + 5px);
+}
 
-.aNote {
-    height: 20px;
+.aFlat {
+    top: calc(var(--a1) + 5px);
+}
+
+.bFlat {
+    top: calc(var(--b1) + 5px);
+}
+
+.lowerLine {
+    display: inline-block;
+    height: 4px;
+    width: 46px;
     position: relative;
-    top: -64px;
-    left: 30px;
+    top: -14px;
+    left: -11px;
+}
+
+.lineDisabled {
+    display: none;
+}
+.noteCaption {
+    display: block;
+    font-size: 3em;
+    text-align: center;
+}
+
+.noteCaptionDisabled {
+    display: none;
 }

@@ -1,131 +1,131 @@
-import React, { useEffect, useState } from "react";
-import { circleOfFifths, range } from "../../theory";
-import './styles.css';
-import clef from './graph/clef.png';
-import note from './graph/wholeNote.png';
-import sharp from './graph/sharp.png';
-import flat from './graph/flat.png';
-import line from './graph/line.png';
+import React from "react";
+import { circleOfFifths, flats, range, sharps } from "../../theory";
+// import "./styles.css";
+import styles from "./styles.module.css";
+import clef from "./graph/clef.png";
+import note from "./graph/wholeNote.png";
+import sharp from "./graph/sharp.png";
+import flat from "./graph/flat.png";
+import line from "./graph/line.png";
 
-var classNames = require('classnames');
+var classNames = require("classnames");
 
 export function Scale(props) {
-    const [notes, setNotes] = useState([]);
-    const [sharpsNumber, setSharpsNumber] = useState(0);
-    const [flatsNumber, setFlatsNumber] = useState(0);
-    const [sharps, setSharps] = useState([]);
-    const [flats, setFlats] = useState([])
+  const diatonicNotes = [];
+  range.map((note) => diatonicNotes.push(note[0]));
 
-    const sharpsOrder = ['sharpDisabled', 'fSharp', 'cSharp', 'gSharp', 'dSharp', 'aSharp', 'eSharp', 'bSharp'];
-    const flatsOrder = ['flatDisabled', 'bFlat', 'eFlat', 'aFlat', 'dFlat', 'gFlat', 'cFlat'];
+  const indexOfB = diatonicNotes.indexOf("B");
 
-    const diatonicNotes = [];
-    notes.map(note => diatonicNotes.push(note[0]));
-
-    const indexOfB = diatonicNotes.indexOf('B');
-
-    const countSigns = () => {
-        const scale = [...notes];
-        scale.pop();
-
-        const scaleFiltered = scale.filter(note => note.length > 1);
-        // console.log(scaleFiltered);
-        if (scaleFiltered.length > 0) {
-            // console.log(scaleFiltered[0][1]);
-            scaleFiltered[0][1] === '#' ? setSignsNumber(scaleFiltered.length, 0) : setSignsNumber(0, scaleFiltered.length);
-        }
+  const writeNote = (noteToWrite, index) => {
+    const octave = index <= indexOfB ? 1 : 2;
+    const lineNeeded = `note ${noteToWrite[0].toLowerCase()}${octave}`;
+    let createClass = classNames({
+      [styles.note]: true,
+      [styles.c1]: noteToWrite[0] === "C" && octave === 1,
+      [styles.d1]: noteToWrite[0] === "D" && octave === 1,
+      [styles.e1]: noteToWrite[0] === "E" && octave === 1,
+      [styles.f1]: noteToWrite[0] === "F" && octave === 1,
+      [styles.g1]: noteToWrite[0] === "G" && octave === 1,
+      [styles.a1]: noteToWrite[0] === "A" && octave === 1,
+      [styles.b1]: noteToWrite[0] === "B" && octave === 1,
+      [styles.c2]: noteToWrite[0] === "C" && octave === 2,
+      [styles.d2]: noteToWrite[0] === "D" && octave === 2,
+      [styles.e2]: noteToWrite[0] === "E" && octave === 2,
+      [styles.f2]: noteToWrite[0] === "F" && octave === 2,
+      [styles.g2]: noteToWrite[0] === "G" && octave === 2,
+      [styles.a2]: noteToWrite[0] === "A" && octave === 2,
+      [styles.b2]: noteToWrite[0] === "B" && octave === 2,
+    });
+    const writeLine = () => {
+      switch (lineNeeded) {
+        case "note c1":
+          return false;
+          break;
+        case "note a2":
+          return false;
+          break;
+        case "note b2":
+          return false;
+          break;
+        default:
+          return true;
+      }
     };
-
-    const setSignsNumber = (sharps, flats) => {
-        setSharpsNumber(sharps);
-        setFlatsNumber(flats);
-    };
-
-    const orderSigns = () => {
-        let sharpsArray = [];
-        let flatsArray = [];
-        for (let i = 0; i <= sharpsNumber; i++) {
-            sharpsArray.push(sharpsOrder[i]);
-        };
-        for (let i = 0; i <= flatsNumber; i++) {
-            flatsArray.push(flatsOrder[i]);
-        }
-        setSharps(sharpsArray);
-        setFlats(flatsArray);
-    };
-
-    const writeNote = (noteToWrite, index) => {
-        const octave = index <= indexOfB ? 1 : 2;
-        const createClass = `note ${noteToWrite[0].toLowerCase()}${octave}`;
-        const writeLine = () => {
-            switch (createClass) {
-                case 'note c1':
-                    return false;
-                    break;
-                case 'note a2':
-                    return false;
-                    break;
-                case 'note b2':
-                    return false;
-                    break;
-                default:
-                    return true;
-            };
-        };
-        const addedLines = classNames({
-            lowerLine: octave === 1,
-            upperLine: octave === 2,
-            lineDisabled: writeLine()
-        });
-
-
-
-        return (
-            <div style={{ display: 'inline-block' }}>
-                <img className={createClass} key={index} src={note} alt={noteToWrite} />
-                <img className={addedLines} src={line} key={'line' + { index }} alt='added line' />
-            </div>
-        );
-    };
-
-    const writeSharps = (sharpToWrite, index) => {
-        let sharpClass = `sharpOnStaff ${sharpToWrite}`;
-        let sharpKey = `sharp${index}`;
-        return (
-            <img className={sharpClass} key={sharpKey} src={sharp} alt={sharpToWrite} />
-        );
-    };
-
-    const writeFlats = (flatToWrite, index) => {
-        let flatClass = `flatOnStaff ${flatToWrite}`;
-        let flatKey = `flat${index}`
-            return (
-            <img className={flatClass} key={flatKey} src={flat} alt={flatToWrite} />
-        );  
-    };
-
-    useEffect(
-        () => {
-            setNotes(range);
-            countSigns();
-            orderSigns();
-        }, [props]);
-
-
-    if (props.note !== 'X') {
-        circleOfFifths(props.note);
-
-    };
-
+    const addedLines = classNames({
+      [styles.lowerLine]: octave === 1,
+      [styles.upperLine]: octave === 2,
+      [styles.lineDisabled]: writeLine(),
+    });
 
     return (
-        <div className='container'>
-            <img className='clef' src={clef} alt='treble clef'></img>
-            {sharps.map((sign, index) => writeSharps(sign, index))}
-            {flats.map((sign, index) => writeFlats(sign, index))}
-            {notes.map((sound, index) => writeNote(sound, index))}
-            <p>{notes.join(', ')}</p>
-        </div>
+      <div style={{ display: "inline-block" }}>
+        <img className={createClass} key={index} src={note} alt={noteToWrite} />
+        <img
+          className={addedLines}
+          src={line}
+          key={"line" + { index }}
+          alt="added line"
+        />
+      </div>
     );
+  };
 
+  const writeSharps = (sharpToWrite, index) => {
+    let sharpClass = classNames({
+      [styles.sharpOnStaff]: true,
+      [styles.fSharp]: sharpToWrite === "F#",
+      [styles.cSharp]: sharpToWrite === "C#",
+      [styles.gSharp]: sharpToWrite === "G#",
+      [styles.dSharp]: sharpToWrite === "D#",
+      [styles.aSharp]: sharpToWrite === "A#",
+      [styles.eSharp]: sharpToWrite === "E#",
+      [styles.bSharp]: sharpToWrite === "B#",
+    });
+    let sharpKey = `sharp${index}`;
+    return (
+      <img
+        className={sharpClass}
+        key={sharpKey}
+        src={sharp}
+        alt={sharpToWrite}
+      />
+    );
+  };
+
+  const writeFlats = (flatToWrite, index) => {
+    let flatClass = classNames({
+      [styles.flatOnStaff]: true,
+      [styles.bFlat]: flatToWrite === "Bb",
+      [styles.eFlat]: flatToWrite === "Eb",
+      [styles.aFlat]: flatToWrite === "Ab",
+      [styles.dFlat]: flatToWrite === "Db",
+      [styles.gFlat]: flatToWrite === "Gb",
+      [styles.cFlat]: flatToWrite === "Cb",
+    });
+    let flatKey = `flat${index}`;
+    return (
+      <img className={flatClass} key={flatKey} src={flat} alt={flatToWrite} />
+    );
+  };
+
+  const caption = classNames({
+    [styles.scaleCaption]: true,
+    [styles.scaleCaptionDisabled]: props.note === "X",
+  });
+
+  if (props.note !== "X") {
+    circleOfFifths(props.note);
+  }
+
+  return (
+    <div className={styles.container}>
+      <img className={styles.clef} src={clef} alt="treble clef"></img>
+      {sharps.map((sign, index) => writeSharps(sign, index))}
+      {flats.map((sign, index) => writeFlats(sign, index))}
+      {range.map((sound, index) => writeNote(sound, index))}
+      <p className={caption}>
+        {range[0]} major scale is: {range.join(", ")}
+      </p>
+    </div>
+  );
 }
