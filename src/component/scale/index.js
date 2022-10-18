@@ -1,6 +1,5 @@
 import React from "react";
 import { circleOfFifths, flats, range, sharps } from "../../theory";
-// import "./styles.css";
 import styles from "./styles.module.css";
 import clef from "./graph/clef.png";
 import note from "./graph/wholeNote.png";

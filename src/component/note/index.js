@@ -47,7 +47,6 @@ export function Note(props) {
     [styles.aFlat]: pitch === "A",
     [styles.bFlat]: pitch === "B",
   });
-  console.log(styles);
   const addedLine = classNames({
     [styles.lowerLine]: true,
     [styles.upperLine]: false,
