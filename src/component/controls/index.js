@@ -3,6 +3,8 @@ import styles from "./style.module.css";
 
 const TYPE_SHARPED = "sharped";
 const TYPE_FLATED = "flated";
+const TYPE_NOTE = "note";
+const TYPE_SCALE = "scale";
 
 export function Controls(props) {
   const handleClickChromatic = ({ target }) => {
@@ -11,13 +13,24 @@ export function Controls(props) {
       : props.sharpOrFlat(TYPE_SHARPED);
   };
 
-  const { muteSounds } = props;
+  const { muteSounds, selectMode } = props;
   const handleChangeMute = () => {
     muteSounds();
   };
 
+  const handleChangeMode = ({ target }) => {
+    selectMode(target.value);
+  };
+
   return (
     <div className={styles.container}>
+      <div className={styles.modeChooseDiv}>
+        <label htmlFor="mode">Choose mode:</label>
+        <select id="mode" name="mode" onChange={handleChangeMode}>
+          <option value={TYPE_NOTE}>Note</option>
+          <option value={TYPE_SCALE}>Scale</option>
+        </select>
+      </div>
       <div className={styles.chromaticChooseDiv}>
         <p className={styles.chromaticChooseP}>Black keys use names with:</p>
         <input

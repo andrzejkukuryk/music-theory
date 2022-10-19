@@ -7,10 +7,16 @@
     margin: 0 auto;
 }
 
+.modeChooseDiv {
+    display: inline-block;
+    height: 60px;
+    margin-right: 30px;
+}
+
 .chromaticChooseDiv {
     display: inline-block;
     height: 60px;
-    border: 1px solid red;
+
 }
 .chromaticChooseP {
     display: inline-block;
