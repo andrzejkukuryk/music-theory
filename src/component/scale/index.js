@@ -20,6 +20,7 @@ export function Scale(props) {
     const lineNeeded = `note ${noteToWrite[0].toLowerCase()}${octave}`;
     let createClass = classNames({
       [styles.note]: true,
+      [styles.noteDisabled]: props.note === "X",
       [styles.c1]: noteToWrite[0] === "C" && octave === 1,
       [styles.d1]: noteToWrite[0] === "D" && octave === 1,
       [styles.e1]: noteToWrite[0] === "E" && octave === 1,
@@ -53,7 +54,7 @@ export function Scale(props) {
     const addedLines = classNames({
       [styles.lowerLine]: octave === 1,
       [styles.upperLine]: octave === 2,
-      [styles.lineDisabled]: writeLine(),
+      [styles.lineDisabled]: writeLine() || props.note === "X",
     });
 
     return (
@@ -72,6 +73,7 @@ export function Scale(props) {
   const writeSharps = (sharpToWrite, index) => {
     let sharpClass = classNames({
       [styles.sharpOnStaff]: true,
+      [styles.sharpDisabled]: props.note === "X",
       [styles.fSharp]: sharpToWrite === "F#",
       [styles.cSharp]: sharpToWrite === "C#",
       [styles.gSharp]: sharpToWrite === "G#",
@@ -94,6 +96,7 @@ export function Scale(props) {
   const writeFlats = (flatToWrite, index) => {
     let flatClass = classNames({
       [styles.flatOnStaff]: true,
+      [styles.flatDisabled]: props.note === "X",
       [styles.bFlat]: flatToWrite === "Bb",
       [styles.eFlat]: flatToWrite === "Eb",
       [styles.aFlat]: flatToWrite === "Ab",
