@@ -15,10 +15,33 @@
 
 .chromaticChooseDiv {
     display: inline-block;
-    height: 60px;
+    height: 50px;
+    width: 320px;
 
 }
+
+.chromaticChooseDivDisabled {
+    display: none;
+} 
+
 .chromaticChooseP {
+    display: inline-block;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.modusChooseDiv {
+    display: inline-block;
+    height: 50px;
+    width: 320px;
+
+}
+
+.modusChooseDivDisabled {
+    display: none;
+}
+
+.modusChooseP {
     display: inline-block;
     height: 40px;
     margin-right: 10px;

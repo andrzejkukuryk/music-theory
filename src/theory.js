@@ -13,7 +13,9 @@ export const resetScale = () => {
   scale = [...diatonic];
 };
 
-export const circleOfFifths = (prime) => {
+export const circleOfFifths = (prime, entryModus) => {
+  let scaleModus = 0;
+  entryModus === "major" ? (scaleModus = 0) : (scaleModus = 5);
   let rightPrime = "";
   const setRightPrime = (orgPrime) => {
     switch (orgPrime) {
@@ -63,13 +65,13 @@ export const circleOfFifths = (prime) => {
     sharpsCounter = 0;
     sharps = [];
     flats = [];
-    while (rightPrime !== scale[0] && sharpsCounter < 11) {
+    while (rightPrime !== scale[scaleModus] && sharpsCounter < 11) {
       stepFwd();
     }
     if (sharpsCounter === 11) {
       resetScale();
       sharps = [];
-      while (rightPrime !== scale[0] && flatsCounter < 11) {
+      while (rightPrime !== scale[scaleModus] && flatsCounter < 11) {
         stepBwd();
       }
     }

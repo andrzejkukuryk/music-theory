@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import styles from "./style.module.css";
 
@@ -5,15 +6,24 @@ const TYPE_SHARPED = "sharped";
 const TYPE_FLATED = "flated";
 const TYPE_NOTE = "note";
 const TYPE_SCALE = "scale";
+const TYPE_MAJOR = "major";
+const TYPE_MINOR = "minor";
 
 export function Controls(props) {
+  const { sharpOrFlat, selectModus, muteSounds, selectMode, appMode } = props;
+
   const handleClickChromatic = ({ target }) => {
     target.value === TYPE_FLATED
-      ? props.sharpOrFlat(TYPE_FLATED)
-      : props.sharpOrFlat(TYPE_SHARPED);
+      ? sharpOrFlat(TYPE_FLATED)
+      : sharpOrFlat(TYPE_SHARPED);
   };
 
-  const { muteSounds, selectMode } = props;
+  const handleClickModus = ({ target }) => {
+    target.value === TYPE_MAJOR
+      ? selectModus(TYPE_MAJOR)
+      : selectModus(TYPE_MINOR);
+  };
+
   const handleChangeMute = () => {
     muteSounds();
   };
@@ -21,6 +31,16 @@ export function Controls(props) {
   const handleChangeMode = ({ target }) => {
     selectMode(target.value);
   };
+
+  const classChromaticDiv = classNames({
+    [styles.chromaticChooseDiv]: appMode === TYPE_NOTE,
+    [styles.chromaticChooseDivDisabled]: appMode !== TYPE_NOTE,
+  });
+
+  const classModusDiv = classNames({
+    [styles.modusChooseDiv]: appMode === TYPE_SCALE,
+    [styles.modusChooseDivDisabled]: appMode !== TYPE_SCALE,
+  });
 
   return (
     <div className={styles.container}>
@@ -31,7 +51,7 @@ export function Controls(props) {
           <option value={TYPE_SCALE}>Scale</option>
         </select>
       </div>
-      <div className={styles.chromaticChooseDiv}>
+      <div className={classChromaticDiv}>
         <p className={styles.chromaticChooseP}>Black keys use names with:</p>
         <input
           type="radio"
@@ -50,6 +70,26 @@ export function Controls(props) {
           onClick={handleClickChromatic}
         />
         <label htmlFor="flats">flats</label>
+      </div>
+      <div className={classModusDiv}>
+        <p className={styles.modusChooseP}>Choose modus:</p>
+        <input
+          type="radio"
+          id="major"
+          name="modus"
+          value={TYPE_MAJOR}
+          onClick={handleClickModus}
+          defaultChecked
+        />
+        <label htmlFor="major">major</label>
+        <input
+          type="radio"
+          id="minor"
+          name="modus"
+          value={TYPE_MINOR}
+          onClick={handleClickModus}
+        />
+        <label htmlFor="minor">minor</label>
       </div>
       <div className={styles.keyboardMutedDiv}>
         <input type="checkbox" id="muted" onChange={handleChangeMute} />

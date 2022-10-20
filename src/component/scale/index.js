@@ -116,7 +116,7 @@ export function Scale(props) {
   });
 
   if (props.note !== "X") {
-    circleOfFifths(props.note);
+    circleOfFifths(props.note, props.modus);
   }
 
   return (

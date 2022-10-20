@@ -8,6 +8,7 @@ import { Keyboard } from "./component/keyboard";
 
 function App() {
   const [note, setNote] = useState("X");
+  const [modus, setModus] = useState("major");
   const [blackKeyMode, setBlackKeyMode] = useState("sharped");
   const [keyboardMuted, setKeyboardMuted] = useState(false);
   const [appMode, setAppMode] = useState("note");
@@ -18,6 +19,10 @@ function App() {
 
   const sharpOrFlat = (sign) => {
     setBlackKeyMode(sign);
+  };
+
+  const selectModus = (majorOrMinor) => {
+    setModus(majorOrMinor);
   };
 
   const muteSounds = () => {
@@ -31,11 +36,13 @@ function App() {
 
   return (
     <div>
-      <ChooseMode appMode={appMode} note={note} />
+      <ChooseMode appMode={appMode} note={note} modus={modus} />
       <Controls
         sharpOrFlat={sharpOrFlat}
+        selectModus={selectModus}
         muteSounds={muteSounds}
         selectMode={selectMode}
+        appMode={appMode}
       />
       <Keyboard
         pressedKey={pressedKey}

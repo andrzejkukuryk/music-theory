@@ -7,7 +7,7 @@ const TYPE_NOTE = "note";
 const TYPE_SCALE = "scale";
 
 export function ChooseMode(props) {
-  const { appMode, note } = props;
+  const { appMode, note, modus } = props;
 
   console.log("props note: ", note);
   switch (appMode) {
@@ -15,7 +15,7 @@ export function ChooseMode(props) {
       return <Note note={note} />;
       break;
     case TYPE_SCALE:
-      return <Scale note={note} />;
+      return <Scale note={note} modus={modus} />;
       break;
     default:
       return <p className={styles.defaultP}>Choose mode</p>;
