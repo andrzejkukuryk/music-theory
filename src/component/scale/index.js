@@ -126,7 +126,7 @@ export function Scale(props) {
       {flats.map((sign, index) => writeFlats(sign, index))}
       {range.map((sound, index) => writeNote(sound, index))}
       <p className={caption}>
-        {range[0]} major scale is: {range.join(", ")}
+        {range[0]} {props.modus} scale is: {range.join(", ")}
       </p>
     </div>
   );

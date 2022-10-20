@@ -9,19 +9,22 @@ export let flats = [];
 let sharpsCounter = 0;
 let flatsCounter = 0;
 
+const TYPE_MAJOR = "major";
+const TYPE_MINOR = "minor";
+
 export const resetScale = () => {
   scale = [...diatonic];
 };
 
 export const circleOfFifths = (prime, entryModus) => {
   let scaleModus = 0;
-  entryModus === "major" ? (scaleModus = 0) : (scaleModus = 5);
+  entryModus === TYPE_MAJOR ? (scaleModus = 0) : (scaleModus = 5);
   let rightPrime = "";
   const setRightPrime = (orgPrime) => {
     switch (orgPrime) {
       case "C#":
       case "Db":
-        rightPrime = "Db";
+        rightPrime = entryModus === TYPE_MAJOR ? "Db" : "C#";
         break;
       case "D#":
       case "Eb":
@@ -29,11 +32,11 @@ export const circleOfFifths = (prime, entryModus) => {
         break;
       case "F#":
       case "Gb":
-        rightPrime = "Gb";
+        rightPrime = entryModus === TYPE_MAJOR ? "Gb" : "F#";
         break;
       case "G#":
       case "Ab":
-        rightPrime = "Ab";
+        rightPrime = entryModus === TYPE_MAJOR ? "Ab" : "G#";
         break;
       case "A#":
       case "Bb":
@@ -78,7 +81,9 @@ export const circleOfFifths = (prime, entryModus) => {
   };
 
   const setRange = () => {
-    range = [...scale, scale[0]];
+    entryModus === TYPE_MAJOR
+      ? (range = [...scale, scale[0]])
+      : (range = [...scale.slice(5), ...scale.slice(0, 6)]);
   };
   setRightPrime(prime);
   runCircle();
