@@ -8,15 +8,14 @@ const TYPE_FLATED = "flated";
 
 export function Keyboard(props) {
   const [chromatic, setChromatic] = useState(sharped);
+  const { pressedKey, blackKeyMode, keyboardMuted } = props;
 
   const chromaticMode = () => {
-    props.blackKeyMode === TYPE_FLATED
-      ? setChromatic(flated)
-      : setChromatic(sharped);
+    blackKeyMode === TYPE_FLATED ? setChromatic(flated) : setChromatic(sharped);
   };
   useEffect(() => {
     chromaticMode();
-  }, [props.blackKeyMode]);
+  }, [blackKeyMode]);
 
   return (
     <div className={styles.container}>
@@ -28,8 +27,8 @@ export function Keyboard(props) {
               tone={note}
               index={index}
               type="white"
-              pressedKey={props.pressedKey}
-              keyboardMuted={props.keyboardMuted}
+              pressedKey={pressedKey}
+              keyboardMuted={keyboardMuted}
             />
           ))}
         </div>
@@ -40,8 +39,8 @@ export function Keyboard(props) {
               tone={note}
               index={index}
               type="black"
-              pressedKey={props.pressedKey}
-              keyboardMuted={props.keyboardMuted}
+              pressedKey={pressedKey}
+              keyboardMuted={keyboardMuted}
             />
           ))}
         </div>

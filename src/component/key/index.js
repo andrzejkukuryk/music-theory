@@ -30,39 +30,36 @@ const diatonicScale = [cSound, dSound, eSound, fSound, gSound, aSound, bSound];
 const chromaticScale = [dbSound, ebSound, gbSound, abSound, bbSound];
 
 export function Key(props) {
-  const muted = props.keyboardMuted;
+  const { type, tone, index, pressedKey, keyboardMuted } = props;
+  // const muted = props.keyboardMuted;
 
   const handleMouseDown = () => {
-    props.type === "black"
-      ? playSound(chromaticScale)
-      : playSound(diatonicScale);
+    type === "black" ? playSound(chromaticScale) : playSound(diatonicScale);
   };
 
   const handleMouseUp = () => {
-    props.type === "black"
-      ? pauseSound(chromaticScale)
-      : pauseSound(diatonicScale);
+    type === "black" ? pauseSound(chromaticScale) : pauseSound(diatonicScale);
   };
 
   const handleClickButton = () => {
-    props.pressedKey(props.tone);
+    pressedKey(tone);
   };
 
   const playSound = (scale) => {
-    if (!muted) {
-      scale[props.index].play();
+    if (!keyboardMuted) {
+      scale[index].play();
     }
   };
 
   const pauseSound = (scale) => {
     const delay = () => {
-      scale[props.index].pause();
-      scale[props.index].currentTime = 0;
+      scale[index].pause();
+      scale[index].currentTime = 0;
     };
     setTimeout(delay, 80);
   };
 
-  if (props.type === "black") {
+  if (type === "black") {
     return (
       <button
         className={styles.blackKey}

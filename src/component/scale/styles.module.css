@@ -103,7 +103,7 @@
 .cFlat {
     top: calc(var(--c2) + 5px);
 }
-.note {
+.noteOnStaff {
     display: inline-block;
     height: 20px;
     position: relative;

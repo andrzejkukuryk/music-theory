@@ -11,39 +11,43 @@ let flatsCounter = 0;
 
 const TYPE_MAJOR = "major";
 const TYPE_MINOR = "minor";
+const TYPE_SCALE = "scale";
 
 export const resetScale = () => {
   scale = [...diatonic];
 };
 
-export const circleOfFifths = (prime, entryModus) => {
-  let scaleModus = 0;
+export const circleOfFifths = (prime, entryModus, type) => {
+  let ifScale = type === TYPE_SCALE;
+  let scaleModus = 0; /* 0 = major, 5 = minor */
   entryModus === TYPE_MAJOR ? (scaleModus = 0) : (scaleModus = 5);
-  let rightPrime = "";
-  const setRightPrime = (orgPrime) => {
+  // let scalePrime = "";
+  let scalePrime = ifScale ? "" : prime;
+
+  const setScalePrime = (orgPrime) => {
     switch (orgPrime) {
       case "C#":
       case "Db":
-        rightPrime = entryModus === TYPE_MAJOR ? "Db" : "C#";
+        scalePrime = entryModus === TYPE_MAJOR ? "Db" : "C#";
         break;
       case "D#":
       case "Eb":
-        rightPrime = "Eb";
+        scalePrime = "Eb";
         break;
       case "F#":
       case "Gb":
-        rightPrime = entryModus === TYPE_MAJOR ? "Gb" : "F#";
+        scalePrime = entryModus === TYPE_MAJOR ? "Gb" : "F#";
         break;
       case "G#":
       case "Ab":
-        rightPrime = entryModus === TYPE_MAJOR ? "Ab" : "G#";
+        scalePrime = entryModus === TYPE_MAJOR ? "Ab" : "G#";
         break;
       case "A#":
       case "Bb":
-        rightPrime = "Bb";
+        scalePrime = "Bb";
         break;
       default:
-        rightPrime = orgPrime;
+        scalePrime = orgPrime;
     }
   };
 
@@ -68,13 +72,13 @@ export const circleOfFifths = (prime, entryModus) => {
     sharpsCounter = 0;
     sharps = [];
     flats = [];
-    while (rightPrime !== scale[scaleModus] && sharpsCounter < 11) {
+    while (scalePrime !== scale[scaleModus] && sharpsCounter < 11) {
       stepFwd();
     }
     if (sharpsCounter === 11) {
       resetScale();
       sharps = [];
-      while (rightPrime !== scale[scaleModus] && flatsCounter < 11) {
+      while (scalePrime !== scale[scaleModus] && flatsCounter < 11) {
         stepBwd();
       }
     }
@@ -85,7 +89,9 @@ export const circleOfFifths = (prime, entryModus) => {
       ? (range = [...scale, scale[0]])
       : (range = [...scale.slice(5), ...scale.slice(0, 6)]);
   };
-  setRightPrime(prime);
+  if (ifScale) {
+    setScalePrime(prime);
+  }
   runCircle();
   setRange();
 };
