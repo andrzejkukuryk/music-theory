@@ -9,19 +9,22 @@ export let flats = [];
 let sharpsCounter = 0;
 let flatsCounter = 0;
 
-const TYPE_MAJOR = "major";
-const TYPE_MINOR = "minor";
-const TYPE_SCALE = "scale";
+export const TYPE_MAJOR = "major";
+export const TYPE_MINOR = "minor";
+export const TYPE_SCALE = "scale";
+export const TYPE_NOTE = "note";
+export const TYPE_SHARPED = "sharped";
+export const TYPE_FLATED = "flated";
 
 export const resetScale = () => {
   scale = [...diatonic];
 };
 
 export const circleOfFifths = (prime, entryModus, type) => {
-  let ifScale = type === TYPE_SCALE;
+  const ifScale = type === TYPE_SCALE;
   let scaleModus = 0; /* 0 = major, 5 = minor */
   entryModus === TYPE_MAJOR ? (scaleModus = 0) : (scaleModus = 5);
-  // let scalePrime = "";
+
   let scalePrime = ifScale ? "" : prime;
 
   const setScalePrime = (orgPrime) => {

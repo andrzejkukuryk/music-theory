@@ -2,6 +2,7 @@
     --keyboardWidth: 600px;
 }
 .container {
+    position: relative;
     width: var(--keyboardWidth);
     margin: 0 auto;
 }

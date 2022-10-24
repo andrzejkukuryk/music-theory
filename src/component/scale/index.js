@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 import { circleOfFifths, flats, range, sharps } from "../../theory";
 import styles from "./styles.module.css";
 import clef from "./graph/clef.png";
@@ -6,12 +7,9 @@ import wholeNote from "./graph/wholeNote.png";
 import sharp from "./graph/sharp.png";
 import flat from "./graph/flat.png";
 import line from "./graph/line.png";
+import { TYPE_SCALE } from "../../theory";
 
-var classNames = require("classnames");
-const TYPE_SCALE = "scale";
-
-export function Scale(props) {
-  const { note, modus } = props;
+export function Scale({ note, modus }) {
   const diatonicNotes = [];
   range.map((noteToNeutral) => diatonicNotes.push(noteToNeutral[0]));
 
@@ -20,7 +18,7 @@ export function Scale(props) {
   const writeNote = (noteToWrite, index) => {
     const octave = index <= indexOfB ? 1 : 2;
     const lineNeeded = `noteOnStaff ${noteToWrite[0].toLowerCase()}${octave}`;
-    let createClass = classNames({
+    const createClass = classNames({
       [styles.noteOnStaff]: true,
       [styles.noteDisabled]: note === "X",
       [styles.c1]: noteToWrite[0] === "C" && octave === 1,
@@ -42,43 +40,38 @@ export function Scale(props) {
       switch (lineNeeded) {
         case "noteOnStaff c1":
           return false;
-          break;
         case "noteOnStaff a2":
           return false;
-          break;
         case "noteOnStaff b2":
           return false;
-          break;
         default:
           return true;
       }
     };
+    const noteKey = `note${index}`;
+
     const addedLines = classNames({
       [styles.lowerLine]: octave === 1,
       [styles.upperLine]: octave === 2,
       [styles.lineDisabled]: writeLine() || note === "X",
     });
+    const lineKey = `line${index}`;
 
     return (
-      <div style={{ display: "inline-block" }}>
+      <div className={styles.noteContainerDiv}>
         <img
           className={createClass}
-          key={index}
+          key={noteKey}
           src={wholeNote}
           alt={noteToWrite}
         />
-        <img
-          className={addedLines}
-          src={line}
-          key={"line" + { index }}
-          alt="added line"
-        />
+        <img className={addedLines} src={line} key={lineKey} alt="added line" />
       </div>
     );
   };
 
   const writeSharps = (sharpToWrite, index) => {
-    let sharpClass = classNames({
+    const sharpClass = classNames({
       [styles.sharpOnStaff]: true,
       [styles.sharpDisabled]: note === "X",
       [styles.fSharp]: sharpToWrite === "F#",
@@ -89,7 +82,7 @@ export function Scale(props) {
       [styles.eSharp]: sharpToWrite === "E#",
       [styles.bSharp]: sharpToWrite === "B#",
     });
-    let sharpKey = `sharp${index}`;
+    const sharpKey = `sharp${index}`;
     return (
       <img
         className={sharpClass}
@@ -101,7 +94,7 @@ export function Scale(props) {
   };
 
   const writeFlats = (flatToWrite, index) => {
-    let flatClass = classNames({
+    const flatClass = classNames({
       [styles.flatOnStaff]: true,
       [styles.flatDisabled]: note === "X",
       [styles.bFlat]: flatToWrite === "Bb",
@@ -111,7 +104,7 @@ export function Scale(props) {
       [styles.gFlat]: flatToWrite === "Gb",
       [styles.cFlat]: flatToWrite === "Cb",
     });
-    let flatKey = `flat${index}`;
+    const flatKey = `flat${index}`;
     return (
       <img className={flatClass} key={flatKey} src={flat} alt={flatToWrite} />
     );

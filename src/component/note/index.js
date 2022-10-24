@@ -1,19 +1,17 @@
 import React from "react";
+import classNames from "classnames";
 import styles from "./style.module.css";
 import clef from "./graph/clef.png";
-import note from "./graph/wholeNote.png";
+import wholeNote from "./graph/wholeNote.png";
 import sharp from "./graph/sharp.png";
 import flat from "./graph/flat.png";
 import line from "./graph/line.png";
 
-var classNames = require("classnames");
+export function Note({ note }) {
+  const pitch = note[0];
 
-export function Note(props) {
-  let pitch = props.note[0];
-  let playedNote = props.note;
-
-  const noteOnStaff = classNames({
-    [styles.note]: pitch !== "X",
+  const classNote = classNames({
+    [styles.noteOnStaff]: pitch !== "X",
     [styles.noteDisabled]: pitch === "X",
     [styles.c]: pitch === "C",
     [styles.d]: pitch === "D",
@@ -24,9 +22,9 @@ export function Note(props) {
     [styles.b]: pitch === "B",
   });
 
-  const sharpOnStaff = classNames({
-    [styles.sharp]: true,
-    [styles.sharpDisabled]: playedNote.length === 1 || playedNote[1] === "b",
+  const classSharp = classNames({
+    [styles.sharpOnStaff]: true,
+    [styles.sharpDisabled]: note.length === 1 || note[1] === "b",
     [styles.cSharp]: pitch === "C",
     [styles.dSharp]: pitch === "D",
     [styles.eSharp]: pitch === "E",
@@ -36,9 +34,9 @@ export function Note(props) {
     [styles.bSharp]: pitch === "B",
   });
 
-  const flatOnStaff = classNames({
-    [styles.flat]: true,
-    [styles.flatDisabled]: playedNote.length === 1 || playedNote[1] === "#",
+  const classFlat = classNames({
+    [styles.flatOnStaff]: true,
+    [styles.flatDisabled]: note.length === 1 || note[1] === "#",
     [styles.cFlat]: pitch === "C",
     [styles.dFlat]: pitch === "D",
     [styles.eFlat]: pitch === "E",
@@ -53,19 +51,19 @@ export function Note(props) {
     [styles.lineDisabled]: pitch !== "C",
   });
 
-  const caption = classNames({
+  const classCaption = classNames({
     [styles.noteCaption]: true,
     [styles.noteCaptionDisabled]: pitch === "X",
   });
 
   return (
     <div className={styles.container}>
-      <img className={styles["clef"]} src={clef} alt="treble clef"></img>
-      <img className={sharpOnStaff} src={sharp} alt="sharp"></img>
-      <img className={flatOnStaff} src={flat} alt="flat"></img>
-      <img className={noteOnStaff} src={note} alt="whole note"></img>
+      <img className={styles.clef} src={clef} alt="treble clef"></img>
+      <img className={classSharp} src={sharp} alt="sharp"></img>
+      <img className={classFlat} src={flat} alt="flat"></img>
+      <img className={classNote} src={wholeNote} alt="whole note"></img>
       <img className={addedLine} src={line} alt="added line"></img>
-      <p className={caption}>Played note: {props.note}</p>
+      <p className={classCaption}>Played note: {note}</p>
     </div>
   );
 };

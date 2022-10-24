@@ -23,7 +23,7 @@
     z-index: 1;
 }
 
-.note {
+.noteOnStaff {
     display: inline-block;
     height: 20px;
     position: relative;
@@ -62,7 +62,7 @@
     top: var(--b1);
 }
 
-.sharp {
+.sharpOnStaff {
     display: inline-block;
     height: 65px;
     position: relative;
@@ -101,7 +101,7 @@
     top: calc(var(--b1) + 22px);
 }
 
-.flat {
+.flatOnStaff {
     display: inline-block;
     height: 60px;
     position: relative;

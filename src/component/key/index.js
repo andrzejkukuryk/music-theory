@@ -29,10 +29,7 @@ const bSound = new Audio(b);
 const diatonicScale = [cSound, dSound, eSound, fSound, gSound, aSound, bSound];
 const chromaticScale = [dbSound, ebSound, gbSound, abSound, bbSound];
 
-export function Key(props) {
-  const { type, tone, index, pressedKey, keyboardMuted } = props;
-  // const muted = props.keyboardMuted;
-
+export function Key({ type, tone, index, pressedKey, keyboardMuted }) {
   const handleMouseDown = () => {
     type === "black" ? playSound(chromaticScale) : playSound(diatonicScale);
   };

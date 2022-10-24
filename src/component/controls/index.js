@@ -1,17 +1,22 @@
 import classNames from "classnames";
 import React from "react";
 import styles from "./style.module.css";
+import {
+  TYPE_FLATED,
+  TYPE_SHARPED,
+  TYPE_NOTE,
+  TYPE_SCALE,
+  TYPE_MAJOR,
+  TYPE_MINOR,
+} from "../../theory";
 
-const TYPE_SHARPED = "sharped";
-const TYPE_FLATED = "flated";
-const TYPE_NOTE = "note";
-const TYPE_SCALE = "scale";
-const TYPE_MAJOR = "major";
-const TYPE_MINOR = "minor";
-
-export function Controls(props) {
-  const { sharpOrFlat, selectModus, muteSounds, selectMode, appMode } = props;
-
+export function Controls({
+  sharpOrFlat,
+  selectModus,
+  muteSounds,
+  selectMode,
+  appMode,
+}) {
   const handleClickChromatic = ({ target }) => {
     target.value === TYPE_FLATED
       ? sharpOrFlat(TYPE_FLATED)

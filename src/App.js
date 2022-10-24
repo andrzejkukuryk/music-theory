@@ -1,10 +1,7 @@
-import { useState } from 'react';
-import './App.css';
+import { useState } from "react";
 import { Controls } from "./component/controls";
 import { ChooseMode } from "./component/chooseMode";
 import { Keyboard } from "./component/keyboard";
-// import { Note } from "./component/note";
-// import { Scale } from "./component/scale";
 
 function App() {
   const [note, setNote] = useState("X");
