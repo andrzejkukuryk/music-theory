@@ -34,7 +34,6 @@
     display: inline-block;
     height: 50px;
     width: 320px;
-
 }
 
 .modusChooseDivDisabled {
@@ -45,4 +44,14 @@
     display: inline-block;
     height: 40px;
     margin-right: 10px;
+}
+
+.chordTypeChooseDiv {
+    display: inline-block;
+    height: 50px;
+    width: 480px;
+}
+
+.chordTypeChooseDivDisabled {
+    display: none;
 }

@@ -8,11 +8,17 @@ import {
   TYPE_SCALE,
   TYPE_MAJOR,
   TYPE_MINOR,
+  TYPE_CHORD,
+  TYPE_AUGMENTED,
+  TYPE_DIMINISHED,
+  TYPE_SUSPENDEDTWO,
+  TYPE_SUSPENDEDFOUR,
 } from "../../theory";
 
 export function Controls({
   sharpOrFlat,
   selectModus,
+  selectChord,
   muteSounds,
   selectMode,
   appMode,
@@ -23,10 +29,14 @@ export function Controls({
       : sharpOrFlat(TYPE_SHARPED);
   };
 
-  const handleClickModus = ({ target }) => {
+  const handleClickScaleModus = ({ target }) => {
     target.value === TYPE_MAJOR
       ? selectModus(TYPE_MAJOR)
       : selectModus(TYPE_MINOR);
+  };
+
+  const handleClickChordType = ({ target }) => {
+    selectChord(target.value);
   };
 
   const handleChangeMute = () => {
@@ -38,13 +48,20 @@ export function Controls({
   };
 
   const classChromaticDiv = classNames({
-    [styles.chromaticChooseDiv]: appMode === TYPE_NOTE,
-    [styles.chromaticChooseDivDisabled]: appMode !== TYPE_NOTE,
+    [styles.chromaticChooseDiv]:
+      appMode === TYPE_NOTE || appMode === TYPE_CHORD,
+    [styles.chromaticChooseDivDisabled]:
+      appMode !== TYPE_NOTE && appMode !== TYPE_CHORD,
   });
 
   const classModusDiv = classNames({
     [styles.modusChooseDiv]: appMode === TYPE_SCALE,
     [styles.modusChooseDivDisabled]: appMode !== TYPE_SCALE,
+  });
+
+  const classChordTypeDiv = classNames({
+    [styles.chordTypeChooseDiv]: appMode === TYPE_CHORD,
+    [styles.chordTypeChooseDivDisabled]: appMode !== TYPE_CHORD,
   });
 
   return (
@@ -54,6 +71,7 @@ export function Controls({
         <select id="mode" name="mode" onChange={handleChangeMode}>
           <option value={TYPE_NOTE}>Note</option>
           <option value={TYPE_SCALE}>Scale</option>
+          <option value={TYPE_CHORD}>Chord</option>
         </select>
       </div>
       <div className={classChromaticDiv}>
@@ -83,7 +101,7 @@ export function Controls({
           id="major"
           name="modus"
           value={TYPE_MAJOR}
-          onClick={handleClickModus}
+          onClick={handleClickScaleModus}
           defaultChecked
         />
         <label htmlFor="major">major</label>
@@ -92,9 +110,75 @@ export function Controls({
           id="minor"
           name="modus"
           value={TYPE_MINOR}
-          onClick={handleClickModus}
+          onClick={handleClickScaleModus}
         />
         <label htmlFor="minor">minor</label>
+      </div>
+      <div className={classChordTypeDiv}>
+        <p className={styles.modusChooseP}>Choose chord:</p>
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="majorChord"
+              name="chordModus"
+              value={TYPE_MAJOR}
+              onClick={handleClickChordType}
+              defaultChecked
+            />
+            <label htmlFor="majorChord">major</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="minorChord"
+              name="chordModus"
+              value={TYPE_MINOR}
+              onClick={handleClickChordType}
+            />
+            <label htmlFor="minorChord">minor</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="augmentedChord"
+              name="chordModus"
+              value={TYPE_AUGMENTED}
+              onClick={handleClickChordType}
+            />
+            <label htmlFor="augmentedChord">augmented</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="diminishedChord"
+              name="chordModus"
+              value={TYPE_DIMINISHED}
+              onClick={handleClickChordType}
+            />
+            <label htmlFor="diminishedChord">diminished</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="sus2Chord"
+              name="chordModus"
+              value={TYPE_SUSPENDEDTWO}
+              onClick={handleClickChordType}
+            />
+            <label htmlFor="sus2Chord">suspended 2</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="sus4Chord"
+              name="chordModus"
+              value={TYPE_SUSPENDEDFOUR}
+              onClick={handleClickChordType}
+            />
+            <label htmlFor="sus4Chord">suspended 4</label>
+          </li>
+        </ul>
       </div>
       <div className={styles.keyboardMutedDiv}>
         <input type="checkbox" id="muted" onChange={handleChangeMute} />

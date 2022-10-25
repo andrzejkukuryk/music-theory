@@ -11,7 +11,12 @@ let flatsCounter = 0;
 
 export const TYPE_MAJOR = "major";
 export const TYPE_MINOR = "minor";
+export const TYPE_DIMINISHED = "diminished";
+export const TYPE_AUGMENTED = "augmented";
+export const TYPE_SUSPENDEDTWO = "suspended2";
+export const TYPE_SUSPENDEDFOUR = "suspended4";
 export const TYPE_SCALE = "scale";
+export const TYPE_CHORD = "chord";
 export const TYPE_NOTE = "note";
 export const TYPE_SHARPED = "sharped";
 export const TYPE_FLATED = "flated";
