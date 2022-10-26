@@ -1,0 +1,15 @@
+.container {
+    background-image: url('./graph/staff.png');
+    background-size: 100px;
+    background-repeat: repeat-x;
+    width: 600px;
+    height: 400px;
+    margin: 0 auto;
+}
+
+.clef {
+    height: 200px;
+    position: relative;
+    top: 16px;
+    z-index: 1;
+}

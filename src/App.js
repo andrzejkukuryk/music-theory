@@ -7,6 +7,7 @@ function App() {
   const [note, setNote] = useState("X");
   const [modus, setModus] = useState("major");
   const [chordType, setChordType] = useState("major");
+  const [chordAdditional, setChordAdditional] = useState("none");
   const [blackKeyMode, setBlackKeyMode] = useState("sharped");
   const [keyboardMuted, setKeyboardMuted] = useState(false);
   const [appMode, setAppMode] = useState("note");
@@ -27,6 +28,10 @@ function App() {
     setChordType(type);
   };
 
+  const selectChordAdditional = (added) => {
+    setChordAdditional(added);
+  };
+
   const muteSounds = () => {
     setKeyboardMuted(!keyboardMuted);
   };
@@ -43,11 +48,13 @@ function App() {
         note={note}
         modus={modus}
         chordType={chordType}
+        chordAdditional={chordAdditional}
       />
       <Controls
         sharpOrFlat={sharpOrFlat}
         selectModus={selectModus}
         selectChord={selectChord}
+        selectChordAdditional={selectChordAdditional}
         muteSounds={muteSounds}
         selectMode={selectMode}
         appMode={appMode}

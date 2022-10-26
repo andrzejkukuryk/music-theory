@@ -13,12 +13,17 @@ import {
   TYPE_DIMINISHED,
   TYPE_SUSPENDEDTWO,
   TYPE_SUSPENDEDFOUR,
+  TYPE_NONE,
+  TYPE_7TH,
+  TYPE_9TH,
+  TYPE_ADD9,
 } from "../../theory";
 
 export function Controls({
   sharpOrFlat,
   selectModus,
   selectChord,
+  selectChordAdditional,
   muteSounds,
   selectMode,
   appMode,
@@ -37,6 +42,10 @@ export function Controls({
 
   const handleClickChordType = ({ target }) => {
     selectChord(target.value);
+  };
+
+  const handleClickChordAdditional = ({ target }) => {
+    selectChordAdditional(target.value);
   };
 
   const handleChangeMute = () => {
@@ -177,6 +186,53 @@ export function Controls({
               onClick={handleClickChordType}
             />
             <label htmlFor="sus4Chord">suspended 4</label>
+          </li>
+        </ul>
+      </div>
+      {/* nowa lista */}
+      <div className={classChordTypeDiv}>
+        <p className={styles.modusChooseP}>Add to chord:</p>
+        <ul>
+          <li>
+            <input
+              type="radio"
+              id="clean"
+              name="chordAdditionals"
+              value={TYPE_NONE}
+              onClick={handleClickChordAdditional}
+              defaultChecked
+            />
+            <label htmlFor="clean">clean</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="7th"
+              name="chordAdditionals"
+              value={TYPE_7TH}
+              onClick={handleClickChordAdditional}
+            />
+            <label htmlFor="7th">7</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="9th"
+              name="chordAdditionals"
+              value={TYPE_9TH}
+              onClick={handleClickChordAdditional}
+            />
+            <label htmlFor="9th">9</label>
+          </li>
+          <li>
+            <input
+              type="radio"
+              id="add9"
+              name="chordAdditionals"
+              value={TYPE_ADD9}
+              onClick={handleClickChordAdditional}
+            />
+            <label htmlFor="add9">add9</label>
           </li>
         </ul>
       </div>
