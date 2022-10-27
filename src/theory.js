@@ -35,7 +35,6 @@ export const circleOfFifths = (prime, entryModus, type, chordAdditional) => {
   const ifScale = type === TYPE_SCALE;
   const ifChord = type === TYPE_CHORD;
   let scaleModus = 0; /* 0 = major, 5 = minor */
-
   switch (entryModus) {
     case TYPE_MAJOR:
     case TYPE_AUGMENTED:
@@ -277,4 +276,4 @@ export const circleOfFifths = (prime, entryModus, type, chordAdditional) => {
     createIngredients();
     buildChord();
   }
-};
+};;

@@ -14,27 +14,55 @@ import wholeNote from "./graph/wholeNote.png";
 import sharp from "./graph/sharp.png";
 import flat from "./graph/flat.png";
 import line from "./graph/line.png";
+import classNames from "classnames";
 
 export function Chord({ note, chordType, chordAdditional }) {
-  // const modusForCircle =
-  //   chordType === TYPE_MAJOR || chordType === TYPE_AUGMENTED
-  //     ? TYPE_MAJOR
-  //     : TYPE_MINOR;
+  const writeNote = (noteToWrite) => {
+    const classNoteToWrite = classNames({
+      [styles.noteOnStaff]: true,
+      [styles.noteDisabled]: note === "X",
+      [styles.c1]:
+        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] == 1,
+      [styles.d1]:
+        noteToWrite[0] === "d" && noteToWrite[noteToWrite.length - 1] == 1,
+      [styles.e1]:
+        noteToWrite[0] === "e" && noteToWrite[noteToWrite.length - 1] == 1,
+      [styles.f1]:
+        noteToWrite[0] === "f" && noteToWrite[noteToWrite.length - 1] == 1,
+      [styles.g1]:
+        noteToWrite[0] === "g" && noteToWrite[noteToWrite.length - 1] == 1,
+      [styles.a1]:
+        noteToWrite[0] === "a" && noteToWrite[noteToWrite.length - 1] == 1,
+      [styles.b1]:
+        noteToWrite[0] === "b" && noteToWrite[noteToWrite.length - 1] == 1,
+      [styles.c2]:
+        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] == 2,
+      [styles.d2]:
+        noteToWrite[0] === "d" && noteToWrite[noteToWrite.length - 1] == 2,
+      [styles.e2]:
+        noteToWrite[0] === "e" && noteToWrite[noteToWrite.length - 1] == 2,
+      [styles.f2]:
+        noteToWrite[0] === "f" && noteToWrite[noteToWrite.length - 1] == 2,
+      [styles.g2]:
+        noteToWrite[0] === "g" && noteToWrite[noteToWrite.length - 1] == 2,
+      [styles.a2]:
+        noteToWrite[0] === "a" && noteToWrite[noteToWrite.length - 1] == 2,
+      [styles.b2]:
+        noteToWrite[0] === "b" && noteToWrite[noteToWrite.length - 1] == 2,
+      [styles.c3]:
+        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] == 3,
+    });
+    return <img className={classNoteToWrite} src={wholeNote} />;
+  };
 
-  const ingredientsFromTheory = [...range, range[1]];
-  // const createIngredients = () => {
-  //   const diatonicNotes = [];
-  //   ingredientsFromTheory.map((noteToNeutral) =>
-  //     diatonicNotes.push(noteToNeutral[0])
-  //   );
-  //   const indexOf1stB = diatonicNotes.indexOf("B");
-  //   console.log("add: ", chordAdditional);
-  // };
-  // createIngredients();
-  circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional);
+  if (note !== "X") {
+    circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional);
+  }
+
   return (
     <div className={styles.container}>
       <img className={styles.clef} src={clef} alt="treble clef"></img>
+      {ingredients.map((ingr) => writeNote(ingr))}
       <p>{ingredients.join(", ")}</p>
     </div>
   );
