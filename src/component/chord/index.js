@@ -31,7 +31,7 @@ export function Chord({ note, chordType, chordAdditional }) {
   //   console.log("add: ", chordAdditional);
   // };
   // createIngredients();
-  circleOfFifths(note, chordType, TYPE_CHORD);
+  circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional);
   return (
     <div className={styles.container}>
       <img className={styles.clef} src={clef} alt="treble clef"></img>

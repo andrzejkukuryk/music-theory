@@ -31,12 +31,11 @@ export const resetScale = () => {
   scale = [...diatonic];
 };
 
-export const circleOfFifths = (prime, entryModus, type) => {
+export const circleOfFifths = (prime, entryModus, type, chordAdditional) => {
   const ifScale = type === TYPE_SCALE;
   const ifChord = type === TYPE_CHORD;
   let scaleModus = 0; /* 0 = major, 5 = minor */
-  // entryModus === TYPE_MAJOR ? (scaleModus = 0) : (scaleModus = 5);
-  console.log(entryModus);
+
   switch (entryModus) {
     case TYPE_MAJOR:
     case TYPE_AUGMENTED:
@@ -149,7 +148,23 @@ export const circleOfFifths = (prime, entryModus, type) => {
           : (fifthAug = `${allIngredients[4][0]}${allIngredients[4][1]}#${allIngredients[4][2]}`);
       }
       ingredients = [allIngredients[0], allIngredients[2], fifthAug];
-      console.log(allIngredients);
+    };
+    const buildDiminished = () => {
+      let fifthDim = "";
+      if (allIngredients[4].length === 2) {
+        fifthDim = `${allIngredients[4][0]}b${allIngredients[4][1]}`;
+      } else {
+        allIngredients[4][1] === "#"
+          ? (fifthDim = `${allIngredients[4][0]}${allIngredients[4][2]}`)
+          : (fifthDim = `${allIngredients[4][0]}${allIngredients[4][1]}b${allIngredients[4][2]}`);
+      }
+      ingredients = [allIngredients[0], allIngredients[2], fifthDim];
+    };
+    const buildSus2 = () => {
+      ingredients = [allIngredients[0], allIngredients[1], allIngredients[4]];
+    };
+    const buildSus4 = () => {
+      ingredients = [allIngredients[0], allIngredients[3], allIngredients[4]];
     };
     switch (entryModus) {
       case TYPE_MAJOR:
@@ -161,9 +176,78 @@ export const circleOfFifths = (prime, entryModus, type) => {
       case TYPE_AUGMENTED:
         buildAugmented();
         break;
+      case TYPE_DIMINISHED:
+        buildDiminished();
+        break;
+      case TYPE_SUSPENDEDTWO:
+        buildSus2();
+        break;
+      case TYPE_SUSPENDEDFOUR:
+        buildSus4();
+        break;
       default:
         buildMinor();
         break;
+    }
+    const additionalClean = () => {
+      if (ingredients.length > 3) {
+        ingredients.splice(3, ingredients.length - 3);
+      }
+    };
+    const additional7 = () => {
+      additionalClean();
+      let seventh = allIngredients[6];
+      if (entryModus === TYPE_MAJOR || entryModus === TYPE_AUGMENTED) {
+        if (allIngredients[0].length === 2 && allIngredients[6].length === 2) {
+          seventh = `${allIngredients[6][0]}b${allIngredients[6][1]}`;
+        } else if (
+          allIngredients[0].length === 2 &&
+          allIngredients[6].length === 3
+        ) {
+          seventh = `${allIngredients[6][0]}${allIngredients[6][2]}`;
+        } else if (
+          allIngredients[0][1] === "#" &&
+          allIngredients[6].length === 3
+        ) {
+          seventh = `${allIngredients[6][0]}${allIngredients[6][2]}`;
+        } else if (
+          allIngredients[0][1] === "#" &&
+          allIngredients[6].length === 4
+        ) {
+          seventh = `${allIngredients[6][0]}${allIngredients[6][2]}${allIngredients[6][3]}`;
+        } else if (
+          allIngredients[0][1] === "b" &&
+          allIngredients[6].length === 2
+        ) {
+          seventh = `${allIngredients[6][0]}b${allIngredients[6][1]}`;
+        }
+      }
+      ingredients.push(seventh);
+    };
+    const additional9 = () => {
+      additionalClean();
+      additional7();
+      ingredients.push(allIngredients[8]);
+    };
+    const additionalAdd9 = () => {
+      additionalClean();
+      ingredients.push(allIngredients[8]);
+    };
+    switch (chordAdditional) {
+      case TYPE_NONE:
+        additionalClean();
+        break;
+      case TYPE_7TH:
+        additional7();
+        break;
+      case TYPE_9TH:
+        additional9();
+        break;
+      case TYPE_ADD9:
+        additionalAdd9();
+        break;
+      default:
+        additionalClean();
     }
   };
 
