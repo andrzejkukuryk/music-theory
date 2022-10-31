@@ -1,18 +1,19 @@
 :root {
-    --c1: -6px;
-    --d1: -16px;
-    --e1: -28px;
-    --f1: -40px;
-    --g1: -52px;
-    --a1: -64px;
-    --b1: -76px;
-    --c2: -88px;
-    --d2: -100px;
-    --e2: -112px;
-    --f2: -124px;
-    --g2: -136px;
-    --a2: -148px;
-    --b2: -160px;
+    --c1: -4px;
+    --d1: -14px;
+    --e1: -26px;
+    --f1: -38px;
+    --g1: -50px;
+    --a1: -62px;
+    --b1: -74px;
+    --c2: -86px;
+    --d2: -98px;
+    --e2: -110px;
+    --f2: -122px;
+    --g2: -134px;
+    --a2: -146px;
+    --b2: -158px;
+    --c3: -170px;
 }
 
 .container {
@@ -37,7 +38,7 @@
 
 .sharpOnStaff {
     display: inline-block;
-    height: 65px;
+    height: 56px;
     position: relative;
     margin-right: 3px;
 }
@@ -47,31 +48,31 @@
 }
 
 .fSharp {
-    top: calc(var(--f2) + 22px);
+    top: calc(var(--f2) + 16px);
 }
 
 .cSharp {
-    top: calc(var(--c2) + 22px);
+    top: calc(var(--c2) + 16px);
 }
 
 .gSharp {
-    top: calc(var(--g2) + 22px);
+    top: calc(var(--g2) + 16px);
 }
 
 .dSharp {
-    top: calc(var(--d2) + 22px);
+    top: calc(var(--d2) + 16px);
 }
 
 .aSharp {
-    top: calc(var(--a1) + 22px);
+    top: calc(var(--a1) + 16px);
 }
 
 .eSharp {
-    top: calc(var(--e2) + 22px);
+    top: calc(var(--e2) + 16px);
 }
 
 .bSharp {
-    top: calc(var(--b1) + 22px);
+    top: calc(var(--b1) + 16px);
 }
 
 .flatOnStaff {
@@ -109,10 +110,10 @@
 }
 .noteOnStaff {
     display: inline-block;
-    height: 20px;
+    height: 23px;
     position: relative;
     left: 30px;
-    margin-right: 25px;
+    margin-right: 24px;
 }
 
 .noteDisabled {

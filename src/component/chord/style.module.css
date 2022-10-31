@@ -1,19 +1,19 @@
 :root {
-    --c1: -6px;
-    --d1: -16px;
-    --e1: -28px;
-    --f1: -40px;
-    --g1: -52px;
-    --a1: -64px;
-    --b1: -76px;
-    --c2: -88px;
-    --d2: -100px;
-    --e2: -112px;
-    --f2: -124px;
-    --g2: -136px;
-    --a2: -148px;
-    --b2: -160px;
-    --c3: -172px;
+    --c1: -4px;
+    --d1: -14px;
+    --e1: -26px;
+    --f1: -38px;
+    --g1: -50px;
+    --a1: -62px;
+    --b1: -74px;
+    --c2: -86px;
+    --d2: -98px;
+    --e2: -110px;
+    --f2: -122px;
+    --g2: -134px;
+    --a2: -146px;
+    --b2: -158px;
+    --c3: -170px;
 }
 
 .container {
@@ -21,8 +21,8 @@
     background-size: 100px;
     background-repeat: repeat-x;
     width: 600px;
-    height: 400px;
-    margin: 0 auto;
+    height: 350px;
+    margin: 30px auto 0 auto;
 }
 
 .clef {
@@ -32,12 +32,72 @@
     z-index: 1;
 }
 
-.noteOnStaff {
+.pitchDiv {
     display: inline-block;
-    height: 20px;
+    width: 50px;
     position: relative;
-    left: 30px;
-    margin-right: 25px;
+    /* border: 1px solid red; */
+}
+
+.setVertical0 {
+    margin-left: 50px;
+}
+
+.setVertical1 {
+    left: -50px;
+}
+
+.setVertical2 {
+    left: -100px;
+}
+
+.setVertical3 {
+    left: -150px;
+}
+
+.setVertical4 {
+    left: -200px;
+}
+
+.notesContainerDiv {
+    display: flex;
+    align-items:flex-end;
+    justify-content: end;
+    position: relative;
+    width: 50px;
+    overflow: visible;
+}
+
+.sharpOnStaff {
+    display: inline-block;
+    height: 54px;
+    position: relative; 
+    top: 16px;
+    margin: 0 4px;
+}
+
+.sharpDisabled {
+    display: none;
+}
+
+.flatOnStaff { 
+    display: inline-block;
+    height: 60px;
+    position: relative;
+    top: 6px;
+}
+
+.flatDisabled {
+    display: none;
+}
+
+.noteOnStaff {
+    position: relative;
+    height: 24px;
+}
+
+.noteSuspended {
+    left: 33px;
 }
 
 .noteDisabled {

@@ -1,11 +1,11 @@
 :root {
-    --c1: -6px;
-    --d1: -16px;
-    --e1: -28px;
-    --f1: -40px;
-    --g1: -52px;
-    --a1: -64px;
-    --b1: -76px;
+    --c1: -4px;
+    --d1: -14px;
+    --e1: -26px;
+    --f1: -38px;
+    --g1: -50px;
+    --a1: -62px;
+    --b1: -74px;
 }
 .container {
     background-image: url('./graph/staff.png');
@@ -25,7 +25,7 @@
 
 .noteOnStaff {
     display: inline-block;
-    height: 20px;
+    height: 23px;
     position: relative;
     left: 30px;
 }
@@ -64,7 +64,7 @@
 
 .sharpOnStaff {
     display: inline-block;
-    height: 65px;
+    height: 54px;
     position: relative;
     left: 25px;
 }
@@ -74,31 +74,31 @@
 }
 
 .cSharp {
-    top: calc(var(--c1) + 22px);
+    top: calc(var(--c1) + 16px);
 }
 
 .dSharp {
-    top: calc(var(--d1) + 22px);
+    top: calc(var(--d1) + 16px);
 }
 
 .eSharp {
-    top: calc(var(--e1) + 22px);
+    top: calc(var(--e1) + 16px);
 }
 
 .fSharp {
-    top: calc(var(--f1) + 22px);
+    top: calc(var(--f1) + 16px);
 }
 
 .gSharp {
-    top: calc(var(--g1) + 22px);
+    top: calc(var(--g1) + 16px);
 }
 
 .aSharp {
-    top: calc(var(--a1) + 22px);
+    top: calc(var(--a1) + 16px);
 }
 
 .bSharp {
-    top: calc(var(--b1) + 22px);
+    top: calc(var(--b1) + 16px);
 }
 
 .flatOnStaff {

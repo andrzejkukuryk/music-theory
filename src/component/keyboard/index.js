@@ -8,12 +8,14 @@ export function Keyboard({ pressedKey, blackKeyMode, keyboardMuted }) {
   const [chromatic, setChromatic] = useState(sharped);
 
   const chromaticMode = () => {
+    console.log("chromaticMode");
     blackKeyMode === TYPE_FLATED ? setChromatic(flated) : setChromatic(sharped);
   };
   useEffect(() => {
     chromaticMode();
-  }, [blackKeyMode]);
-
+  }, [chromaticMode]);
+  // chromaticMode();
+  console.log("halo!");
   return (
     <div className={styles.container}>
       <div className={styles.diatonicKeys}>
