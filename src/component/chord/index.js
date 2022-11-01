@@ -20,6 +20,25 @@ import classNames from "classnames";
 
 export function Chord({ note, chordType, chordAdditional }) {
   const writeNote = (noteToWrite, step) => {
+    const chromaticPositionCheck = (stepToCheck, position) => {
+      if (ingredients.length === 3) {
+        if (ingredients.filter((ingr) => ingr.length > 2).length === 2) {
+          if (ingredients[0].length > 2) {
+            if (stepToCheck === 0 && position === 1) return true;
+          } else {
+            if (stepToCheck === 1 && position === 1) return true;
+          }
+        } else if (ingredients.filter((ingr) => ingr.length > 2).length === 3) {
+          if (stepToCheck === 0 && position === 1) {
+            return true;
+          } else if (stepToCheck === 1 && position === 2) {
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
     const classPitchDiv = classNames({
       [styles.pitchDiv]: true,
       [styles.setVertical0]: step === 0,
@@ -62,6 +81,8 @@ export function Chord({ note, chordType, chordAdditional }) {
       [styles.sharpOnStaff]: noteToWrite.length > 2 && noteToWrite[1] === "#",
       [styles.sharpDisabled]:
         noteToWrite.length === 2 || noteToWrite[1] === "b" || note === "X",
+      [styles.sharpOnePositionLeft]: chromaticPositionCheck(step, 1),
+      [styles.sharpTwoPositionsLeft]: chromaticPositionCheck(step, 2),
     });
 
     const classDoubleSharp = classNames({
@@ -73,6 +94,8 @@ export function Chord({ note, chordType, chordAdditional }) {
       [styles.flatOnStaff]: noteToWrite.length > 2 && noteToWrite[1] === "b",
       [styles.flatDisabled]:
         noteToWrite.length === 2 || noteToWrite[1] === "#" || note === "X",
+      [styles.flatOnePositionLeft]: chromaticPositionCheck(step, 1),
+      [styles.flatTwoPositionsLeft]: chromaticPositionCheck(step, 2),
     });
 
     const classDoubleFlat = classNames({

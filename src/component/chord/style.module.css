@@ -62,7 +62,7 @@
 .notesContainerDiv {
     display: flex;
     align-items:flex-end;
-    justify-content: end;
+    justify-content: flex-end;
     position: relative;
     width: 50px;
     overflow: visible;
@@ -76,15 +76,32 @@
     margin: 0 4px;
 }
 
+.sharpOnePositionLeft {
+    left: -20px;
+}
+
+.sharpTwoPositionsLeft {
+    left: -40px;
+}
+
 .sharpDisabled {
     display: none;
 }
 
 .flatOnStaff { 
     display: inline-block;
-    height: 60px;
+    height: 56px;
     position: relative;
-    top: 6px;
+    top: 4px;
+    margin: 0 2px;
+}
+
+.flatOnePositionLeft {
+    left: -26px;
+}
+
+.flatTwoPositionsLeft {
+    left: -52px;
 }
 
 .flatDisabled {
