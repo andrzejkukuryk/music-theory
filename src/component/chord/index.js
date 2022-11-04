@@ -77,30 +77,43 @@ export function Chord({ note, chordType, chordAdditional }) {
       [styles.c3]:
         noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] == 3,
     });
-    const classSharp = classNames({
-      [styles.sharpOnStaff]: noteToWrite.length > 2 && noteToWrite[1] === "#",
-      [styles.sharpDisabled]:
-        noteToWrite.length === 2 || noteToWrite[1] === "b" || note === "X",
-      [styles.sharpOnePositionLeft]: chromaticPositionCheck(step, 1),
-      [styles.sharpTwoPositionsLeft]: chromaticPositionCheck(step, 2),
+
+    const allSharps = note !== "X" ? document.getElementsByName("sharp") : [];
+    const chromaticCheck = (checkedPitch, chekedColumn) => {
+      for (let i = 0; i < allSharps.length; i++) {
+        if (
+          allSharps[i].getAttribute("pitch") == checkedPitch &&
+          allSharps[i].getAttribute("column") == chekedColumn
+        ) {
+          return i;
+        }
+      }
+      return false;
+    };
+    console.log(chromaticCheck("f#1", 1));
+
+    const classSharp0 = classNames({
+      [styles.sharpOnStaff]: true,
+      [styles.sharpEnabled]: false,
+      // [styles.sharpEnabled]: chromaticCheck("f#1", 0),
     });
 
-    const classDoubleSharp = classNames({
-      [styles.sharpOnStaff]: noteToWrite.length === 4 && noteToWrite[2] === "#",
-      [styles.sharpDisabled]: noteToWrite.length < 4 || noteToWrite[1] === "b",
+    const classSharp1 = classNames({
+      [styles.sharpOnStaff]: true,
+      [styles.sharpEnabled]: false,
+      // [styles.sharpEnabled]: chromaticCheck("f#1", 1),
     });
 
-    const classFlat = classNames({
-      [styles.flatOnStaff]: noteToWrite.length > 2 && noteToWrite[1] === "b",
-      [styles.flatDisabled]:
-        noteToWrite.length === 2 || noteToWrite[1] === "#" || note === "X",
-      [styles.flatOnePositionLeft]: chromaticPositionCheck(step, 1),
-      [styles.flatTwoPositionsLeft]: chromaticPositionCheck(step, 2),
+    const classSharp2 = classNames({
+      [styles.sharpOnStaff]: true,
+      [styles.sharpEnabled]: false,
+      // [styles.sharpEnabled]: chromaticCheck("f#1", 2),
     });
 
-    const classDoubleFlat = classNames({
-      [styles.flatOnStaff]: noteToWrite.length === 4 && noteToWrite[2] === "b",
-      [styles.flatDisabled]: noteToWrite.length < 4 || noteToWrite[1] === "#",
+    const classSharp3 = classNames({
+      [styles.sharpOnStaff]: true,
+      [styles.sharpEnabled]: false,
+      // [styles.sharpEnabled]: chromaticCheck("f#1", 3),
     });
 
     const classNote = classNames({
@@ -110,30 +123,102 @@ export function Chord({ note, chordType, chordAdditional }) {
         (chordType === TYPE_SUSPENDEDFOUR || chordType === TYPE_SUSPENDEDTWO) &&
         step === 1,
     });
+
     return (
       <div className={classPitchDiv}>
         <div className={styles.notesContainerDiv}>
-          <img className={classDoubleSharp} src={sharp} />
-          <img className={classSharp} src={sharp} />
-          <img className={classDoubleFlat} src={flat} />
-          <img className={classFlat} src={flat} />
+          <img
+            className={classSharp3}
+            column={3}
+            row={step}
+            src={sharp}
+            pitch={noteToWrite}
+            name="sharp"
+            alt="sharp"
+          />
+          <img
+            className={classSharp2}
+            column={2}
+            row={step}
+            src={sharp}
+            pitch={noteToWrite}
+            name="sharp"
+            alt="sharp"
+          />
+          <img
+            className={classSharp1}
+            column={1}
+            row={step}
+            src={sharp}
+            pitch={noteToWrite}
+            name="sharp"
+            alt="sharp"
+          />
+          <img
+            className={classSharp0}
+            column={0}
+            row={step}
+            src={sharp}
+            pitch={noteToWrite}
+            name="sharp"
+            alt="sharp"
+          />
           <img className={classNote} src={wholeNote} />
         </div>
       </div>
     );
   };
 
+  const c1Present = () => {
+    return !ingredients.some(
+      (ingr) => ingr[0] === "c" && ingr[ingr.length - 1] == 1
+    );
+  };
+
+  const a2resent = () => {
+    return !ingredients.some(
+      (ingr) => ingr[0] === "a" && ingr[ingr.length - 1] == 2
+    );
+  };
+
+  const b2resent = () => {
+    return !ingredients.some(
+      (ingr) => ingr[0] === "b" && ingr[ingr.length - 1] == 2
+    );
+  };
+
+  const c3Present = () => {
+    return !ingredients.some(
+      (ingr) => ingr[0] === "c" && ingr[ingr.length - 1] == 3
+    );
+  };
+
+  const classLowerLine = classNames({
+    [styles.lowerLine]: true,
+    [styles.lineDisabled]: c1Present(),
+  });
+
+  const classUpper1stLine = classNames({
+    [styles.upper1stLine]: true,
+    [styles.lineDisabled]: a2resent() && b2resent() && c3Present(),
+  });
+
+  const classUpper2ndLine = classNames({
+    [styles.upper2ndLine]: true,
+    [styles.lineDisabled]: c3Present(),
+  });
+
   if (note !== "X") {
     circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional);
   }
-
+  
   return (
     <div className={styles.container}>
       <img className={styles.clef} src={clef} alt="treble clef"></img>
+      <img className={classLowerLine} src={line} />
+      <img className={classUpper1stLine} src={line} />
+      <img className={classUpper2ndLine} src={line} />
       {ingredients.map((ingr, index) => writeNote(ingr, index))}
-      {/* {writeNote("d1")}
-      {writeNote("f1")}
-      {writeNote("a1")} */}
       <p>{ingredients.join(", ")}</p>
     </div>
   );

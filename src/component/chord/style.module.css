@@ -70,22 +70,19 @@
 
 .sharpOnStaff {
     display: inline-block;
+    opacity: 0;
     height: 54px;
     position: relative; 
     top: 16px;
-    margin: 0 4px;
-}
-
-.sharpOnePositionLeft {
-    left: -20px;
-}
-
-.sharpTwoPositionsLeft {
-    left: -40px;
+    margin: 0 1px;
 }
 
 .sharpDisabled {
-    display: none;
+    opacity: 0;
+}
+
+.sharpEnabled {
+    opacity: 1;
 }
 
 .flatOnStaff { 
@@ -119,6 +116,38 @@
 
 .noteDisabled {
     display: none;
+}
+
+.lowerLine {
+    opacity: 1;
+    height: 4px;
+    width: 50px;
+    position: relative;
+    top: -13px;
+    left: 202px;
+}
+
+.upper1stLine {
+    opacity: 1;
+    height: 4px;
+    width: 50px;
+    position: relative;
+    top: -156px;
+    left: 153px;
+}
+
+.upper2ndLine {
+    opacity: 1;
+    height: 4px;
+    width: 50px;
+    position: relative;
+    top: -180px;
+    left: 103px;
+}
+
+
+.lineDisabled {
+    opacity: 0;
 }
 
 .c1 {
