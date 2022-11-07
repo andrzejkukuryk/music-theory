@@ -58,13 +58,8 @@ export function Scale({ note, modus }) {
     const lineKey = `line${index}`;
 
     return (
-      <div className={styles.noteContainerDiv}>
-        <img
-          className={createClass}
-          key={noteKey}
-          src={wholeNote}
-          alt={noteToWrite}
-        />
+      <div className={styles.noteContainerDiv} key={noteKey}>
+        <img className={createClass} src={wholeNote} alt={noteToWrite} />
         <img className={addedLines} src={line} key={lineKey} alt="added line" />
       </div>
     );

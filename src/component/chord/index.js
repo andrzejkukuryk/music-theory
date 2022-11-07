@@ -2,11 +2,7 @@ import React from "react";
 import {
   circleOfFifths,
   ingredients,
-  range,
-  TYPE_AUGMENTED,
   TYPE_CHORD,
-  TYPE_MAJOR,
-  TYPE_MINOR,
   TYPE_SUSPENDEDFOUR,
   TYPE_SUSPENDEDTWO,
 } from "../../theory";
@@ -20,24 +16,24 @@ import classNames from "classnames";
 
 export function Chord({ note, chordType, chordAdditional }) {
   const writeNote = (noteToWrite, step) => {
-    const chromaticPositionCheck = (stepToCheck, position) => {
-      if (ingredients.length === 3) {
-        if (ingredients.filter((ingr) => ingr.length > 2).length === 2) {
-          if (ingredients[0].length > 2) {
-            if (stepToCheck === 0 && position === 1) return true;
-          } else {
-            if (stepToCheck === 1 && position === 1) return true;
-          }
-        } else if (ingredients.filter((ingr) => ingr.length > 2).length === 3) {
-          if (stepToCheck === 0 && position === 1) {
-            return true;
-          } else if (stepToCheck === 1 && position === 2) {
-            return true;
-          }
-        }
-      }
-      return false;
-    };
+    // const chromaticPositionCheck = (stepToCheck, position) => {
+    //   if (ingredients.length === 3) {
+    //     if (ingredients.filter((ingr) => ingr.length > 2).length === 2) {
+    //       if (ingredients[0].length > 2) {
+    //         if (stepToCheck === 0 && position === 1) return true;
+    //       } else {
+    //         if (stepToCheck === 1 && position === 1) return true;
+    //       }
+    //     } else if (ingredients.filter((ingr) => ingr.length > 2).length === 3) {
+    //       if (stepToCheck === 0 && position === 1) {
+    //         return true;
+    //       } else if (stepToCheck === 1 && position === 2) {
+    //         return true;
+    //       }
+    //     }
+    //   }
+    //   return false;
+    // };
 
     const classPitchDiv = classNames({
       [styles.pitchDiv]: true,
@@ -47,35 +43,35 @@ export function Chord({ note, chordType, chordAdditional }) {
       [styles.setVertical3]: step === 3,
       [styles.setVertical4]: step === 4,
       [styles.c1]:
-        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] == 1,
+        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.d1]:
-        noteToWrite[0] === "d" && noteToWrite[noteToWrite.length - 1] == 1,
+        noteToWrite[0] === "d" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.e1]:
-        noteToWrite[0] === "e" && noteToWrite[noteToWrite.length - 1] == 1,
+        noteToWrite[0] === "e" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.f1]:
-        noteToWrite[0] === "f" && noteToWrite[noteToWrite.length - 1] == 1,
+        noteToWrite[0] === "f" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.g1]:
-        noteToWrite[0] === "g" && noteToWrite[noteToWrite.length - 1] == 1,
+        noteToWrite[0] === "g" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.a1]:
-        noteToWrite[0] === "a" && noteToWrite[noteToWrite.length - 1] == 1,
+        noteToWrite[0] === "a" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.b1]:
-        noteToWrite[0] === "b" && noteToWrite[noteToWrite.length - 1] == 1,
+        noteToWrite[0] === "b" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.c2]:
-        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] == 2,
+        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.d2]:
-        noteToWrite[0] === "d" && noteToWrite[noteToWrite.length - 1] == 2,
+        noteToWrite[0] === "d" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.e2]:
-        noteToWrite[0] === "e" && noteToWrite[noteToWrite.length - 1] == 2,
+        noteToWrite[0] === "e" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.f2]:
-        noteToWrite[0] === "f" && noteToWrite[noteToWrite.length - 1] == 2,
+        noteToWrite[0] === "f" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.g2]:
-        noteToWrite[0] === "g" && noteToWrite[noteToWrite.length - 1] == 2,
+        noteToWrite[0] === "g" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.a2]:
-        noteToWrite[0] === "a" && noteToWrite[noteToWrite.length - 1] == 2,
+        noteToWrite[0] === "a" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.b2]:
-        noteToWrite[0] === "b" && noteToWrite[noteToWrite.length - 1] == 2,
+        noteToWrite[0] === "b" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.c3]:
-        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] == 3,
+        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] === "3",
     });
 
     const allSharps = note !== "X" ? document.getElementsByName("sharp") : [];
@@ -92,9 +88,11 @@ export function Chord({ note, chordType, chordAdditional }) {
     };
     console.log(chromaticCheck("f#1", 1));
 
+    const pitchDivKey = `pitch${step}`;
+
     const classSharp0 = classNames({
       [styles.sharpOnStaff]: true,
-      [styles.sharpEnabled]: false,
+      [styles.sharpEnabled]: true,
       // [styles.sharpEnabled]: chromaticCheck("f#1", 0),
     });
 
@@ -125,7 +123,7 @@ export function Chord({ note, chordType, chordAdditional }) {
     });
 
     return (
-      <div className={classPitchDiv}>
+      <div className={classPitchDiv} key={pitchDivKey}>
         <div className={styles.notesContainerDiv}>
           <img
             className={classSharp3}
@@ -163,7 +161,11 @@ export function Chord({ note, chordType, chordAdditional }) {
             name="sharp"
             alt="sharp"
           />
-          <img className={classNote} src={wholeNote} />
+          <img
+            className={classNote}
+            src={wholeNote}
+            alt={`${noteToWrite} note`}
+          />
         </div>
       </div>
     );
@@ -171,25 +173,25 @@ export function Chord({ note, chordType, chordAdditional }) {
 
   const c1Present = () => {
     return !ingredients.some(
-      (ingr) => ingr[0] === "c" && ingr[ingr.length - 1] == 1
+      (ingr) => ingr[0] === "c" && ingr[ingr.length - 1] === "1"
     );
   };
 
   const a2resent = () => {
     return !ingredients.some(
-      (ingr) => ingr[0] === "a" && ingr[ingr.length - 1] == 2
+      (ingr) => ingr[0] === "a" && ingr[ingr.length - 1] === "2"
     );
   };
 
   const b2resent = () => {
     return !ingredients.some(
-      (ingr) => ingr[0] === "b" && ingr[ingr.length - 1] == 2
+      (ingr) => ingr[0] === "b" && ingr[ingr.length - 1] === "2"
     );
   };
 
   const c3Present = () => {
     return !ingredients.some(
-      (ingr) => ingr[0] === "c" && ingr[ingr.length - 1] == 3
+      (ingr) => ingr[0] === "c" && ingr[ingr.length - 1] === "3"
     );
   };
 
@@ -211,13 +213,21 @@ export function Chord({ note, chordType, chordAdditional }) {
   if (note !== "X") {
     circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional);
   }
-  
+
   return (
     <div className={styles.container}>
       <img className={styles.clef} src={clef} alt="treble clef"></img>
-      <img className={classLowerLine} src={line} />
-      <img className={classUpper1stLine} src={line} />
-      <img className={classUpper2ndLine} src={line} />
+      <img className={classLowerLine} src={line} alt="added lower line" />
+      <img
+        className={classUpper1stLine}
+        src={line}
+        alt="added first upper line"
+      />
+      <img
+        className={classUpper2ndLine}
+        src={line}
+        alt="added second upper line"
+      />
       {ingredients.map((ingr, index) => writeNote(ingr, index))}
       <p>{ingredients.join(", ")}</p>
     </div>
