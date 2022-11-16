@@ -16,11 +16,15 @@ export function Chromatics({
     if (pitch.length === 2) {
       return false;
     } else if (pitch.length === 3) {
-      console.log(unavailablePosition.some((pos) => pos === newPosition));
       if (unavailablePosition.some((pos) => pos === newPosition)) {
         return false;
       }
+      console.log("hop");
+      for (let i = column + 1; i < 4; i++) {
+        addUnavailablePosition(row, i);
+      }
       // addUnavailablePosition(row, column);
+      console.log(unavailablePosition);
       return true;
     }
   };
@@ -68,8 +72,8 @@ export function Chromatics({
     // [styles.sharpDisabled]: pitch.length === 2,
   });
   useEffect(() => {
-    const sharpsRow = document.querySelectorAll("img[row='0']");
-  });
+    // addUnavailablePosition(1, 0);
+  }, []);
 
   return (
     <div className={styles.container}>

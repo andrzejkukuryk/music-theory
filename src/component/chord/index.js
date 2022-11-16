@@ -15,14 +15,7 @@ import { Chromatics } from "../chromatics";
 
 export function Chord({ note, chordType, chordAdditional }) {
   const ingredientsReversesed = [...ingredients].reverse();
-  const [unavailablePosition, setUnavailablePosition] = useState([
-    "01",
-    "02",
-    "03",
-    "20",
-    "22",
-    "23",
-  ]); // [xy, xy... (x-row, y-column) ]
+  const [unavailablePosition, setUnavailablePosition] = useState([]); // [xy, xy... (x-row, y-column) ]
 
   const addUnavailablePosition = (row, column) => {
     const newPosition = `${row}${column}`;
