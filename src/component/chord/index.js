@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   circleOfFifths,
   ingredients,
@@ -9,32 +9,27 @@ import {
 import styles from "./style.module.css";
 import clef from "./graph/clef.png";
 import wholeNote from "./graph/wholeNote.png";
-import sharp from "./graph/sharp.png";
-import flat from "./graph/flat.png";
 import line from "./graph/line.png";
 import classNames from "classnames";
+import { Chromatics } from "../chromatics";
 
 export function Chord({ note, chordType, chordAdditional }) {
-  const writeNote = (noteToWrite, step) => {
-    // const chromaticPositionCheck = (stepToCheck, position) => {
-    //   if (ingredients.length === 3) {
-    //     if (ingredients.filter((ingr) => ingr.length > 2).length === 2) {
-    //       if (ingredients[0].length > 2) {
-    //         if (stepToCheck === 0 && position === 1) return true;
-    //       } else {
-    //         if (stepToCheck === 1 && position === 1) return true;
-    //       }
-    //     } else if (ingredients.filter((ingr) => ingr.length > 2).length === 3) {
-    //       if (stepToCheck === 0 && position === 1) {
-    //         return true;
-    //       } else if (stepToCheck === 1 && position === 2) {
-    //         return true;
-    //       }
-    //     }
-    //   }
-    //   return false;
-    // };
+  const ingredientsReversesed = [...ingredients].reverse();
+  const [unavailablePosition, setUnavailablePosition] = useState([
+    "01",
+    "02",
+    "03",
+    "20",
+    "22",
+    "23",
+  ]); // [xy, xy... (x-row, y-column) ]
 
+  const addUnavailablePosition = (row, column) => {
+    const newPosition = `${row}${column}`;
+    setUnavailablePosition([...unavailablePosition, newPosition]);
+  };
+
+  const writeNote = (noteToWrite, step) => {
     const classPitchDiv = classNames({
       [styles.pitchDiv]: true,
       [styles.setVertical0]: step === 0,
@@ -74,45 +69,7 @@ export function Chord({ note, chordType, chordAdditional }) {
         noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] === "3",
     });
 
-    const allSharps = note !== "X" ? document.getElementsByName("sharp") : [];
-    const chromaticCheck = (checkedPitch, chekedColumn) => {
-      for (let i = 0; i < allSharps.length; i++) {
-        if (
-          allSharps[i].getAttribute("pitch") == checkedPitch &&
-          allSharps[i].getAttribute("column") == chekedColumn
-        ) {
-          return i;
-        }
-      }
-      return false;
-    };
-    console.log(chromaticCheck("f#1", 1));
-
     const pitchDivKey = `pitch${step}`;
-
-    const classSharp0 = classNames({
-      [styles.sharpOnStaff]: true,
-      [styles.sharpEnabled]: true,
-      // [styles.sharpEnabled]: chromaticCheck("f#1", 0),
-    });
-
-    const classSharp1 = classNames({
-      [styles.sharpOnStaff]: true,
-      [styles.sharpEnabled]: false,
-      // [styles.sharpEnabled]: chromaticCheck("f#1", 1),
-    });
-
-    const classSharp2 = classNames({
-      [styles.sharpOnStaff]: true,
-      [styles.sharpEnabled]: false,
-      // [styles.sharpEnabled]: chromaticCheck("f#1", 2),
-    });
-
-    const classSharp3 = classNames({
-      [styles.sharpOnStaff]: true,
-      [styles.sharpEnabled]: false,
-      // [styles.sharpEnabled]: chromaticCheck("f#1", 3),
-    });
 
     const classNote = classNames({
       [styles.noteOnStaff]: note !== "X",
@@ -126,48 +83,26 @@ export function Chord({ note, chordType, chordAdditional }) {
       <div className={classPitchDiv} key={pitchDivKey}>
         <div className={styles.notesContainerDiv}>
           <img
-            className={classSharp3}
-            column={3}
-            row={step}
-            src={sharp}
-            pitch={noteToWrite}
-            name="sharp"
-            alt="sharp"
-          />
-          <img
-            className={classSharp2}
-            column={2}
-            row={step}
-            src={sharp}
-            pitch={noteToWrite}
-            name="sharp"
-            alt="sharp"
-          />
-          <img
-            className={classSharp1}
-            column={1}
-            row={step}
-            src={sharp}
-            pitch={noteToWrite}
-            name="sharp"
-            alt="sharp"
-          />
-          <img
-            className={classSharp0}
-            column={0}
-            row={step}
-            src={sharp}
-            pitch={noteToWrite}
-            name="sharp"
-            alt="sharp"
-          />
-          <img
             className={classNote}
             src={wholeNote}
             alt={`${noteToWrite} note`}
           />
         </div>
       </div>
+    );
+  };
+
+  const writeChromatics = (pitch, index) => {
+    const chromaticsKey = `key${index}`;
+    const row = ingredients.length - (1 + index);
+    return (
+      <Chromatics
+        key={chromaticsKey}
+        pitch={pitch}
+        row={index}
+        unavailablePosition={unavailablePosition}
+        addUnavailablePosition={addUnavailablePosition}
+      />
     );
   };
 
@@ -228,7 +163,8 @@ export function Chord({ note, chordType, chordAdditional }) {
         src={line}
         alt="added second upper line"
       />
-      {ingredients.map((ingr, index) => writeNote(ingr, index))}
+      {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))}
+      {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))}
       <p>{ingredients.join(", ")}</p>
     </div>
   );

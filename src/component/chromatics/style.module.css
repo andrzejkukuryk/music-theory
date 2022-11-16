@@ -1,0 +1,106 @@
+:root {
+    --c1: -4px;
+    --d1: -14px;
+    --e1: -26px;
+    --f1: -38px;
+    --g1: -50px;
+    --a1: -62px;
+    --b1: -74px;
+    --c2: -86px;
+    --d2: -98px;
+    --e2: -110px;
+    --f2: -122px;
+    --g2: -134px;
+    --a2: -146px;
+    --b2: -158px;
+    --c3: -170px;
+}
+
+.container {
+    position: relative;
+    /* border: 1px solid green; */
+
+}
+
+.positionDiv {
+    /* border: 1px solid red; */
+    position: absolute;
+    left: 244px;
+}    
+
+.sharpOnStaff {
+    display: inline-block;
+    opacity: 0;
+    height: 58px;
+    position: relative; 
+    top: 16px;
+    margin: 0 1px;
+}
+
+.sharpDisabled {
+    opacity: 0;
+}
+
+.sharpEnabled {
+    opacity: 1;
+}
+
+.c1 {
+    top: calc(var(--c1) - 60px);
+}
+
+.d1 {
+    top: calc(var(--d1) - 60px);
+}
+
+.e1 {
+    top: calc(var(--e1) - 60px);
+}
+
+.f1 {
+    top: calc(var(--f1) - 60px);
+}
+
+.g1 {
+    top: calc(var(--g1) - 60px);
+}
+
+.a1 {
+    top: calc(var(--a1) - 60px);
+}
+
+.b1 {
+    top: calc(var(--b1) - 60px);
+}
+
+.c2 {
+    top: calc(var(--c2) - 60px);
+}
+
+.d2 {
+    top: calc(var(--d2) - 60px);
+}
+
+.e2 {
+    top: calc(var(--e2) - 60px);
+}
+
+.f2 {
+    top: calc(var(--f2) - 60px);
+}
+
+.g2 {
+    top: calc(var(--g2) - 60px);
+}
+
+.a2 {
+    top: calc(var(--a2) - 60px);
+}
+
+.b2 {
+    top: calc(var(--b2) - 60px);
+}
+
+.c3 {
+    top: calc(var(--c3) - 60px);
+}
