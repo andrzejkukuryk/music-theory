@@ -2,6 +2,30 @@ import { useState } from "react";
 import { Controls } from "./component/controls";
 import { ChooseMode } from "./component/chooseMode";
 import { Keyboard } from "./component/keyboard";
+import { ThemeProvider, createTheme } from "@mui/material/styles";
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#006D77",
+      light: "#EDF6F9",
+    },
+  },
+  typography: {
+    fontFamily: '"Open Sans","Roboto","Helvetica","Arial"',
+    body2: {
+      fontSize: "0.6rem",
+      fontWeight: 700,
+      textTransform: "uppercase",
+    },
+    button: {
+      fontWeight: 700,
+      fontSize: "1rem",
+      textTransform: "none",
+    },
+  },
+});
+theme.shadows.push("0px 6px 16px 0px rgba(0,109,119,0.09)");
 
 function App() {
   const [note, setNote] = useState("X");
@@ -9,7 +33,6 @@ function App() {
   const [chordType, setChordType] = useState("major");
   const [chordAdditional, setChordAdditional] = useState("none");
   const [blackKeyMode, setBlackKeyMode] = useState("sharped");
-  const [keyboardMuted, setKeyboardMuted] = useState(false);
   const [appMode, setAppMode] = useState("note");
 
   const pressedKey = (newNote) => {
@@ -32,17 +55,22 @@ function App() {
     setChordAdditional(added);
   };
 
-  const muteSounds = () => {
-    setKeyboardMuted(!keyboardMuted);
-  };
-
   const selectMode = (mode) => {
     setNote("X");
     setAppMode(mode);
   };
 
   return (
-    <div>
+    <ThemeProvider theme={theme}>
+      <Controls
+        sharpOrFlat={sharpOrFlat}
+        selectModus={selectModus}
+        selectChord={selectChord}
+        selectChordAdditional={selectChordAdditional}
+        selectMode={selectMode}
+        appMode={appMode}
+      />
+
       <ChooseMode
         appMode={appMode}
         note={note}
@@ -50,21 +78,9 @@ function App() {
         chordType={chordType}
         chordAdditional={chordAdditional}
       />
-      <Controls
-        sharpOrFlat={sharpOrFlat}
-        selectModus={selectModus}
-        selectChord={selectChord}
-        selectChordAdditional={selectChordAdditional}
-        muteSounds={muteSounds}
-        selectMode={selectMode}
-        appMode={appMode}
-      />
-      <Keyboard
-        pressedKey={pressedKey}
-        blackKeyMode={blackKeyMode}
-        keyboardMuted={keyboardMuted}
-      />
-    </div>
+
+      <Keyboard pressedKey={pressedKey} blackKeyMode={blackKeyMode} />
+    </ThemeProvider>
   );
 }
 

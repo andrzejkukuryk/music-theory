@@ -1,0 +1,32 @@
+[33m2b153d7[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m another infinite loop
+[33me9169f2[m UP infinite loop
+[33mef53d7b[m clean some warnings
+[33me1172e8[m sharps delay bug
+[33me295b11[m 1,2 or 3 chromatics ok
+[33m841c644[m chromatics setup in progress
+[33md277dd8[m write chord in progress
+[33m78e4337[m chord building logic
+[33mb5cf5cb[m build chord in progress
+[33mcbec628[m chord controls
+[33m4cca23e[m cleaner code
+[33m293d587[m destructuring assingment
+[33mb4f360a[m add minor scale
+[33m3ca7bdb[m controls update
+[33me15cc5f[m fix bugs ChooseMode
+[33m5640250[m add ChooseMode
+[33ma40eb48[m add Control
+[33m7aee3a8[m scale fix bugs
+[33maa73d68[m two clicks delay
+[33m6ecd878[m scale setState infinite loop
+[33mdee1c49[m scale writes notes only
+[33maf26504[m add scale
+[33m5b55365[m add circleOfFifths
+[33mbdcb8af[m note control fix bugs
+[33m6f3c8e5[m note control fixed, mem problems
+[33m311b20f[m add note control w/bugs
+[33m6d613a9[m Keyboard passes note to Note
+[33m2baee84[m add note uncomplete
+[33m3b28aa9[m add sound
+[33mc181db5[m add scale
+[33m29c5371[m add keyboard
+[33m1a4d150[m Initialize project using Create React App

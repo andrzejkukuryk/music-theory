@@ -18,13 +18,14 @@ import {
   TYPE_9TH,
   TYPE_ADD9,
 } from "../../theory";
+import { ControlsChromaticChoose } from "../controlsChromaticChoose";
+import { ControlsModeChooseTabs } from "../controlsModeChooseTabs";
 
 export function Controls({
   sharpOrFlat,
   selectModus,
   selectChord,
   selectChordAdditional,
-  muteSounds,
   selectMode,
   appMode,
 }) {
@@ -48,14 +49,6 @@ export function Controls({
     selectChordAdditional(target.value);
   };
 
-  const handleChangeMute = () => {
-    muteSounds();
-  };
-
-  const handleChangeMode = ({ target }) => {
-    selectMode(target.value);
-  };
-
   const classChromaticDiv = classNames({
     [styles.chromaticChooseDiv]:
       appMode === TYPE_NOTE || appMode === TYPE_CHORD,
@@ -76,32 +69,10 @@ export function Controls({
   return (
     <div className={styles.container}>
       <div className={styles.modeChooseDiv}>
-        <label htmlFor="mode">Choose mode:</label>
-        <select id="mode" name="mode" onChange={handleChangeMode}>
-          <option value={TYPE_NOTE}>Note</option>
-          <option value={TYPE_SCALE}>Scale</option>
-          <option value={TYPE_CHORD}>Chord</option>
-        </select>
+        <ControlsModeChooseTabs appMode={appMode} selectMode={selectMode} />
       </div>
       <div className={classChromaticDiv}>
-        <p className={styles.chromaticChooseP}>Black keys use names with:</p>
-        <input
-          type="radio"
-          id="sharps"
-          name="sharpOrFlat"
-          value={TYPE_SHARPED}
-          onClick={handleClickChromatic}
-          defaultChecked
-        />
-        <label htmlFor="sharps">sharps</label>
-        <input
-          type="radio"
-          id="flats"
-          name="sharpOrFlat"
-          value={TYPE_FLATED}
-          onClick={handleClickChromatic}
-        />
-        <label htmlFor="flats">flats</label>
+        <ControlsChromaticChoose handleClickChromatic={handleClickChromatic} />
       </div>
       <div className={classModusDiv}>
         <p className={styles.modusChooseP}>Choose modus:</p>
@@ -189,7 +160,6 @@ export function Controls({
           </li>
         </ul>
       </div>
-      {/* nowa lista */}
       <div className={classChordTypeDiv}>
         <p className={styles.modusChooseP}>Add to chord:</p>
         <ul>
@@ -236,10 +206,10 @@ export function Controls({
           </li>
         </ul>
       </div>
-      <div className={styles.keyboardMutedDiv}>
+      {/* <div className={styles.keyboardMutedDiv}>
         <input type="checkbox" id="muted" onChange={handleChangeMute} />
         <label htmlFor="muted">mute sounds</label>
-      </div>
+      </div> */}
     </div>
   );
 }

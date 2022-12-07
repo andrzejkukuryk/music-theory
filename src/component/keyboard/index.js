@@ -3,9 +3,11 @@ import { Key } from "../key";
 import styles from "./style.module.css";
 import { diatonic, flated, sharped } from "../../theory.js";
 import { TYPE_FLATED } from "../../theory.js";
+import { ControlsMuteSounds } from "../controlsMuteSounds";
 
-export function Keyboard({ pressedKey, blackKeyMode, keyboardMuted }) {
+export function Keyboard({ pressedKey, blackKeyMode }) {
   const [chromatic, setChromatic] = useState(sharped);
+  const [keyboardMuted, setKeyboardMuted] = useState(false);
 
   const chromaticMode = () => {
     blackKeyMode === TYPE_FLATED ? setChromatic(flated) : setChromatic(sharped);
@@ -13,7 +15,7 @@ export function Keyboard({ pressedKey, blackKeyMode, keyboardMuted }) {
   useEffect(() => {
     chromaticMode();
   }, [chromaticMode]);
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.diatonicKeys}>
@@ -40,6 +42,10 @@ export function Keyboard({ pressedKey, blackKeyMode, keyboardMuted }) {
           />
         ))}
       </div>
+      <ControlsMuteSounds
+        keyboardMuted={keyboardMuted}
+        setKeyboardMuted={setKeyboardMuted}
+      />
     </div>
   );
 }
