@@ -20,6 +20,8 @@ import {
 } from "../../theory";
 import { ControlsChromaticChoose } from "../controlsChromaticChoose";
 import { ControlsModeChooseTabs } from "../controlsModeChooseTabs";
+import { ControlsScaleModeChoose } from "../controlsScaleModeChoose";
+import { ControlsChord } from "../controlsChord";
 
 export function Controls({
   sharpOrFlat,
@@ -28,6 +30,8 @@ export function Controls({
   selectChordAdditional,
   selectMode,
   appMode,
+  chordType,
+  chordAdditional,
 }) {
   const handleClickChromatic = ({ target }) => {
     target.value === TYPE_FLATED
@@ -75,141 +79,18 @@ export function Controls({
         <ControlsChromaticChoose handleClickChromatic={handleClickChromatic} />
       </div>
       <div className={classModusDiv}>
-        <p className={styles.modusChooseP}>Choose modus:</p>
-        <input
-          type="radio"
-          id="major"
-          name="modus"
-          value={TYPE_MAJOR}
-          onClick={handleClickScaleModus}
-          defaultChecked
+        <ControlsScaleModeChoose
+          handleClickScaleModus={handleClickScaleModus}
         />
-        <label htmlFor="major">major</label>
-        <input
-          type="radio"
-          id="minor"
-          name="modus"
-          value={TYPE_MINOR}
-          onClick={handleClickScaleModus}
-        />
-        <label htmlFor="minor">minor</label>
       </div>
       <div className={classChordTypeDiv}>
-        <p className={styles.modusChooseP}>Choose chord:</p>
-        <ul>
-          <li>
-            <input
-              type="radio"
-              id="majorChord"
-              name="chordModus"
-              value={TYPE_MAJOR}
-              onClick={handleClickChordType}
-              defaultChecked
-            />
-            <label htmlFor="majorChord">major</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              id="minorChord"
-              name="chordModus"
-              value={TYPE_MINOR}
-              onClick={handleClickChordType}
-            />
-            <label htmlFor="minorChord">minor</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              id="augmentedChord"
-              name="chordModus"
-              value={TYPE_AUGMENTED}
-              onClick={handleClickChordType}
-            />
-            <label htmlFor="augmentedChord">augmented</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              id="diminishedChord"
-              name="chordModus"
-              value={TYPE_DIMINISHED}
-              onClick={handleClickChordType}
-            />
-            <label htmlFor="diminishedChord">diminished</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              id="sus2Chord"
-              name="chordModus"
-              value={TYPE_SUSPENDEDTWO}
-              onClick={handleClickChordType}
-            />
-            <label htmlFor="sus2Chord">suspended 2</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              id="sus4Chord"
-              name="chordModus"
-              value={TYPE_SUSPENDEDFOUR}
-              onClick={handleClickChordType}
-            />
-            <label htmlFor="sus4Chord">suspended 4</label>
-          </li>
-        </ul>
+        <ControlsChord
+          chordType={chordType}
+          selectChord={selectChord}
+          chordAdditional={chordAdditional}
+          selectChordAdditional={selectChordAdditional}
+        />
       </div>
-      <div className={classChordTypeDiv}>
-        <p className={styles.modusChooseP}>Add to chord:</p>
-        <ul>
-          <li>
-            <input
-              type="radio"
-              id="clean"
-              name="chordAdditionals"
-              value={TYPE_NONE}
-              onClick={handleClickChordAdditional}
-              defaultChecked
-            />
-            <label htmlFor="clean">clean</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              id="7th"
-              name="chordAdditionals"
-              value={TYPE_7TH}
-              onClick={handleClickChordAdditional}
-            />
-            <label htmlFor="7th">7</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              id="9th"
-              name="chordAdditionals"
-              value={TYPE_9TH}
-              onClick={handleClickChordAdditional}
-            />
-            <label htmlFor="9th">9</label>
-          </li>
-          <li>
-            <input
-              type="radio"
-              id="add9"
-              name="chordAdditionals"
-              value={TYPE_ADD9}
-              onClick={handleClickChordAdditional}
-            />
-            <label htmlFor="add9">add9</label>
-          </li>
-        </ul>
-      </div>
-      {/* <div className={styles.keyboardMutedDiv}>
-        <input type="checkbox" id="muted" onChange={handleChangeMute} />
-        <label htmlFor="muted">mute sounds</label>
-      </div> */}
     </div>
   );
 }

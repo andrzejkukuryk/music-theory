@@ -6,6 +6,7 @@ import wholeNote from "./graph/wholeNote.png";
 import sharp from "./graph/sharp.png";
 import flat from "./graph/flat.png";
 import line from "./graph/line.png";
+import { NoteCaption } from "../noteCaption";
 
 export function Note({ note }) {
   const pitch = note[0];
@@ -51,11 +52,6 @@ export function Note({ note }) {
     [styles.lineDisabled]: pitch !== "C",
   });
 
-  const classCaption = classNames({
-    [styles.noteCaption]: true,
-    [styles.noteCaptionDisabled]: pitch === "X",
-  });
-
   return (
     <div className={styles.container}>
       <img className={styles.clef} src={clef} alt="treble clef"></img>
@@ -63,7 +59,7 @@ export function Note({ note }) {
       <img className={classFlat} src={flat} alt="flat"></img>
       <img className={classNote} src={wholeNote} alt="whole note"></img>
       <img className={addedLine} src={line} alt="added line"></img>
-      <p className={classCaption}>Played note: {note}</p>
+      <NoteCaption note={note} />
     </div>
   );
 };

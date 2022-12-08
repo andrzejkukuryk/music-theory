@@ -2,30 +2,8 @@ import { useState } from "react";
 import { Controls } from "./component/controls";
 import { ChooseMode } from "./component/chooseMode";
 import { Keyboard } from "./component/keyboard";
-import { ThemeProvider, createTheme } from "@mui/material/styles";
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#006D77",
-      light: "#EDF6F9",
-    },
-  },
-  typography: {
-    fontFamily: '"Open Sans","Roboto","Helvetica","Arial"',
-    body2: {
-      fontSize: "0.6rem",
-      fontWeight: 700,
-      textTransform: "uppercase",
-    },
-    button: {
-      fontWeight: 700,
-      fontSize: "1rem",
-      textTransform: "none",
-    },
-  },
-});
-theme.shadows.push("0px 6px 16px 0px rgba(0,109,119,0.09)");
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./data/theme";
 
 function App() {
   const [note, setNote] = useState("X");
@@ -69,6 +47,8 @@ function App() {
         selectChordAdditional={selectChordAdditional}
         selectMode={selectMode}
         appMode={appMode}
+        chordType={chordType}
+        chordAdditional={chordAdditional}
       />
 
       <ChooseMode

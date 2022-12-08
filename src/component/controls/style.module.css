@@ -2,27 +2,23 @@
     --keyboardWidth: 600px;
 }
 
-.container {
-    width: 100%;
+.container { 
     display: flex;
     flex-direction: column;
     align-items: center;
-  justify-content: center;
-    /* width: var(--keyboardWidth); */
+    justify-content: center;
+    width: 100%;
     margin: 0 auto;
 }
 
 .modeChooseDiv {
     display: block;
-    /* display: inline-block; */
     height: 60px;
     width: 100%;
-    /* margin-right: 30px; */
 }
 
 .chromaticChooseDiv {
     display: block;
-    /* display: inline-block; */
     height: 97px;
     width: 603px;
 
@@ -40,8 +36,8 @@
 
 .modusChooseDiv {
     display: inline-block;
-    height: 50px;
-    width: 320px;
+    height: 97px;
+    width: 603px;
 }
 
 .modusChooseDivDisabled {

@@ -10,9 +10,9 @@ import {
   Typography,
 } from "@mui/material";
 
-import { TYPE_SHARPED, TYPE_FLATED } from "../../theory";
+import { TYPE_MAJOR, TYPE_MINOR } from "../../theory";
 
-export function ControlsChromaticChoose({ handleClickChromatic }) {
+export function ControlsScaleModeChoose({ handleClickScaleModus }) {
   return (
     <Box
       sx={{
@@ -25,29 +25,27 @@ export function ControlsChromaticChoose({ handleClickChromatic }) {
       }}
     >
       <Typography variant="body2" component="h2">
-        Choose chomatics
+        Scale mode
       </Typography>
       <FormControl>
-        <FormLabel id="blackKeysUseNamesWith" sx={{ display: "inline-block" }}>
-          Black keys use names with:
-        </FormLabel>
+        <FormLabel id="scaleModeChoose">Choose mode:</FormLabel>
         <RadioGroup
           row
-          aria-labelledby="blackKeysUseNamesWith"
-          defaultValue={TYPE_SHARPED}
+          aria-labelledby="scaleModeChoose"
+          defaultValue={TYPE_MAJOR}
           name="radio-button-group"
         >
           <FormControlLabel
-            value={TYPE_SHARPED}
+            value={TYPE_MAJOR}
             control={<Radio size="small" />}
-            label="sharps"
-            onClick={handleClickChromatic}
+            label="major"
+            onClick={handleClickScaleModus}
           />
           <FormControlLabel
-            value={TYPE_FLATED}
+            value={TYPE_MINOR}
             control={<Radio size="small" />}
-            label="flats"
-            onClick={handleClickChromatic}
+            label="minor"
+            onClick={handleClickScaleModus}
           />
         </RadioGroup>
       </FormControl>

@@ -8,6 +8,7 @@ import sharp from "./graph/sharp.png";
 import flat from "./graph/flat.png";
 import line from "./graph/line.png";
 import { TYPE_SCALE } from "../../theory";
+import { ScaleCaption } from "../scaleCaption";
 
 export function Scale({ note, modus }) {
   const diatonicNotes = [];
@@ -105,11 +106,6 @@ export function Scale({ note, modus }) {
     );
   };
 
-  const caption = classNames({
-    [styles.scaleCaption]: true,
-    [styles.scaleCaptionDisabled]: note === "X",
-  });
-
   if (note !== "X") {
     circleOfFifths(note, modus, TYPE_SCALE);
   }
@@ -120,9 +116,7 @@ export function Scale({ note, modus }) {
       {sharps.map((sign, index) => writeSharps(sign, index))}
       {flats.map((sign, index) => writeFlats(sign, index))}
       {range.map((sound, index) => writeNote(sound, index))}
-      <p className={caption}>
-        {range[0]} {modus} scale is: {range.join(", ")}
-      </p>
+      <ScaleCaption range={range} modus={modus} note={note} />
     </div>
   );
 }
