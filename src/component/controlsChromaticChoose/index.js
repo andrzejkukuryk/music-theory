@@ -28,7 +28,7 @@ export function ControlsChromaticChoose({ handleClickChromatic }) {
         Choose chomatics
       </Typography>
       <FormControl>
-        <FormLabel id="blackKeysUseNamesWith" sx={{ display: "inline-block" }}>
+        <FormLabel id="blackKeysUseNamesWith">
           Black keys use names with:
         </FormLabel>
         <RadioGroup

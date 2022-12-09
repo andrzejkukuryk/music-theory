@@ -1,6 +1,5 @@
-import classNames from "classnames";
 import React from "react";
-import styles from "./style.module.css";
+
 import {
   TYPE_FLATED,
   TYPE_SHARPED,
@@ -9,19 +8,12 @@ import {
   TYPE_MAJOR,
   TYPE_MINOR,
   TYPE_CHORD,
-  TYPE_AUGMENTED,
-  TYPE_DIMINISHED,
-  TYPE_SUSPENDEDTWO,
-  TYPE_SUSPENDEDFOUR,
-  TYPE_NONE,
-  TYPE_7TH,
-  TYPE_9TH,
-  TYPE_ADD9,
 } from "../../theory";
 import { ControlsChromaticChoose } from "../controlsChromaticChoose";
 import { ControlsModeChooseTabs } from "../controlsModeChooseTabs";
 import { ControlsScaleModeChoose } from "../controlsScaleModeChoose";
 import { ControlsChord } from "../controlsChord";
+import { Box } from "@mui/material";
 
 export function Controls({
   sharpOrFlat,
@@ -45,52 +37,32 @@ export function Controls({
       : selectModus(TYPE_MINOR);
   };
 
-  const handleClickChordType = ({ target }) => {
-    selectChord(target.value);
-  };
-
-  const handleClickChordAdditional = ({ target }) => {
-    selectChordAdditional(target.value);
-  };
-
-  const classChromaticDiv = classNames({
-    [styles.chromaticChooseDiv]:
-      appMode === TYPE_NOTE || appMode === TYPE_CHORD,
-    [styles.chromaticChooseDivDisabled]:
-      appMode !== TYPE_NOTE && appMode !== TYPE_CHORD,
-  });
-
-  const classModusDiv = classNames({
-    [styles.modusChooseDiv]: appMode === TYPE_SCALE,
-    [styles.modusChooseDivDisabled]: appMode !== TYPE_SCALE,
-  });
-
-  const classChordTypeDiv = classNames({
-    [styles.chordTypeChooseDiv]: appMode === TYPE_CHORD,
-    [styles.chordTypeChooseDivDisabled]: appMode !== TYPE_CHORD,
-  });
-
   return (
-    <div className={styles.container}>
-      <div className={styles.modeChooseDiv}>
-        <ControlsModeChooseTabs appMode={appMode} selectMode={selectMode} />
-      </div>
-      <div className={classChromaticDiv}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      justifyContent="center"
+      alignItems="center"
+      minWidth="100vw"
+    >
+      <ControlsModeChooseTabs appMode={appMode} selectMode={selectMode} />
+      {(appMode === TYPE_NOTE || appMode === TYPE_CHORD) && (
         <ControlsChromaticChoose handleClickChromatic={handleClickChromatic} />
-      </div>
-      <div className={classModusDiv}>
+      )}
+      {appMode === TYPE_SCALE && (
         <ControlsScaleModeChoose
           handleClickScaleModus={handleClickScaleModus}
         />
-      </div>
-      <div className={classChordTypeDiv}>
+      )}
+      {appMode === TYPE_CHORD && (
         <ControlsChord
           chordType={chordType}
           selectChord={selectChord}
           chordAdditional={chordAdditional}
           selectChordAdditional={selectChordAdditional}
         />
-      </div>
-    </div>
+      )}
+    </Box>
+    // </div>
   );
 }

@@ -8,7 +8,7 @@ export function ControlsModeChooseTabs({ appMode, selectMode }) {
     selectMode(newValue);
   };
   return (
-    <Box sx={{ boxShadow: 25, width: "100%", marginBottom: 20 }}>
+    <Box sx={{ boxShadow: 25, width: "100%", marginBottom: 1 }}>
       <Tabs
         value={appMode}
         onChange={handleChange}

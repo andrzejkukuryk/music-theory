@@ -1,4 +1,12 @@
-import { Box, FormControl, InputLabel, MenuItem, Select } from "@mui/material";
+import {
+  Box,
+  FormControl,
+  FormLabel,
+  InputLabel,
+  MenuItem,
+  Select,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import {
   TYPE_7TH,
@@ -36,14 +44,17 @@ export function ControlsChord({
         backgroundColor: "primary.light",
       }}
     >
-      <FormControl>
-        <InputLabel id="chordModus">Chord mode</InputLabel>
-        <Select
-          labelId="chordModus"
-          value={chordType}
-          label="Chord mode"
-          onChange={handleChangeChordModus}
-        >
+      <FormControl
+        sx={{
+          width: "250px",
+          marginRight: "30px",
+          backgroundColor: "white",
+          outline: "solid rgba(0,0,0,0.42) 1px",
+          borderRadius: "4px",
+        }}
+        size="small"
+      >
+        <Select value={chordType} onChange={handleChangeChordModus}>
           <MenuItem value={TYPE_MAJOR}>major</MenuItem>
           <MenuItem value={TYPE_MINOR}>minor</MenuItem>
           <MenuItem value={TYPE_AUGMENTED}>augmented</MenuItem>
@@ -52,14 +63,17 @@ export function ControlsChord({
           <MenuItem value={TYPE_SUSPENDEDFOUR}>suspended 4</MenuItem>
         </Select>
       </FormControl>
-      <FormControl>
-        <InputLabel id="chordAdditional">Chord addition</InputLabel>
-        <Select
-          labelId="chordAdditional"
-          value={chordAdditional}
-          label="Chord addition"
-          onChange={handleChangeChordAdditional}
-        >
+
+      <FormControl
+        sx={{
+          width: "250px",
+          backgroundColor: "white",
+          outline: "solid rgba(0,0,0,0.42) 1px",
+          borderRadius: "4px",
+        }}
+        size="small"
+      >
+        <Select value={chordAdditional} onChange={handleChangeChordAdditional}>
           <MenuItem value={TYPE_NONE}>clean</MenuItem>
           <MenuItem value={TYPE_7TH}>7</MenuItem>
           <MenuItem value={TYPE_9TH}>9</MenuItem>
