@@ -25,7 +25,7 @@ export function ControlsChromaticChoose({ handleClickChromatic }) {
       }}
     >
       <Typography variant="body2" component="h2">
-        Choose chomatics
+        Chomatics
       </Typography>
       <FormControl>
         <FormLabel id="blackKeysUseNamesWith">

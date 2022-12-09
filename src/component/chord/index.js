@@ -12,6 +12,7 @@ import wholeNote from "./graph/wholeNote.png";
 import line from "./graph/line.png";
 import classNames from "classnames";
 import { Chromatics } from "../chromatics";
+import { ChordCaption } from "../chordCaption";
 
 export function Chord({ note, chordType, chordAdditional }) {
   const ingredientsReversesed = [...ingredients].reverse();
@@ -158,7 +159,8 @@ export function Chord({ note, chordType, chordAdditional }) {
       />
       {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))}
       {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))}
-      <p>{ingredients.join(", ")}</p>
+      <ChordCaption note={note} />
+      {/* <p>{ingredients.join(", ")}</p> */}
     </div>
   );
 }

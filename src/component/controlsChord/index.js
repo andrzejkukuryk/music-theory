@@ -37,49 +37,62 @@ export function ControlsChord({
   return (
     <Box
       sx={{
-        paddingTop: "26px",
+        display: "flex",
+        // paddingTop: "26px",
         paddingLeft: "30px",
         width: 573,
-        height: 81,
+        height: 70,
         backgroundColor: "primary.light",
       }}
     >
-      <FormControl
-        sx={{
-          width: "250px",
-          marginRight: "30px",
-          backgroundColor: "white",
-          outline: "solid rgba(0,0,0,0.42) 1px",
-          borderRadius: "4px",
-        }}
-        size="small"
-      >
-        <Select value={chordType} onChange={handleChangeChordModus}>
-          <MenuItem value={TYPE_MAJOR}>major</MenuItem>
-          <MenuItem value={TYPE_MINOR}>minor</MenuItem>
-          <MenuItem value={TYPE_AUGMENTED}>augmented</MenuItem>
-          <MenuItem value={TYPE_DIMINISHED}>diminished</MenuItem>
-          <MenuItem value={TYPE_SUSPENDEDTWO}>suspended 2</MenuItem>
-          <MenuItem value={TYPE_SUSPENDEDFOUR}>suspended 4</MenuItem>
-        </Select>
-      </FormControl>
-
-      <FormControl
-        sx={{
-          width: "250px",
-          backgroundColor: "white",
-          outline: "solid rgba(0,0,0,0.42) 1px",
-          borderRadius: "4px",
-        }}
-        size="small"
-      >
-        <Select value={chordAdditional} onChange={handleChangeChordAdditional}>
-          <MenuItem value={TYPE_NONE}>clean</MenuItem>
-          <MenuItem value={TYPE_7TH}>7</MenuItem>
-          <MenuItem value={TYPE_9TH}>9</MenuItem>
-          <MenuItem value={TYPE_ADD9}>add9</MenuItem>
-        </Select>
-      </FormControl>
+      <Box>
+        <Typography variant="body2" component="h3" sx={{ marginBottom: "6px" }}>
+          Chord
+        </Typography>
+        <FormControl
+          sx={{
+            width: "250px",
+            marginRight: "30px",
+            backgroundColor: "white",
+            outline: "solid rgba(0,0,0,0.42) 1px",
+            borderRadius: "4px",
+          }}
+          size="small"
+        >
+          <Select value={chordType} onChange={handleChangeChordModus}>
+            <MenuItem value={TYPE_MAJOR}>major</MenuItem>
+            <MenuItem value={TYPE_MINOR}>minor</MenuItem>
+            <MenuItem value={TYPE_AUGMENTED}>augmented</MenuItem>
+            <MenuItem value={TYPE_DIMINISHED}>diminished</MenuItem>
+            <MenuItem value={TYPE_SUSPENDEDTWO}>suspended 2</MenuItem>
+            <MenuItem value={TYPE_SUSPENDEDFOUR}>suspended 4</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+      <Box>
+        <Typography variant="body2" component="h3" sx={{ marginBottom: "6px" }}>
+          Chord addition
+        </Typography>
+        <FormControl
+          sx={{
+            width: "250px",
+            backgroundColor: "white",
+            outline: "solid rgba(0,0,0,0.42) 1px",
+            borderRadius: "4px",
+          }}
+          size="small"
+        >
+          <Select
+            value={chordAdditional}
+            onChange={handleChangeChordAdditional}
+          >
+            <MenuItem value={TYPE_NONE}>clean</MenuItem>
+            <MenuItem value={TYPE_7TH}>7</MenuItem>
+            <MenuItem value={TYPE_9TH}>9</MenuItem>
+            <MenuItem value={TYPE_ADD9}>add9</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
     </Box>
   );
 }
