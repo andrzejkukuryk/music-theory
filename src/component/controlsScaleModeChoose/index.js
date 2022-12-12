@@ -12,40 +12,51 @@ import {
 
 import { TYPE_MAJOR, TYPE_MINOR } from "../../theory";
 
-export function ControlsScaleModeChoose({ handleClickScaleModus }) {
+export function ControlsScaleModeChoose({ modus, setModus }) {
+  const handleChange = (event) => {
+    setModus(event.target.value);
+  };
   return (
     <Box
       sx={{
-        marginTop: "30px",
+        marginTop: "20px",
         paddingTop: "26px",
         paddingLeft: "30px",
         width: 573,
-        height: 81,
+        height: 65,
         backgroundColor: "primary.light",
       }}
     >
-      <Typography variant="body2" component="h2">
+      <Typography variant="body2" component="h2" sx={{ mb: -1 }}>
         Scale mode
       </Typography>
-      <FormControl>
-        <FormLabel id="scaleModeChoose">Choose mode:</FormLabel>
+      <FormControl
+        sx={{
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "flex-start",
+        }}
+      >
+        <FormLabel id="scaleModeChoose" sx={{ mr: 2 }}>
+          Choose mode:
+        </FormLabel>
         <RadioGroup
           row
           aria-labelledby="scaleModeChoose"
           defaultValue={TYPE_MAJOR}
+          value={modus}
+          onChange={handleChange}
           name="radio-button-group"
         >
           <FormControlLabel
             value={TYPE_MAJOR}
             control={<Radio size="small" />}
             label="major"
-            onClick={handleClickScaleModus}
           />
           <FormControlLabel
             value={TYPE_MINOR}
             control={<Radio size="small" />}
             label="minor"
-            onClick={handleClickScaleModus}
           />
         </RadioGroup>
       </FormControl>

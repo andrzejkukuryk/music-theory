@@ -4,25 +4,18 @@ import { ChooseMode } from "./component/chooseMode";
 import { Keyboard } from "./component/keyboard";
 import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./data/theme";
+import { TYPE_SHARPED, TYPE_MAJOR } from "./theory";
 
 function App() {
   const [note, setNote] = useState("X");
-  const [modus, setModus] = useState("major");
-  const [chordType, setChordType] = useState("major");
+  const [modus, setModus] = useState(TYPE_MAJOR);
+  const [chordType, setChordType] = useState(TYPE_MAJOR);
   const [chordAdditional, setChordAdditional] = useState("none");
-  const [blackKeyMode, setBlackKeyMode] = useState("sharped");
+  const [blackKeyMode, setBlackKeyMode] = useState(TYPE_SHARPED);
   const [appMode, setAppMode] = useState("note");
 
   const pressedKey = (newNote) => {
     setNote(newNote);
-  };
-
-  const sharpOrFlat = (sign) => {
-    setBlackKeyMode(sign);
-  };
-
-  const selectModus = (majorOrMinor) => {
-    setModus(majorOrMinor);
   };
 
   const selectChord = (type) => {
@@ -41,8 +34,10 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Controls
-        sharpOrFlat={sharpOrFlat}
-        selectModus={selectModus}
+        blackKeyMode={blackKeyMode}
+        setBlackKeyMode={setBlackKeyMode}
+        modus={modus}
+        setModus={setModus}
         selectChord={selectChord}
         selectChordAdditional={selectChordAdditional}
         selectMode={selectMode}

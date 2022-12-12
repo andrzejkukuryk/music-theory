@@ -160,7 +160,6 @@ export function Chord({ note, chordType, chordAdditional }) {
       {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))}
       {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))}
       <ChordCaption note={note} />
-      {/* <p>{ingredients.join(", ")}</p> */}
     </div>
   );
 }

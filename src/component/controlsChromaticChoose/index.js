@@ -12,42 +12,46 @@ import {
 
 import { TYPE_SHARPED, TYPE_FLATED } from "../../theory";
 
-export function ControlsChromaticChoose({ handleClickChromatic }) {
+export function ControlsChromaticChoose({ blackKeyMode, setBlackKeyMode }) {
+  const handleChange = (event) => {
+    setBlackKeyMode(event.target.value);
+  };
+
   return (
     <Box
       sx={{
-        marginTop: "30px",
+        marginTop: "20px",
         paddingTop: "26px",
         paddingLeft: "30px",
         width: 573,
-        height: 81,
+        height: 65,
         backgroundColor: "primary.light",
       }}
     >
-      <Typography variant="body2" component="h2">
+      <Typography variant="body2" component="h2" sx={{ mb: -1 }}>
         Chomatics
       </Typography>
-      <FormControl>
-        <FormLabel id="blackKeysUseNamesWith">
+      <FormControl sx={{ flexDirection: "row", alignItems: "center" }}>
+        <FormLabel id="blackKeysUseNamesWith" sx={{ mr: 2 }}>
           Black keys use names with:
         </FormLabel>
         <RadioGroup
           row
           aria-labelledby="blackKeysUseNamesWith"
           defaultValue={TYPE_SHARPED}
+          value={blackKeyMode}
+          onChange={handleChange}
           name="radio-button-group"
         >
           <FormControlLabel
             value={TYPE_SHARPED}
             control={<Radio size="small" />}
             label="sharps"
-            onClick={handleClickChromatic}
           />
           <FormControlLabel
             value={TYPE_FLATED}
             control={<Radio size="small" />}
             label="flats"
-            onClick={handleClickChromatic}
           />
         </RadioGroup>
       </FormControl>

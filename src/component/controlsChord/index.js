@@ -41,12 +41,12 @@ export function ControlsChord({
         // paddingTop: "26px",
         paddingLeft: "30px",
         width: 573,
-        height: 70,
+        height: 90,
         backgroundColor: "primary.light",
       }}
     >
       <Box>
-        <Typography variant="body2" component="h3" sx={{ marginBottom: "6px" }}>
+        <Typography variant="body2" component="h3" sx={{ marginBottom: "4px" }}>
           Chord
         </Typography>
         <FormControl
@@ -70,7 +70,7 @@ export function ControlsChord({
         </FormControl>
       </Box>
       <Box>
-        <Typography variant="body2" component="h3" sx={{ marginBottom: "6px" }}>
+        <Typography variant="body2" component="h3" sx={{ marginBottom: "4px" }}>
           Chord addition
         </Typography>
         <FormControl

@@ -15,9 +15,9 @@ export function ControlsModeChooseTabs({ appMode, selectMode }) {
         textColor="primary"
         centered
       >
-        <Tab value={TYPE_NOTE} label="Note" />
-        <Tab value={TYPE_SCALE} label="Scale" />
-        <Tab value={TYPE_CHORD} label="Chord" />
+        <Tab value={TYPE_NOTE} label="Note" sx={{ ml: 4, mr: 4 }} />
+        <Tab value={TYPE_SCALE} label="Scale" sx={{ ml: 4, mr: 4 }} />
+        <Tab value={TYPE_CHORD} label="Chord" sx={{ ml: 4, mr: 4 }} />
       </Tabs>
     </Box>
   );

@@ -13,13 +13,13 @@ export const theme = createTheme({
   typography: {
     fontFamily: '"Open Sans","Roboto","Helvetica","Arial"',
     body2: {
-      fontSize: "0.6rem",
+      fontSize: "0.65rem",
       fontWeight: 700,
       textTransform: "uppercase",
     },
     button: {
       fontWeight: 700,
-      fontSize: "1rem",
+      fontSize: "1.2rem",
       textTransform: "none",
     },
   },

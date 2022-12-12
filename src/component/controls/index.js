@@ -1,14 +1,6 @@
 import React from "react";
 
-import {
-  TYPE_FLATED,
-  TYPE_SHARPED,
-  TYPE_NOTE,
-  TYPE_SCALE,
-  TYPE_MAJOR,
-  TYPE_MINOR,
-  TYPE_CHORD,
-} from "../../theory";
+import { TYPE_NOTE, TYPE_SCALE, TYPE_CHORD } from "../../theory";
 import { ControlsChromaticChoose } from "../controlsChromaticChoose";
 import { ControlsModeChooseTabs } from "../controlsModeChooseTabs";
 import { ControlsScaleModeChoose } from "../controlsScaleModeChoose";
@@ -16,8 +8,10 @@ import { ControlsChord } from "../controlsChord";
 import { Box } from "@mui/material";
 
 export function Controls({
-  sharpOrFlat,
-  selectModus,
+  blackKeyMode,
+  setBlackKeyMode,
+  modus,
+  setModus,
   selectChord,
   selectChordAdditional,
   selectMode,
@@ -25,18 +19,6 @@ export function Controls({
   chordType,
   chordAdditional,
 }) {
-  const handleClickChromatic = ({ target }) => {
-    target.value === TYPE_FLATED
-      ? sharpOrFlat(TYPE_FLATED)
-      : sharpOrFlat(TYPE_SHARPED);
-  };
-
-  const handleClickScaleModus = ({ target }) => {
-    target.value === TYPE_MAJOR
-      ? selectModus(TYPE_MAJOR)
-      : selectModus(TYPE_MINOR);
-  };
-
   return (
     <Box
       display="flex"
@@ -47,12 +29,13 @@ export function Controls({
     >
       <ControlsModeChooseTabs appMode={appMode} selectMode={selectMode} />
       {(appMode === TYPE_NOTE || appMode === TYPE_CHORD) && (
-        <ControlsChromaticChoose handleClickChromatic={handleClickChromatic} />
+        <ControlsChromaticChoose
+          blackKeyMode={blackKeyMode}
+          setBlackKeyMode={setBlackKeyMode}
+        />
       )}
       {appMode === TYPE_SCALE && (
-        <ControlsScaleModeChoose
-          handleClickScaleModus={handleClickScaleModus}
-        />
+        <ControlsScaleModeChoose modus={modus} setModus={setModus} />
       )}
       {appMode === TYPE_CHORD && (
         <ControlsChord
@@ -63,6 +46,5 @@ export function Controls({
         />
       )}
     </Box>
-    // </div>
   );
 }
