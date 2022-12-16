@@ -32,7 +32,16 @@ export function ControlsChromaticChoose({ blackKeyMode, setBlackKeyMode }) {
         Chomatics
       </Typography>
       <FormControl sx={{ flexDirection: "row", alignItems: "center" }}>
-        <FormLabel id="blackKeysUseNamesWith" sx={{ mr: 2 }}>
+        <FormLabel
+          id="blackKeysUseNamesWith"
+          sx={{
+            mr: 2,
+            color: "#000",
+            "&.Mui-focused": {
+              color: "#000",
+            },
+          }}
+        >
           Black keys use names with:
         </FormLabel>
         <RadioGroup

@@ -37,7 +37,16 @@ export function ControlsScaleModeChoose({ modus, setModus }) {
           justifyContent: "flex-start",
         }}
       >
-        <FormLabel id="scaleModeChoose" sx={{ mr: 2 }}>
+        <FormLabel
+          id="scaleModeChoose"
+          sx={{
+            mr: 2,
+            color: "#000",
+            "&.Mui-focused": {
+              color: "#000",
+            },
+          }}
+        >
           Choose mode:
         </FormLabel>
         <RadioGroup
