@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   circleOfFifths,
   ingredients,
@@ -15,9 +15,19 @@ import { Chromatics } from "../chromatics";
 import { ChordCaption } from "../chordCaption";
 
 export function Chord({ note, chordType, chordAdditional }) {
-  const ingredientsReversesed = [...ingredients].reverse();
   const [unavailablePosition, setUnavailablePosition] = useState([]); // [xy, xy... (x-row, y-column) ]
+  const [chordIngredients, setChordIngredients] = useState(["c1", "e1", "g1"]);
+  const ingredientsReversesed = [...chordIngredients].reverse();
 
+  useEffect(
+    () => circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional),
+    [note, chordType, chordAdditional]
+  );
+
+  useEffect(
+    () => setChordIngredients([...ingredients]),
+    [note, chordType, chordAdditional]
+  );
   const addUnavailablePosition = (row, column) => {
     const newPosition = `${row}${column}`;
     setUnavailablePosition([...unavailablePosition, newPosition]);
@@ -70,7 +80,7 @@ export function Chord({ note, chordType, chordAdditional }) {
       [styles.noteDisabled]: note === "X",
       [styles.noteSuspended]:
         (chordType === TYPE_SUSPENDEDFOUR || chordType === TYPE_SUSPENDEDTWO) &&
-        step === 1,
+        step === ingredients.length - 2,
     });
 
     return (
@@ -139,9 +149,9 @@ export function Chord({ note, chordType, chordAdditional }) {
     [styles.lineDisabled]: c3Present(),
   });
 
-  if (note !== "X") {
-    circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional);
-  }
+  // if (note !== "X") {
+  //   circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional);
+  // }
 
   return (
     <div className={styles.container}>
@@ -158,8 +168,8 @@ export function Chord({ note, chordType, chordAdditional }) {
         alt="added second upper line"
       />
       {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))}
-      {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))}
-      <ChordCaption note={note} />
+      {/* {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))} */}
+      {/* <ChordCaption note={note} /> */}
     </div>
   );
 }
