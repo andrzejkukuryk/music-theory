@@ -93,8 +93,35 @@ export function Chord({ note, chordType, chordAdditional }) {
     }
 
     if (ingredientsWithChromatics.length === 3) {
-      //TODO: trzy krzyżyki w akordzie
+      if (ingredientsForChord.length === 4) {
+        addUnavailablePositions(firstChromaticRow, 0);
+        addUnavailablePositions(secondChromaticRow, 1);
+        addUnavailablePositions(thirdChromaticRow, 0);
+        setUnavailablePosition(temporaryUP);
+      }
+      if (ingredientsForChord.length === 5) {
+        addUnavailablePositions(firstChromaticRow, 0);
+        if (firstChromaticRow === 0) {
+          if (secondChromaticRow === 1 || secondChromaticRow === 2) {
+            addUnavailablePositions(secondChromaticRow, 1);
+            addUnavailablePositions(thirdChromaticRow, 0);
+          }
+          if (secondChromaticRow === 3) {
+            addUnavailablePositions(secondChromaticRow, 0);
+            addUnavailablePositions(thirdChromaticRow, 1);
+          }
+        }
+        if (firstChromaticRow === 1) {
+          if (secondChromaticRow === 2 || secondChromaticRow === 3) {
+            addUnavailablePositions(secondChromaticRow, 1);
+            addUnavailablePositions(thirdChromaticRow, 0);
+          }
+        }
+        setUnavailablePosition(temporaryUP);
+      }
     }
+
+    //TODO: cztery krzyzyki:
   };
 
   const writeNote = (noteToWrite, step) => {
@@ -229,7 +256,7 @@ export function Chord({ note, chordType, chordAdditional }) {
       />
       {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))}
       {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))}
-      {/* <ChordCaption note={note} /> */}
+      <ChordCaption chordIngredients={chordIngredients} />
     </div>
   );
 }
