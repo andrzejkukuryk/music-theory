@@ -7,6 +7,7 @@ export let range = [...scale, scale[0]];
 export let ingredients = [];
 export let sharps = [];
 export let flats = [];
+
 let allIngredients = [];
 let sharpsCounter = 0;
 let flatsCounter = 0;

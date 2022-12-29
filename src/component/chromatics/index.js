@@ -4,31 +4,37 @@ import sharp from "./graph/sharp.png";
 import flat from "./graph/flat.png";
 import classNames from "classnames";
 
+
 export function Chromatics({
   pitch,
   row,
   unavailablePosition,
+  setUnavailablePosition,
   addUnavailablePosition,
 }) {
+  let temporaryUnavailablePosition = [...unavailablePosition];
+
   const checkPosition = (row, column) => {
     const newPosition = `${row}${column}`;
-    console.log(newPosition);
-    if (pitch.length === 2) {
+    if (pitch.length < 3) {
       return false;
-    } else if (pitch.length === 3) {
-      if (unavailablePosition.some((pos) => pos === newPosition)) {
-        return false;
+    } else {
+      if (pitch.length === 3) {
+        if (pitch[1] === "#") {
+          if (!unavailablePosition.includes(newPosition)) {
+            // let temporaryUnavailablePosition = [...unavailablePosition];
+
+            temporaryUnavailablePosition.push("11");
+            temporaryUnavailablePosition.push("12");
+            // setUnavailablePosition(temporaryUnavailablePosition);
+            return true;
+          }
+        }
       }
-      console.log("hop");
-      for (let i = column + 1; i < 4; i++) {
-        addUnavailablePosition(row, i);
-      }
-      // addUnavailablePosition(row, column);
-      console.log(unavailablePosition);
-      return true;
     }
   };
 
+  // useEffect(() => setUnavailablePosition(temporaryUnavailablePosition), []);
   const classPositionDiv = classNames({
     [styles.positionDiv]: true,
     [styles.c1]: pitch[0] === "c" && pitch[pitch.length - 1] === "1",
@@ -71,9 +77,6 @@ export function Chromatics({
     [styles.sharpEnabled]: checkPosition(row, 3),
     // [styles.sharpDisabled]: pitch.length === 2,
   });
-  useEffect(() => {
-    // addUnavailablePosition(1, 0);
-  }, []);
 
   return (
     <div className={styles.container}>

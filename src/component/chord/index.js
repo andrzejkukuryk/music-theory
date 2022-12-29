@@ -24,13 +24,77 @@ export function Chord({ note, chordType, chordAdditional }) {
     [note, chordType, chordAdditional]
   );
 
-  useEffect(
-    () => setChordIngredients([...ingredients]),
-    [note, chordType, chordAdditional]
-  );
-  const addUnavailablePosition = (row, column) => {
-    const newPosition = `${row}${column}`;
-    setUnavailablePosition([...unavailablePosition, newPosition]);
+  useEffect(() => {
+    setChordIngredients([...ingredients]);
+    setPositions();
+  }, [note, chordType, chordAdditional]);
+  useEffect(() => setPositions(), []);
+
+  const setPositions = () => {
+    const ingredientsForChord = [...ingredients].reverse();
+    const ingredientsWithChromatics = ingredientsForChord.filter(
+      (ingredient) => ingredient.length > 2
+    );
+    const temporaryUP = [];
+    const addUnavailablePositions = (rowNumber, columnNumber) => {
+      temporaryUP.push(`${rowNumber}${columnNumber + 1}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 2}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 3}`);
+      temporaryUP.push(`${rowNumber + 1}${columnNumber}`);
+      temporaryUP.push(`${rowNumber + 2}${columnNumber}`);
+    };
+
+    const firstChromaticRow = ingredientsForChord.indexOf(
+      ingredientsWithChromatics[0]
+    );
+    const secondChromaticRow = ingredientsForChord.indexOf(
+      ingredientsWithChromatics[1]
+    );
+    const thirdChromaticRow = ingredientsForChord.indexOf(
+      ingredientsWithChromatics[2]
+    );
+
+    // trzy sąsiadujące składniki mają znaki chromatyczne
+    if (
+      ingredientsWithChromatics.length === 3 &&
+      ingredientsForChord.indexOf(ingredientsWithChromatics[0]) + 2 ===
+        ingredientsForChord.indexOf(ingredientsWithChromatics[2])
+    ) {
+      const firstChromaticRow = ingredientsForChord.indexOf(
+        ingredientsWithChromatics[0]
+      );
+      setUnavailablePosition([
+        `${firstChromaticRow}1`,
+        `${firstChromaticRow}2`,
+        `${firstChromaticRow}3`,
+        `${firstChromaticRow + 1}0`,
+        `${firstChromaticRow + 1}1`,
+        `${firstChromaticRow + 1}3`,
+        `${firstChromaticRow + 2}0`,
+        `${firstChromaticRow + 2}2`,
+        `${firstChromaticRow + 2}3`,
+      ]);
+      return;
+    }
+
+    if (ingredientsWithChromatics.length === 1) {
+      addUnavailablePositions(firstChromaticRow, 0);
+      setUnavailablePosition(temporaryUP);
+    }
+
+    if (ingredientsWithChromatics.length === 2) {
+      addUnavailablePositions(firstChromaticRow, 0);
+      if (secondChromaticRow - firstChromaticRow < 3) {
+        addUnavailablePositions(secondChromaticRow, 1);
+      } else {
+        addUnavailablePositions(secondChromaticRow, 0);
+      }
+      setUnavailablePosition(temporaryUP);
+    }
+
+    if (ingredientsWithChromatics.length === 3) {
+      //TODO: trzy krzyżyki w akordzie
+    }
   };
 
   const writeNote = (noteToWrite, step) => {
@@ -98,14 +162,14 @@ export function Chord({ note, chordType, chordAdditional }) {
 
   const writeChromatics = (pitch, index) => {
     const chromaticsKey = `key${index}`;
-    const row = ingredients.length - (1 + index);
     return (
       <Chromatics
         key={chromaticsKey}
         pitch={pitch}
         row={index}
         unavailablePosition={unavailablePosition}
-        addUnavailablePosition={addUnavailablePosition}
+        setUnavailablePosition={setUnavailablePosition}
+        // addUnavailablePosition={addUnavailablePosition}
       />
     );
   };
@@ -149,10 +213,6 @@ export function Chord({ note, chordType, chordAdditional }) {
     [styles.lineDisabled]: c3Present(),
   });
 
-  // if (note !== "X") {
-  //   circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional);
-  // }
-
   return (
     <div className={styles.container}>
       <img className={styles.clef} src={clef} alt="treble clef"></img>
@@ -168,7 +228,7 @@ export function Chord({ note, chordType, chordAdditional }) {
         alt="added second upper line"
       />
       {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))}
-      {/* {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))} */}
+      {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))}
       {/* <ChordCaption note={note} /> */}
     </div>
   );
