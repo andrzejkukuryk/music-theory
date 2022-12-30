@@ -53,6 +53,12 @@ export function Chord({ note, chordType, chordAdditional }) {
     const thirdChromaticRow = ingredientsForChord.indexOf(
       ingredientsWithChromatics[2]
     );
+    const fourthChromaticRow = ingredientsForChord.indexOf(
+      ingredientsWithChromatics[3]
+    );
+    const fifthChromaticRow = ingredientsForChord.indexOf(
+      ingredientsWithChromatics[4]
+    );
 
     // trzy sąsiadujące składniki mają znaki chromatyczne
     if (
@@ -121,7 +127,50 @@ export function Chord({ note, chordType, chordAdditional }) {
       }
     }
 
-    //TODO: cztery krzyzyki:
+    if (ingredientsWithChromatics.length === 4) {
+      if (ingredientsForChord.length === 4) {
+        addUnavailablePositions(firstChromaticRow, 0);
+        addUnavailablePositions(secondChromaticRow, 1);
+        addUnavailablePositions(thirdChromaticRow, 2);
+        addUnavailablePositions(fourthChromaticRow, 0);
+        setUnavailablePosition(temporaryUP);
+      }
+      if (ingredientsForChord.length === 5) {
+        addUnavailablePositions(firstChromaticRow, 0);
+        if (firstChromaticRow === 0) {
+          if (secondChromaticRow === 1) {
+            addUnavailablePositions(secondChromaticRow, 1);
+            if (thirdChromaticRow === 2) {
+              addUnavailablePositions(thirdChromaticRow, 2);
+              addUnavailablePositions(fourthChromaticRow, 0);
+            }
+            if (thirdChromaticRow === 3) {
+              addUnavailablePositions(thirdChromaticRow, 0);
+              addUnavailablePositions(fourthChromaticRow, 1);
+            }
+          }
+          if (secondChromaticRow === 2) {
+            addUnavailablePositions(secondChromaticRow, 1);
+            addUnavailablePositions(thirdChromaticRow, 0);
+            addUnavailablePositions(fourthChromaticRow, 2);
+          }
+        }
+        if (firstChromaticRow === 1) {
+          addUnavailablePositions(secondChromaticRow, 1);
+          addUnavailablePositions(thirdChromaticRow, 2);
+          addUnavailablePositions(fourthChromaticRow, 0);
+        }
+        setUnavailablePosition(temporaryUP);
+      }
+    }
+    if (ingredientsWithChromatics.length === 5) {
+      addUnavailablePositions(firstChromaticRow, 0);
+      addUnavailablePositions(secondChromaticRow, 1);
+      addUnavailablePositions(thirdChromaticRow, 2);
+      addUnavailablePositions(fourthChromaticRow, 0);
+      addUnavailablePositions(fifthChromaticRow, 1);
+      setUnavailablePosition(temporaryUP);
+    }
   };
 
   const writeNote = (noteToWrite, step) => {
