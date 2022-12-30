@@ -32,16 +32,29 @@
     display: inline-block;
     opacity: 0;
     height: 58px;
+    width: 23px;
     position: relative; 
     top: 16px;
+    right: 20px;
     margin: 0 1px;
 }
 
-.sharpDisabled {
-    opacity: 0;
+.sharpEnabled {
+    opacity: 1;
 }
 
-.sharpEnabled {
+.flatOnStaff {
+    display: inline-block;
+    opacity: 0;
+    height: 58px;
+    width: 23px;
+    position: relative; 
+    top: 1px;
+    right: 20px;
+    margin: 0 1px;
+}
+
+.flatEnabled {
     opacity: 1;
 }
 

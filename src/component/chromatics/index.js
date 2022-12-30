@@ -5,36 +5,32 @@ import flat from "./graph/flat.png";
 import classNames from "classnames";
 
 
-export function Chromatics({
-  pitch,
-  row,
-  unavailablePosition,
-  setUnavailablePosition,
-  addUnavailablePosition,
-}) {
-  let temporaryUnavailablePosition = [...unavailablePosition];
-
-  const checkPosition = (row, column) => {
+export function Chromatics({ pitch, row, unavailablePosition, signsForChromatics }) {
+  const checkPosition = (row, column, sign) => {
     const newPosition = `${row}${column}`;
-    if (pitch.length < 3) {
-      return false;
-    } else {
-      if (pitch.length === 3) {
-        if (pitch[1] === "#") {
-          if (!unavailablePosition.includes(newPosition)) {
-            // let temporaryUnavailablePosition = [...unavailablePosition];
 
-            temporaryUnavailablePosition.push("11");
-            temporaryUnavailablePosition.push("12");
-            // setUnavailablePosition(temporaryUnavailablePosition);
-            return true;
-          }
-        }
+    // if (pitch.length > 2) {
+    //   if (sign === "#") {
+    //     if (!unavailablePosition.includes(newPosition)) {
+    //       return true;
+    //     }
+    //   } else if (sign === "b") {
+    //     console.log("hop", pitch);
+    //     if (!unavailablePosition.includes(newPosition)) {
+    //       return true;
+    //     }
+    //   }
+    // } else {
+    //   return false;
+    // }
+    if (pitch.length > 2) {
+      if (!unavailablePosition.includes(newPosition)) {
+        return true;
       }
     }
+    return false;
   };
 
-  // useEffect(() => setUnavailablePosition(temporaryUnavailablePosition), []);
   const classPositionDiv = classNames({
     [styles.positionDiv]: true,
     [styles.c1]: pitch[0] === "c" && pitch[pitch.length - 1] === "1",
@@ -56,65 +52,121 @@ export function Chromatics({
 
   const classSharp0 = classNames({
     [styles.sharpOnStaff]: true,
-    [styles.sharpEnabled]: checkPosition(row, 0),
-    // [styles.sharpDisabled]: pitch.length === 2,
+    [styles.sharpEnabled]: checkPosition(row, 0, "#"),
+    // [styles.sharpEnabled]: false,
   });
 
   const classSharp1 = classNames({
     [styles.sharpOnStaff]: true,
-    [styles.sharpEnabled]: checkPosition(row, 1),
-    // [styles.sharpDisabled]: pitch.length === 2,
+    [styles.sharpEnabled]: checkPosition(row, 1, "#"),
   });
 
   const classSharp2 = classNames({
     [styles.sharpOnStaff]: true,
-    [styles.sharpEnabled]: checkPosition(row, 2),
-    // [styles.sharpDisabled]: pitch.length === 2,
+    [styles.sharpEnabled]: checkPosition(row, 2, "#"),
   });
 
   const classSharp3 = classNames({
     [styles.sharpOnStaff]: true,
-    [styles.sharpEnabled]: checkPosition(row, 3),
-    // [styles.sharpDisabled]: pitch.length === 2,
+    [styles.sharpEnabled]: checkPosition(row, 3, "#"),
+  });
+
+  const classFlat0 = classNames({
+    [styles.flatOnStaff]: true,
+    [styles.flatEnabled]: checkPosition(row, 0, "b"),
+  });
+
+  const classFlat1 = classNames({
+    [styles.flatOnStaff]: true,
+    [styles.flatEnabled]: checkPosition(row, 1, "b"),
+  });
+
+  const classFlat2 = classNames({
+    [styles.flatOnStaff]: true,
+    [styles.flatEnabled]: checkPosition(row, 2, "b"),
+  });
+
+  const classFlat3 = classNames({
+    [styles.flatOnStaff]: true,
+    [styles.flatEnabled]: checkPosition(row, 3, "b"),
   });
 
   return (
     <div className={styles.container}>
-      <div className={classPositionDiv}>
-        <img
-          className={classSharp3}
-          row={row}
-          column={3}
-          src={sharp}
-          alt="sharp"
-          name="sharp"
-        ></img>
-        <img
-          className={classSharp2}
-          row={row}
-          column={2}
-          src={sharp}
-          alt="sharp"
-          name="sharp"
-        ></img>
-        <img
-          className={classSharp1}
-          row={row}
-          column={1}
-          src={sharp}
-          alt="sharp"
-          name="sharp"
-        ></img>
-        <img
-          className={classSharp0}
-          row={row}
-          column={0}
-          src={sharp}
-          alt="sharp"
-          name="sharp"
-          pitch={pitch}
-        ></img>
-      </div>
+      {signsForChromatics[row] === "#" && (
+        <div className={classPositionDiv}>
+          <img
+            className={classSharp3}
+            row={row}
+            column={3}
+            src={sharp}
+            alt="sharp"
+            name="sharp"
+          ></img>
+          <img
+            className={classSharp2}
+            row={row}
+            column={2}
+            src={sharp}
+            alt="sharp"
+            name="sharp"
+          ></img>
+          <img
+            className={classSharp1}
+            row={row}
+            column={1}
+            src={sharp}
+            alt="sharp"
+            name="sharp"
+          ></img>
+          <img
+            className={classSharp0}
+            row={row}
+            column={0}
+            src={sharp}
+            alt="sharp"
+            name="sharp"
+            pitch={pitch}
+          ></img>
+        </div>
+      )}
+      {signsForChromatics[row] === "b" && (
+        <div className={classPositionDiv}>
+          <img
+            className={classFlat3}
+            row={row}
+            column={3}
+            src={flat}
+            alt="flat"
+            name="flat"
+          ></img>
+          <img
+            className={classFlat2}
+            row={row}
+            column={2}
+            src={flat}
+            alt="flat"
+            name="flat"
+          ></img>
+          <img
+            className={classFlat1}
+            row={row}
+            column={1}
+            src={flat}
+            alt="flat"
+            name="flat"
+          ></img>
+          <img
+            className={classFlat0}
+            row={row}
+            column={0}
+            src={flat}
+            alt="flat"
+            name="flat"
+            pitch={pitch}
+          ></img>
+        </div>
+      )}
     </div>
   );
 }

@@ -17,6 +17,7 @@ import { ChordCaption } from "../chordCaption";
 export function Chord({ note, chordType, chordAdditional }) {
   const [unavailablePosition, setUnavailablePosition] = useState([]); // [xy, xy... (x-row, y-column) ]
   const [chordIngredients, setChordIngredients] = useState(["c1", "e1", "g1"]);
+  const [signsForChromatics, setSignsForChromatics] = useState(["#", "b", " "]);
   const ingredientsReversesed = [...chordIngredients].reverse();
 
   useEffect(
@@ -27,8 +28,12 @@ export function Chord({ note, chordType, chordAdditional }) {
   useEffect(() => {
     setChordIngredients([...ingredients]);
     setPositions();
+    createSingsForChromatics();
   }, [note, chordType, chordAdditional]);
-  useEffect(() => setPositions(), []);
+  useEffect(() => {
+    setPositions();
+    createSingsForChromatics();
+  }, []);
 
   const setPositions = () => {
     const ingredientsForChord = [...ingredients].reverse();
@@ -173,6 +178,20 @@ export function Chord({ note, chordType, chordAdditional }) {
     }
   };
 
+  const createSingsForChromatics = () => {
+    const ingredientsForChord = [...ingredients].reverse();
+    const temporarySFC = [];
+    ingredientsForChord.map((ingredient) => {
+      if (ingredient.length === 2) {
+        temporarySFC.push(" ");
+      }
+      if (ingredient.length > 2) {
+        temporarySFC.push(ingredient[1]);
+      }
+    });
+    setSignsForChromatics(temporarySFC);
+  };
+
   const writeNote = (noteToWrite, step) => {
     const classPitchDiv = classNames({
       [styles.pitchDiv]: true,
@@ -245,7 +264,7 @@ export function Chord({ note, chordType, chordAdditional }) {
         row={index}
         unavailablePosition={unavailablePosition}
         setUnavailablePosition={setUnavailablePosition}
-        // addUnavailablePosition={addUnavailablePosition}
+        signsForChromatics={signsForChromatics}
       />
     );
   };
