@@ -17,7 +17,7 @@ import { ChordCaption } from "../chordCaption";
 export function Chord({ note, chordType, chordAdditional }) {
   const [unavailablePosition, setUnavailablePosition] = useState([]); // [xy, xy... (x-row, y-column) ]
   const [chordIngredients, setChordIngredients] = useState(["c1", "e1", "g1"]);
-  const [signsForChromatics, setSignsForChromatics] = useState(["#", "b", " "]);
+  const [signsForChromatics, setSignsForChromatics] = useState([]);
   const ingredientsReversesed = [...chordIngredients].reverse();
 
   useEffect(
@@ -64,6 +64,16 @@ export function Chord({ note, chordType, chordAdditional }) {
     const fifthChromaticRow = ingredientsForChord.indexOf(
       ingredientsWithChromatics[4]
     );
+
+    // const firstPotencialTwoSigns =
+    //   note !== "X" ? ingredientsWithChromatics[0].length - 3 : 0;
+    // const secondPotencialTwoSigns =
+    //   note !== "X" ? ingredientsWithChromatics[1].length - 3 : 0;
+    // const thirdPotencialTwoSigns =
+    //   note !== "X" ? ingredientsWithChromatics[2].length - 3 : 0;
+    // const fourthPotencialTwoSigns =
+    //   note !== "X" ? ingredientsWithChromatics[3].length - 3 : 0;
+    // console.log(fourthPotencialTwoSigns);
 
     // trzy sąsiadujące składniki mają znaki chromatyczne
     if (
@@ -259,6 +269,7 @@ export function Chord({ note, chordType, chordAdditional }) {
     const chromaticsKey = `key${index}`;
     return (
       <Chromatics
+        note={note}
         key={chromaticsKey}
         pitch={pitch}
         row={index}
@@ -311,20 +322,31 @@ export function Chord({ note, chordType, chordAdditional }) {
   return (
     <div className={styles.container}>
       <img className={styles.clef} src={clef} alt="treble clef"></img>
-      <img className={classLowerLine} src={line} alt="added lower line" />
-      <img
-        className={classUpper1stLine}
-        src={line}
-        alt="added first upper line"
-      />
-      <img
-        className={classUpper2ndLine}
-        src={line}
-        alt="added second upper line"
-      />
+      {note !== "X" && (
+        <img className={classLowerLine} src={line} alt="added lower line" />
+      )}
+      {note !== "X" && (
+        <img
+          className={classUpper1stLine}
+          src={line}
+          alt="added first upper line"
+        />
+      )}
+      {note !== "X" && (
+        <img
+          className={classUpper2ndLine}
+          src={line}
+          alt="added second upper line"
+        />
+      )}
       {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))}
       {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))}
-      <ChordCaption chordIngredients={chordIngredients} />
+      <ChordCaption
+        note={note}
+        chordType={chordType}
+        chordAdditional={chordAdditional}
+        chordIngredients={chordIngredients}
+      />
     </div>
   );
 }
