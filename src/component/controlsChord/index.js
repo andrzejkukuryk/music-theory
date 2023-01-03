@@ -1,12 +1,4 @@
-import {
-  Box,
-  FormControl,
-  FormLabel,
-  InputLabel,
-  MenuItem,
-  Select,
-  Typography,
-} from "@mui/material";
+import { Box, FormControl, MenuItem, Select, Typography } from "@mui/material";
 import React from "react";
 import {
   TYPE_7TH,
@@ -38,7 +30,6 @@ export function ControlsChord({
     <Box
       sx={{
         display: "flex",
-        // paddingTop: "26px",
         paddingLeft: "30px",
         width: 573,
         height: 90,

@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./style.module.css";
 import sharp from "./graph/sharp.png";
 import flat from "./graph/flat.png";
 import classNames from "classnames";
-
 
 export function Chromatics({
   note,
   pitch,
   row,
   unavailablePosition,
+  doubleSigns,
   signsForChromatics,
 }) {
   const checkPosition = (row, column) => {
@@ -57,11 +57,6 @@ export function Chromatics({
     [styles.sharpEnabled]: checkPosition(row, 2),
   });
 
-  const classSharp3 = classNames({
-    [styles.sharpOnStaff]: true,
-    [styles.sharpEnabled]: checkPosition(row, 3),
-  });
-
   const classFlat0 = classNames({
     [styles.flatOnStaff]: true,
     [styles.flatEnabled]: checkPosition(row, 0),
@@ -77,25 +72,12 @@ export function Chromatics({
     [styles.flatEnabled]: checkPosition(row, 2),
   });
 
-  const classFlat3 = classNames({
-    [styles.flatOnStaff]: true,
-    [styles.flatEnabled]: checkPosition(row, 3),
-  });
-
   return (
     <div className={styles.container}>
       {note !== "X" && (
         <div>
           {signsForChromatics[row] === "#" && (
             <div className={classPositionDiv}>
-              <img
-                className={classSharp3}
-                row={row}
-                column={3}
-                src={sharp}
-                alt="sharp"
-                name="sharp"
-              ></img>
               <img
                 className={classSharp2}
                 row={row}
@@ -125,14 +107,6 @@ export function Chromatics({
           )}
           {signsForChromatics[row] === "b" && (
             <div className={classPositionDiv}>
-              <img
-                className={classFlat3}
-                row={row}
-                column={3}
-                src={flat}
-                alt="flat"
-                name="flat"
-              ></img>
               <img
                 className={classFlat2}
                 row={row}

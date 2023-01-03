@@ -126,18 +126,18 @@
     width: 46px;
     position: relative;
     top: -14px;
-    left: -36px;
-        margin-right: -18px;
-    }
+    left: -38px;
+    margin-right: -18px;
+}
     
-    .upperLine {
-        display: inline-block;
-        height: 4px;
-        width: 46px;
-        position: relative;
-        top: -156px;
-        left: -36px;
-        margin-right: -18px;
+.upperLine {
+    display: inline-block;
+    height: 4px;
+    width: 46px;
+    position: relative;
+    top: -156px;
+    left: -38px;
+    margin-right: -18px;
 }
 
 .lineDisabled {
@@ -198,14 +198,4 @@
 
 .b2 {
     top: var(--b2);
-}
-
-.scaleCaption {
-    display: block;
-    font-size: 3em;
-    text-align: center;
-}
-
-.scaleCaptionDisabled {
-    display: none;
 }

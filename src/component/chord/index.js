@@ -44,7 +44,6 @@ export function Chord({ note, chordType, chordAdditional }) {
     const addUnavailablePositions = (rowNumber, columnNumber) => {
       temporaryUP.push(`${rowNumber}${columnNumber + 1}`);
       temporaryUP.push(`${rowNumber}${columnNumber + 2}`);
-      temporaryUP.push(`${rowNumber}${columnNumber + 3}`);
       temporaryUP.push(`${rowNumber + 1}${columnNumber}`);
       temporaryUP.push(`${rowNumber + 2}${columnNumber}`);
     };
@@ -65,16 +64,6 @@ export function Chord({ note, chordType, chordAdditional }) {
       ingredientsWithChromatics[4]
     );
 
-    // const firstPotencialTwoSigns =
-    //   note !== "X" ? ingredientsWithChromatics[0].length - 3 : 0;
-    // const secondPotencialTwoSigns =
-    //   note !== "X" ? ingredientsWithChromatics[1].length - 3 : 0;
-    // const thirdPotencialTwoSigns =
-    //   note !== "X" ? ingredientsWithChromatics[2].length - 3 : 0;
-    // const fourthPotencialTwoSigns =
-    //   note !== "X" ? ingredientsWithChromatics[3].length - 3 : 0;
-    // console.log(fourthPotencialTwoSigns);
-
     // trzy sąsiadujące składniki mają znaki chromatyczne
     if (
       ingredientsWithChromatics.length === 3 &&
@@ -87,13 +76,10 @@ export function Chord({ note, chordType, chordAdditional }) {
       setUnavailablePosition([
         `${firstChromaticRow}1`,
         `${firstChromaticRow}2`,
-        `${firstChromaticRow}3`,
         `${firstChromaticRow + 1}0`,
         `${firstChromaticRow + 1}1`,
-        `${firstChromaticRow + 1}3`,
         `${firstChromaticRow + 2}0`,
         `${firstChromaticRow + 2}2`,
-        `${firstChromaticRow + 2}3`,
       ]);
       return;
     }
@@ -274,7 +260,6 @@ export function Chord({ note, chordType, chordAdditional }) {
         pitch={pitch}
         row={index}
         unavailablePosition={unavailablePosition}
-        setUnavailablePosition={setUnavailablePosition}
         signsForChromatics={signsForChromatics}
       />
     );

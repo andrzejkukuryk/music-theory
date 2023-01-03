@@ -35,12 +35,22 @@
     width: 23px;
     position: relative; 
     top: 16px;
-    right: 20px;
+    /* right: 20px; */
     margin: 0 1px;
 }
 
 .sharpEnabled {
     opacity: 1;
+}
+
+.doubleSpace {
+    margin-left: 23px;
+    /* right: 20px; */
+    border: 1px solid red;
+}
+
+.fakeNextRow {
+    right: 66px;
 }
 
 .flatOnStaff {
@@ -50,7 +60,7 @@
     width: 23px;
     position: relative; 
     top: 1px;
-    right: 20px;
+    /* right: 20px; */
     margin: 0 1px;
 }
 

@@ -146,18 +146,9 @@
     width: 46px;
     position: relative;
     top: -14px;
-    left: -11px;
+    left: -14px;
 }
 
 .lineDisabled {
-    display: none;
-}
-.noteCaption {
-    display: block;
-    font-size: 3em;
-    text-align: center;
-}
-
-.noteCaptionDisabled {
     display: none;
 }
