@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/music-theory/static/css/main.c96a580e.css",
+    "main.js": "/music-theory/static/js/main.3326ad1c.js",
+    "static/js/787.610a48b3.chunk.js": "/music-theory/static/js/787.610a48b3.chunk.js",
+    "static/media/a.mp3": "/music-theory/static/media/a.09a593319c883aedad66.mp3",
+    "static/media/gb.mp3": "/music-theory/static/media/gb.d730ae9cfa0a8771835e.mp3",
+    "static/media/ab.mp3": "/music-theory/static/media/ab.c84f13f5cde7dc2433cd.mp3",
+    "static/media/c.mp3": "/music-theory/static/media/c.7dd329c57d68dcbc12aa.mp3",
+    "static/media/db.mp3": "/music-theory/static/media/db.e08dd3ce450d38ea5035.mp3",
+    "static/media/f.mp3": "/music-theory/static/media/f.382bcba8b98a785b50bd.mp3",
+    "static/media/g.mp3": "/music-theory/static/media/g.925087a89df653edd923.mp3",
+    "static/media/b.mp3": "/music-theory/static/media/b.9679b825bb92a8e2624a.mp3",
+    "static/media/bb.mp3": "/music-theory/static/media/bb.6f415bef75bde29dd01d.mp3",
+    "static/media/d.mp3": "/music-theory/static/media/d.1074188bcf527226cdcc.mp3",
+    "static/media/e.mp3": "/music-theory/static/media/e.46c8671788afd5add2d6.mp3",
+    "static/media/eb.mp3": "/music-theory/static/media/eb.46bab03f1f9713cb4e78.mp3",
+    "static/media/clef.png": "/music-theory/static/media/clef.05c55e11241b0ee540fb.png",
+    "static/media/line.png": "/music-theory/static/media/line.1770742c3e413ab0c356.png",
+    "index.html": "/music-theory/index.html",
+    "main.c96a580e.css.map": "/music-theory/static/css/main.c96a580e.css.map",
+    "main.3326ad1c.js.map": "/music-theory/static/js/main.3326ad1c.js.map",
+    "787.610a48b3.chunk.js.map": "/music-theory/static/js/787.610a48b3.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c96a580e.css",
+    "static/js/main.3326ad1c.js"
+  ]
+}
