@@ -78,6 +78,7 @@
 .flatOnStaff {
     display: inline-block;
     height: 60px;
+    width: 23px;
     position: relative;
 }
 

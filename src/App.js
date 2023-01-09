@@ -6,6 +6,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import { theme } from "./data/theme";
 import { TYPE_SHARPED, TYPE_MAJOR } from "./theory";
 
+
 function App() {
   const [note, setNote] = useState("X");
   const [modus, setModus] = useState(TYPE_MAJOR);

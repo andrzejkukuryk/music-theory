@@ -1,23 +1,104 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
-import { circleOfFifths, flats, range, sharps } from "../../theory";
+import { TYPE_MAJOR, TYPE_MINOR } from "../../theory";
 import styles from "./styles.module.css";
 import clef from "./graph/clef.png";
 import wholeNote from "./graph/wholeNote.png";
 import sharp from "./graph/sharp.png";
 import flat from "./graph/flat.png";
 import line from "./graph/line.png";
-import { TYPE_SCALE } from "../../theory";
 import { ScaleCaption } from "../scaleCaption";
+import { createMajorScale } from "../../data/majorScale";
+import { createMinorScale } from "../../data/minorScale";
+import { createSharps } from "../../data/sharps";
+import { createFlats } from "../../data/flats";
 
 export function Scale({ note, modus }) {
-  const diatonicNotes = [];
-  range.map((noteToNeutral) => diatonicNotes.push(noteToNeutral[0]));
+  const [correctNote, setCorrectNote] = useState("");
+  const [range, setRange] = useState([]);
+  const [sharps, setSharps] = useState([]);
+  const [flats, setFlats] = useState([]);
+  const [indexOfBNote, setIndexOfBNote] = useState(0);
 
-  const indexOfB = diatonicNotes.indexOf("B");
+  const getCorrectNote = () => {
+    let newCorrectNote = "";
+    switch (note) {
+      case "C#":
+      case "Db":
+        newCorrectNote = modus === TYPE_MAJOR ? "Db" : "C#";
+        break;
+      case "D#":
+      case "Eb":
+        newCorrectNote = "Eb";
+        break;
+      case "F#":
+      case "Gb":
+        newCorrectNote = modus === TYPE_MAJOR ? "Gb" : "F#";
+        break;
+      case "G#":
+      case "Ab":
+        newCorrectNote = modus === TYPE_MAJOR ? "Ab" : "G#";
+        break;
+      case "A#":
+      case "Bb":
+        newCorrectNote = "Bb";
+        break;
+      default:
+        newCorrectNote = note;
+    }
+    setCorrectNote(newCorrectNote);
+  };
+
+  useEffect(() => getCorrectNote(), [note, modus]);
+
+  const getRange = () => {
+    if (modus === TYPE_MAJOR) {
+      setRange(createMajorScale(correctNote));
+    }
+    if (modus === TYPE_MINOR) {
+      setRange(createMinorScale(correctNote));
+    }
+  };
+
+  useEffect(() => getRange(), [correctNote, modus]);
+
+  const getSigns = () => {
+    const sevenSteps = range.slice(0, 7);
+    const notesWithSigns = sevenSteps.filter((item) => item.length > 1);
+    const numberOfSigns = notesWithSigns.length;
+    if (numberOfSigns > 0) {
+      if (notesWithSigns[0][1] === "#") {
+        setSharps(createSharps(numberOfSigns));
+        setFlats([]);
+      } else if (notesWithSigns[0][1] === "b") {
+        setFlats(createFlats(numberOfSigns));
+        setSharps([]);
+      }
+    } else if (numberOfSigns === 0) {
+      setSharps([]);
+      setFlats([]);
+    }
+  };
+
+  useEffect(() => getSigns(), [range]);
+
+  const getIndexOfBNote = () => {
+    const sevenSteps = range.slice(0, 7);
+    const diatonicNotes = sevenSteps.map((noteToNeutral) => noteToNeutral[0]);
+    const newIndexOfBNote = diatonicNotes.indexOf("B");
+    setIndexOfBNote(newIndexOfBNote);
+  };
+
+  useEffect(() => getIndexOfBNote(), [range]);
+  // console.log(indexOfBNote);
+
+  // const diatonicNotes = [];
+  // range.map((noteToNeutral) => diatonicNotes.push(noteToNeutral[0]));
+
+  // const indexOfB = diatonicNotes.indexOf("B");
 
   const writeNote = (noteToWrite, index) => {
-    const octave = index <= indexOfB ? 1 : 2;
+    const octave = index <= indexOfBNote ? 1 : 2;
     const lineNeeded = `noteOnStaff ${noteToWrite[0].toLowerCase()}${octave}`;
     const createClass = classNames({
       [styles.noteOnStaff]: true,
@@ -105,10 +186,6 @@ export function Scale({ note, modus }) {
       <img className={flatClass} key={flatKey} src={flat} alt={flatToWrite} />
     );
   };
-
-  if (note !== "X") {
-    circleOfFifths(note, modus, TYPE_SCALE);
-  }
 
   return (
     <div className={styles.container}>
