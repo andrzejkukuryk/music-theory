@@ -13,18 +13,16 @@ import {
   TYPE_SUSPENDEDTWO,
 } from "../../theory";
 
-export function ChordCaption({
-  note,
-  chordType,
-  chordAdditional,
-  chordIngredients,
-}) {
-  const ingredients = chordIngredients.map(
+export function ChordCaption({ note, chordType, chordAdditional, ingredients }) {
+  const ingredientsWithoutOctaves = ingredients.map(
     (ingredient) =>
-      `${ingredient[0].toUpperCase()}${
+      `${ingredient[0]}${
         ingredient[1] === "#" || ingredient[1] === "b" ? ingredient[1] : ""
       }${ingredient[2] === "#" || ingredient[2] === "b" ? ingredient[2] : ""}`
   );
+
+  ingredientsWithoutOctaves.reverse();
+
   const modeToDisplay = () => {
     switch (chordType) {
       case TYPE_MAJOR:
@@ -92,7 +90,8 @@ export function ChordCaption({
           </Typography>
           <Typography sx={{ marginTop: "4px" }}>
             {note}
-            {displayChordName()} chord is: {ingredients.join(", ")}
+            {displayChordName()} chord is:{" "}
+            {ingredientsWithoutOctaves.join(", ")}
           </Typography>
         </Box>
       )}

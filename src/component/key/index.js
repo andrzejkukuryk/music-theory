@@ -64,6 +64,8 @@ export function Key({ type, tone, index, pressedKey, keyboardMuted }) {
         onMouseUp={handleMouseUp}
         onMouseOut={handleMouseUp}
         onClick={handleClickButton}
+        onTouchStart={handleMouseDown}
+        onTouchEnd={handleMouseUp}
       ></button>
     );
   }
@@ -75,6 +77,8 @@ export function Key({ type, tone, index, pressedKey, keyboardMuted }) {
       onMouseUp={handleMouseUp}
       onMouseOut={handleMouseUp}
       onClick={handleClickButton}
+      onTouchStart={handleMouseDown}
+      onTouchEnd={handleMouseUp}
     ></button>
   );
 }

@@ -90,12 +90,6 @@ export function Scale({ note, modus }) {
   };
 
   useEffect(() => getIndexOfBNote(), [range]);
-  // console.log(indexOfBNote);
-
-  // const diatonicNotes = [];
-  // range.map((noteToNeutral) => diatonicNotes.push(noteToNeutral[0]));
-
-  // const indexOfB = diatonicNotes.indexOf("B");
 
   const writeNote = (noteToWrite, index) => {
     const octave = index <= indexOfBNote ? 1 : 2;

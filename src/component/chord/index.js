@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import {
   circleOfFifths,
-  ingredients,
+  ingredients as ingredientsOld,
+  TYPE_AUGMENTED,
   TYPE_CHORD,
+  TYPE_DIMINISHED,
+  TYPE_MAJOR,
+  TYPE_MINOR,
   TYPE_SUSPENDEDFOUR,
   TYPE_SUSPENDEDTWO,
 } from "../../theory";
@@ -13,31 +17,99 @@ import line from "./graph/line.png";
 import classNames from "classnames";
 import { Chromatics } from "../chromatics";
 import { ChordCaption } from "../chordCaption";
+import { createMajorChord } from "../../data/majorChord";
+import { createAugmentedChord } from "../../data/augmentedChord";
+import { createMinorChord } from "../../data/minorChord";
+import { createDiminishedChord } from "../../data/diminishedChord";
+import { createSus2Chord } from "../../data/suspended2Chord.js";
+import { createSus4Chord } from "../../data/suspended4Chord";
 
 export function Chord({ note, chordType, chordAdditional }) {
+  const [ingredients, setIngredients] = useState([]);
   const [unavailablePosition, setUnavailablePosition] = useState([]); // [xy, xy... (x-row, y-column) ]
   const [chordIngredients, setChordIngredients] = useState(["c1", "e1", "g1"]);
   const [signsForChromatics, setSignsForChromatics] = useState([]);
   const ingredientsReversesed = [...chordIngredients].reverse();
 
-  useEffect(
-    () => circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional),
-    [note, chordType, chordAdditional]
-  );
+  // useEffect(
+  //   () => circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional),
+  //   [note, chordType, chordAdditional]
+  // );
 
   useEffect(() => {
-    setChordIngredients([...ingredients]);
-    setPositions();
+    // createIngredients(note, chordType, chordAdditional);
+    setIngredients(createIngredients(chordType));
+    setChordIngredients([...ingredientsOld]);
+    // setPositions();
     createSingsForChromatics();
   }, [note, chordType, chordAdditional]);
-  useEffect(() => {
-    setPositions();
-    createSingsForChromatics();
-  }, []);
+  // useEffect(() => {
+  //   // setPositions();
+  //   createSingsForChromatics();
+  // }, []);
+
+  const createIngredientsOld = (note, chordType, chordAdditional) => {
+    switch (chordType) {
+      case TYPE_MAJOR:
+        setIngredients(createMajorChord(note, chordAdditional));
+        break;
+      case TYPE_MINOR:
+        setIngredients(createMinorChord(note, chordAdditional));
+        break;
+      case TYPE_DIMINISHED:
+        setIngredients(createDiminishedChord(note, chordAdditional));
+        break;
+      case TYPE_AUGMENTED:
+        setIngredients(createAugmentedChord(note, chordAdditional));
+        break;
+      case TYPE_SUSPENDEDTWO:
+        setIngredients(createSus2Chord(note, chordAdditional));
+        break;
+      case TYPE_SUSPENDEDFOUR:
+        setIngredients(createSus4Chord(note, chordAdditional));
+        break;
+      default:
+        setIngredients(createMajorChord(note, chordAdditional));
+        break;
+    }
+  };
+
+  //////////////////////////////
+
+  const createIngredients = (chordType) => {
+    let choosenChordTtype;
+    switch (chordType) {
+      case TYPE_MAJOR:
+        choosenChordTtype = createMajorChord;
+        break;
+      case TYPE_MINOR:
+        choosenChordTtype = createMinorChord;
+        break;
+      case TYPE_DIMINISHED:
+        choosenChordTtype = createDiminishedChord;
+        break;
+      case TYPE_AUGMENTED:
+        choosenChordTtype = createAugmentedChord;
+        break;
+      case TYPE_SUSPENDEDTWO:
+        choosenChordTtype = createSus2Chord;
+        break;
+      case TYPE_SUSPENDEDFOUR:
+        choosenChordTtype = createSus4Chord;
+        break;
+      default:
+        choosenChordTtype = createMajorChord;
+        break;
+    }
+    return choosenChordTtype(note, chordAdditional);
+  };
+
+  console.log("z nowej funkcji: ", createIngredients(chordType));
+  //////////////////////////////
 
   const setPositions = () => {
-    const ingredientsForChord = [...ingredients].reverse();
-    const ingredientsWithChromatics = ingredientsForChord.filter(
+    // const ingredientsForChord = [...ingredientsOld].reverse();
+    const ingredientsWithChromatics = ingredients.filter(
       (ingredient) => ingredient.length > 2
     );
     const temporaryUP = [];
@@ -48,29 +120,23 @@ export function Chord({ note, chordType, chordAdditional }) {
       temporaryUP.push(`${rowNumber + 2}${columnNumber}`);
     };
 
-    const firstChromaticRow = ingredientsForChord.indexOf(
-      ingredientsWithChromatics[0]
-    );
-    const secondChromaticRow = ingredientsForChord.indexOf(
+    const firstChromaticRow = ingredients.indexOf(ingredientsWithChromatics[0]);
+    const secondChromaticRow = ingredients.indexOf(
       ingredientsWithChromatics[1]
     );
-    const thirdChromaticRow = ingredientsForChord.indexOf(
-      ingredientsWithChromatics[2]
-    );
-    const fourthChromaticRow = ingredientsForChord.indexOf(
+    const thirdChromaticRow = ingredients.indexOf(ingredientsWithChromatics[2]);
+    const fourthChromaticRow = ingredients.indexOf(
       ingredientsWithChromatics[3]
     );
-    const fifthChromaticRow = ingredientsForChord.indexOf(
-      ingredientsWithChromatics[4]
-    );
+    const fifthChromaticRow = ingredients.indexOf(ingredientsWithChromatics[4]);
 
     // trzy sąsiadujące składniki mają znaki chromatyczne
     if (
       ingredientsWithChromatics.length === 3 &&
-      ingredientsForChord.indexOf(ingredientsWithChromatics[0]) + 2 ===
-        ingredientsForChord.indexOf(ingredientsWithChromatics[2])
+      ingredients.indexOf(ingredientsWithChromatics[0]) + 2 ===
+        ingredients.indexOf(ingredientsWithChromatics[2])
     ) {
-      const firstChromaticRow = ingredientsForChord.indexOf(
+      const firstChromaticRow = ingredients.indexOf(
         ingredientsWithChromatics[0]
       );
       setUnavailablePosition([
@@ -100,13 +166,13 @@ export function Chord({ note, chordType, chordAdditional }) {
     }
 
     if (ingredientsWithChromatics.length === 3) {
-      if (ingredientsForChord.length === 4) {
+      if (ingredients.length === 4) {
         addUnavailablePositions(firstChromaticRow, 0);
         addUnavailablePositions(secondChromaticRow, 1);
         addUnavailablePositions(thirdChromaticRow, 0);
         setUnavailablePosition(temporaryUP);
       }
-      if (ingredientsForChord.length === 5) {
+      if (ingredients.length === 5) {
         addUnavailablePositions(firstChromaticRow, 0);
         if (firstChromaticRow === 0) {
           if (secondChromaticRow === 1 || secondChromaticRow === 2) {
@@ -129,14 +195,14 @@ export function Chord({ note, chordType, chordAdditional }) {
     }
 
     if (ingredientsWithChromatics.length === 4) {
-      if (ingredientsForChord.length === 4) {
+      if (ingredients.length === 4) {
         addUnavailablePositions(firstChromaticRow, 0);
         addUnavailablePositions(secondChromaticRow, 1);
         addUnavailablePositions(thirdChromaticRow, 2);
         addUnavailablePositions(fourthChromaticRow, 0);
         setUnavailablePosition(temporaryUP);
       }
-      if (ingredientsForChord.length === 5) {
+      if (ingredients.length === 5) {
         addUnavailablePositions(firstChromaticRow, 0);
         if (firstChromaticRow === 0) {
           if (secondChromaticRow === 1) {
@@ -175,7 +241,7 @@ export function Chord({ note, chordType, chordAdditional }) {
   };
 
   const createSingsForChromatics = () => {
-    const ingredientsForChord = [...ingredients].reverse();
+    const ingredientsForChord = createIngredients(chordType);
     const temporarySFC = [];
     ingredientsForChord.map((ingredient) => {
       if (ingredient.length === 2) {
@@ -188,6 +254,8 @@ export function Chord({ note, chordType, chordAdditional }) {
     setSignsForChromatics(temporarySFC);
   };
 
+  console.log(signsForChromatics);
+
   const writeNote = (noteToWrite, step) => {
     const classPitchDiv = classNames({
       [styles.pitchDiv]: true,
@@ -197,35 +265,35 @@ export function Chord({ note, chordType, chordAdditional }) {
       [styles.setVertical3]: step === 3,
       [styles.setVertical4]: step === 4,
       [styles.c1]:
-        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] === "1",
+        noteToWrite[0] === "C" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.d1]:
-        noteToWrite[0] === "d" && noteToWrite[noteToWrite.length - 1] === "1",
+        noteToWrite[0] === "D" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.e1]:
-        noteToWrite[0] === "e" && noteToWrite[noteToWrite.length - 1] === "1",
+        noteToWrite[0] === "E" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.f1]:
-        noteToWrite[0] === "f" && noteToWrite[noteToWrite.length - 1] === "1",
+        noteToWrite[0] === "F" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.g1]:
-        noteToWrite[0] === "g" && noteToWrite[noteToWrite.length - 1] === "1",
+        noteToWrite[0] === "G" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.a1]:
-        noteToWrite[0] === "a" && noteToWrite[noteToWrite.length - 1] === "1",
+        noteToWrite[0] === "A" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.b1]:
-        noteToWrite[0] === "b" && noteToWrite[noteToWrite.length - 1] === "1",
+        noteToWrite[0] === "B" && noteToWrite[noteToWrite.length - 1] === "1",
       [styles.c2]:
-        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] === "2",
+        noteToWrite[0] === "C" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.d2]:
-        noteToWrite[0] === "d" && noteToWrite[noteToWrite.length - 1] === "2",
+        noteToWrite[0] === "D" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.e2]:
-        noteToWrite[0] === "e" && noteToWrite[noteToWrite.length - 1] === "2",
+        noteToWrite[0] === "E" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.f2]:
-        noteToWrite[0] === "f" && noteToWrite[noteToWrite.length - 1] === "2",
+        noteToWrite[0] === "F" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.g2]:
-        noteToWrite[0] === "g" && noteToWrite[noteToWrite.length - 1] === "2",
+        noteToWrite[0] === "G" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.a2]:
-        noteToWrite[0] === "a" && noteToWrite[noteToWrite.length - 1] === "2",
+        noteToWrite[0] === "A" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.b2]:
-        noteToWrite[0] === "b" && noteToWrite[noteToWrite.length - 1] === "2",
+        noteToWrite[0] === "B" && noteToWrite[noteToWrite.length - 1] === "2",
       [styles.c3]:
-        noteToWrite[0] === "c" && noteToWrite[noteToWrite.length - 1] === "3",
+        noteToWrite[0] === "C" && noteToWrite[noteToWrite.length - 1] === "3",
     });
 
     const pitchDivKey = `pitch${step}`;
@@ -267,25 +335,25 @@ export function Chord({ note, chordType, chordAdditional }) {
 
   const c1Present = () => {
     return !ingredients.some(
-      (ingr) => ingr[0] === "c" && ingr[ingr.length - 1] === "1"
+      (ingr) => ingr[0] === "C" && ingr[ingr.length - 1] === "1"
     );
   };
 
   const a2resent = () => {
     return !ingredients.some(
-      (ingr) => ingr[0] === "a" && ingr[ingr.length - 1] === "2"
+      (ingr) => ingr[0] === "A" && ingr[ingr.length - 1] === "2"
     );
   };
 
   const b2resent = () => {
     return !ingredients.some(
-      (ingr) => ingr[0] === "b" && ingr[ingr.length - 1] === "2"
+      (ingr) => ingr[0] === "B" && ingr[ingr.length - 1] === "2"
     );
   };
 
   const c3Present = () => {
     return !ingredients.some(
-      (ingr) => ingr[0] === "c" && ingr[ingr.length - 1] === "3"
+      (ingr) => ingr[0] === "C" && ingr[ingr.length - 1] === "3"
     );
   };
 
@@ -324,13 +392,15 @@ export function Chord({ note, chordType, chordAdditional }) {
           alt="added second upper line"
         />
       )}
-      {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))}
-      {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))}
+      {ingredients.map((ingr, index) => writeNote(ingr, index))}
+      {ingredients.map((ingr, index) => writeChromatics(ingr, index))}
+      {/* {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))} */}
+      {/* {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))} */}
       <ChordCaption
         note={note}
         chordType={chordType}
         chordAdditional={chordAdditional}
-        chordIngredients={chordIngredients}
+        ingredients={ingredients}
       />
     </div>
   );
