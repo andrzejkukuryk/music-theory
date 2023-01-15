@@ -40,7 +40,7 @@ export function Chord({ note, chordType, chordAdditional }) {
     // createIngredients(note, chordType, chordAdditional);
     setIngredients(createIngredients(chordType));
     setChordIngredients([...ingredientsOld]);
-    // setPositions();
+    setPositions();
     createSingsForChromatics();
   }, [note, chordType, chordAdditional]);
   // useEffect(() => {
@@ -48,31 +48,31 @@ export function Chord({ note, chordType, chordAdditional }) {
   //   createSingsForChromatics();
   // }, []);
 
-  const createIngredientsOld = (note, chordType, chordAdditional) => {
-    switch (chordType) {
-      case TYPE_MAJOR:
-        setIngredients(createMajorChord(note, chordAdditional));
-        break;
-      case TYPE_MINOR:
-        setIngredients(createMinorChord(note, chordAdditional));
-        break;
-      case TYPE_DIMINISHED:
-        setIngredients(createDiminishedChord(note, chordAdditional));
-        break;
-      case TYPE_AUGMENTED:
-        setIngredients(createAugmentedChord(note, chordAdditional));
-        break;
-      case TYPE_SUSPENDEDTWO:
-        setIngredients(createSus2Chord(note, chordAdditional));
-        break;
-      case TYPE_SUSPENDEDFOUR:
-        setIngredients(createSus4Chord(note, chordAdditional));
-        break;
-      default:
-        setIngredients(createMajorChord(note, chordAdditional));
-        break;
-    }
-  };
+  // const createIngredientsOld = (note, chordType, chordAdditional) => {
+  //   switch (chordType) {
+  //     case TYPE_MAJOR:
+  //       setIngredients(createMajorChord(note, chordAdditional));
+  //       break;
+  //     case TYPE_MINOR:
+  //       setIngredients(createMinorChord(note, chordAdditional));
+  //       break;
+  //     case TYPE_DIMINISHED:
+  //       setIngredients(createDiminishedChord(note, chordAdditional));
+  //       break;
+  //     case TYPE_AUGMENTED:
+  //       setIngredients(createAugmentedChord(note, chordAdditional));
+  //       break;
+  //     case TYPE_SUSPENDEDTWO:
+  //       setIngredients(createSus2Chord(note, chordAdditional));
+  //       break;
+  //     case TYPE_SUSPENDEDFOUR:
+  //       setIngredients(createSus4Chord(note, chordAdditional));
+  //       break;
+  //     default:
+  //       setIngredients(createMajorChord(note, chordAdditional));
+  //       break;
+  //   }
+  // };
 
   //////////////////////////////
 
@@ -108,136 +108,235 @@ export function Chord({ note, chordType, chordAdditional }) {
   //////////////////////////////
 
   const setPositions = () => {
-    // const ingredientsForChord = [...ingredientsOld].reverse();
-    const ingredientsWithChromatics = ingredients.filter(
+    const ingredientsForChord = createIngredients(chordType);
+    const ingredientsWithChromatics = ingredientsForChord.filter(
       (ingredient) => ingredient.length > 2
     );
+    const ingredientsWithDoubleChromatics = ingredientsWithChromatics.filter(
+      (ingredient) => ingredient.length === 4
+    );
+
     const temporaryUP = [];
-    const addUnavailablePositions = (rowNumber, columnNumber) => {
+    const addUnavailablePositions1sign1column = (rowNumber, columnNumber) => {
       temporaryUP.push(`${rowNumber}${columnNumber + 1}`);
       temporaryUP.push(`${rowNumber}${columnNumber + 2}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 3}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 4}`);
       temporaryUP.push(`${rowNumber + 1}${columnNumber}`);
       temporaryUP.push(`${rowNumber + 2}${columnNumber}`);
     };
 
-    const firstChromaticRow = ingredients.indexOf(ingredientsWithChromatics[0]);
-    const secondChromaticRow = ingredients.indexOf(
-      ingredientsWithChromatics[1]
+    const addUnavailablePositions1sign2columns = (rowNumber, columnNumber) => {
+      temporaryUP.push(`${rowNumber}${columnNumber + 1}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 2}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 3}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 4}`);
+      temporaryUP.push(`${rowNumber + 1}${columnNumber}`);
+      temporaryUP.push(`${rowNumber + 1}${columnNumber + 1}`);
+      temporaryUP.push(`${rowNumber + 2}${columnNumber}`);
+      temporaryUP.push(`${rowNumber + 2}${columnNumber + 1}`);
+    };
+
+    const addUnavailablePositions2signs2columns = (rowNumber, columnNumber) => {
+      temporaryUP.push(`${rowNumber}${columnNumber + 2}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 3}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 4}`);
+      temporaryUP.push(`${rowNumber + 1}${columnNumber}`);
+      temporaryUP.push(`${rowNumber + 1}${columnNumber + 1}`);
+      temporaryUP.push(`${rowNumber + 2}${columnNumber}`);
+      temporaryUP.push(`${rowNumber + 2}${columnNumber + 1}`);
+    };
+
+    const addUnavailablePositions2signs2columnsFloor = (
+      rowNumber,
+      columnNumber
+    ) => {
+      temporaryUP.push(`${rowNumber}${columnNumber + 2}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 3}`);
+      temporaryUP.push(`${rowNumber}${columnNumber + 4}`);
+      temporaryUP.push(`${rowNumber + 1}${columnNumber}`);
+      temporaryUP.push(`${rowNumber + 1}${columnNumber + 1}`);
+      temporaryUP.push(`${rowNumber + 2}${columnNumber}`);
+      temporaryUP.push(`${rowNumber + 2}${columnNumber + 1}`);
+      temporaryUP.push(`${rowNumber + 3}${columnNumber + 1}`);
+      temporaryUP.push(`${rowNumber + 4}${columnNumber + 1}`);
+    };
+
+    const firstChromaticRow = ingredientsForChord.indexOf(
+      ingredientsWithChromatics[0]
     );
-    const thirdChromaticRow = ingredients.indexOf(ingredientsWithChromatics[2]);
-    const fourthChromaticRow = ingredients.indexOf(
-      ingredientsWithChromatics[3]
-    );
-    const fifthChromaticRow = ingredients.indexOf(ingredientsWithChromatics[4]);
 
     // trzy sąsiadujące składniki mają znaki chromatyczne
     if (
       ingredientsWithChromatics.length === 3 &&
-      ingredients.indexOf(ingredientsWithChromatics[0]) + 2 ===
-        ingredients.indexOf(ingredientsWithChromatics[2])
+      ingredientsForChord.indexOf(ingredientsWithChromatics[0]) + 2 ===
+        ingredientsForChord.indexOf(ingredientsWithChromatics[2])
     ) {
-      const firstChromaticRow = ingredients.indexOf(
-        ingredientsWithChromatics[0]
-      );
-      setUnavailablePosition([
+      const signs3single = [
         `${firstChromaticRow}1`,
         `${firstChromaticRow}2`,
+        `${firstChromaticRow}3`,
+        `${firstChromaticRow}4`,
         `${firstChromaticRow + 1}0`,
         `${firstChromaticRow + 1}1`,
+        `${firstChromaticRow + 1}3`,
+        `${firstChromaticRow + 1}4`,
         `${firstChromaticRow + 2}0`,
         `${firstChromaticRow + 2}2`,
-      ]);
-      return;
-    }
+        `${firstChromaticRow + 2}3`,
+        `${firstChromaticRow + 2}4`,
+      ];
 
-    if (ingredientsWithChromatics.length === 1) {
-      addUnavailablePositions(firstChromaticRow, 0);
-      setUnavailablePosition(temporaryUP);
-    }
+      const signs1doubleUpper = [
+        `${firstChromaticRow}2`,
+        `${firstChromaticRow}3`,
+        `${firstChromaticRow}4`,
+        `${firstChromaticRow + 1}0`,
+        `${firstChromaticRow + 1}1`,
+        `${firstChromaticRow + 1}2`,
+        `${firstChromaticRow + 1}4`,
+        `${firstChromaticRow + 2}0`,
+        `${firstChromaticRow + 2}1`,
+        `${firstChromaticRow + 2}3`,
+        `${firstChromaticRow + 2}4`,
+      ];
 
-    if (ingredientsWithChromatics.length === 2) {
-      addUnavailablePositions(firstChromaticRow, 0);
-      if (secondChromaticRow - firstChromaticRow < 3) {
-        addUnavailablePositions(secondChromaticRow, 1);
+      const signs1doubleMiddle = [
+        `${firstChromaticRow}1`,
+        `${firstChromaticRow}2`,
+        `${firstChromaticRow}3`,
+        `${firstChromaticRow}4`,
+        `${firstChromaticRow + 1}0`,
+        `${firstChromaticRow + 1}1`,
+        `${firstChromaticRow + 1}4`,
+        `${firstChromaticRow + 2}0`,
+        `${firstChromaticRow + 2}2`,
+        `${firstChromaticRow + 2}3`,
+        `${firstChromaticRow + 2}4`,
+      ];
+
+      const signs2double = [
+        `${firstChromaticRow}2`,
+        `${firstChromaticRow}3`,
+        `${firstChromaticRow}4`,
+        `${firstChromaticRow + 1}0`,
+        `${firstChromaticRow + 1}1`,
+        `${firstChromaticRow + 1}2`,
+        `${firstChromaticRow + 2}0`,
+        `${firstChromaticRow + 2}1`,
+        `${firstChromaticRow + 2}3`,
+        `${firstChromaticRow + 2}4`,
+      ];
+
+      if (ingredientsWithDoubleChromatics.length > 0) {
+        if (ingredientsWithDoubleChromatics.length === 2) {
+          setUnavailablePosition(signs2double);
+          return;
+        } else {
+          if (
+            ingredientsWithDoubleChromatics[0] === ingredientsWithChromatics[0]
+          ) {
+            setUnavailablePosition(signs1doubleUpper);
+            return;
+          } else {
+            setUnavailablePosition(signs1doubleMiddle);
+            return;
+          }
+        }
       } else {
-        addUnavailablePositions(secondChromaticRow, 0);
-      }
-      setUnavailablePosition(temporaryUP);
-    }
-
-    if (ingredientsWithChromatics.length === 3) {
-      if (ingredients.length === 4) {
-        addUnavailablePositions(firstChromaticRow, 0);
-        addUnavailablePositions(secondChromaticRow, 1);
-        addUnavailablePositions(thirdChromaticRow, 0);
-        setUnavailablePosition(temporaryUP);
-      }
-      if (ingredients.length === 5) {
-        addUnavailablePositions(firstChromaticRow, 0);
-        if (firstChromaticRow === 0) {
-          if (secondChromaticRow === 1 || secondChromaticRow === 2) {
-            addUnavailablePositions(secondChromaticRow, 1);
-            addUnavailablePositions(thirdChromaticRow, 0);
-          }
-          if (secondChromaticRow === 3) {
-            addUnavailablePositions(secondChromaticRow, 0);
-            addUnavailablePositions(thirdChromaticRow, 1);
-          }
-        }
-        if (firstChromaticRow === 1) {
-          if (secondChromaticRow === 2 || secondChromaticRow === 3) {
-            addUnavailablePositions(secondChromaticRow, 1);
-            addUnavailablePositions(thirdChromaticRow, 0);
-          }
-        }
-        setUnavailablePosition(temporaryUP);
+        setUnavailablePosition(signs3single);
+        return;
       }
     }
 
-    if (ingredientsWithChromatics.length === 4) {
-      if (ingredients.length === 4) {
-        addUnavailablePositions(firstChromaticRow, 0);
-        addUnavailablePositions(secondChromaticRow, 1);
-        addUnavailablePositions(thirdChromaticRow, 2);
-        addUnavailablePositions(fourthChromaticRow, 0);
-        setUnavailablePosition(temporaryUP);
-      }
-      if (ingredients.length === 5) {
-        addUnavailablePositions(firstChromaticRow, 0);
-        if (firstChromaticRow === 0) {
-          if (secondChromaticRow === 1) {
-            addUnavailablePositions(secondChromaticRow, 1);
-            if (thirdChromaticRow === 2) {
-              addUnavailablePositions(thirdChromaticRow, 2);
-              addUnavailablePositions(fourthChromaticRow, 0);
-            }
-            if (thirdChromaticRow === 3) {
-              addUnavailablePositions(thirdChromaticRow, 0);
-              addUnavailablePositions(fourthChromaticRow, 1);
-            }
-          }
-          if (secondChromaticRow === 2) {
-            addUnavailablePositions(secondChromaticRow, 1);
-            addUnavailablePositions(thirdChromaticRow, 0);
-            addUnavailablePositions(fourthChromaticRow, 2);
-          }
-        }
-        if (firstChromaticRow === 1) {
-          addUnavailablePositions(secondChromaticRow, 1);
-          addUnavailablePositions(thirdChromaticRow, 2);
-          addUnavailablePositions(fourthChromaticRow, 0);
-        }
-        setUnavailablePosition(temporaryUP);
-      }
-    }
-    if (ingredientsWithChromatics.length === 5) {
-      addUnavailablePositions(firstChromaticRow, 0);
-      addUnavailablePositions(secondChromaticRow, 1);
-      addUnavailablePositions(thirdChromaticRow, 2);
-      addUnavailablePositions(fourthChromaticRow, 0);
-      addUnavailablePositions(fifthChromaticRow, 1);
-      setUnavailablePosition(temporaryUP);
-    }
+    // if (ingredientsWithChromatics.length === 1) {
+    //   addUnavailablePositions(firstChromaticRow, 0);
+    //   setUnavailablePosition(temporaryUP);
+    // }
+
+    // if (ingredientsWithChromatics.length === 2) {
+    //   addUnavailablePositions(firstChromaticRow, 0);
+    //   if (secondChromaticRow - firstChromaticRow < 3) {
+    //     addUnavailablePositions(secondChromaticRow, 1);
+    //   } else {
+    //     addUnavailablePositions(secondChromaticRow, 0);
+    //   }
+    //   setUnavailablePosition(temporaryUP);
+    // }
+
+    // if (ingredientsWithChromatics.length === 3) {
+    //   if (ingredients.length === 4) {
+    //     addUnavailablePositions(firstChromaticRow, 0);
+    //     addUnavailablePositions(secondChromaticRow, 1);
+    //     addUnavailablePositions(thirdChromaticRow, 0);
+    //     setUnavailablePosition(temporaryUP);
+    //   }
+    //   if (ingredients.length === 5) {
+    //     addUnavailablePositions(firstChromaticRow, 0);
+    //     if (firstChromaticRow === 0) {
+    //       if (secondChromaticRow === 1 || secondChromaticRow === 2) {
+    //         addUnavailablePositions(secondChromaticRow, 1);
+    //         addUnavailablePositions(thirdChromaticRow, 0);
+    //       }
+    //       if (secondChromaticRow === 3) {
+    //         addUnavailablePositions(secondChromaticRow, 0);
+    //         addUnavailablePositions(thirdChromaticRow, 1);
+    //       }
+    //     }
+    //     if (firstChromaticRow === 1) {
+    //       if (secondChromaticRow === 2 || secondChromaticRow === 3) {
+    //         addUnavailablePositions(secondChromaticRow, 1);
+    //         addUnavailablePositions(thirdChromaticRow, 0);
+    //       }
+    //     }
+    //     setUnavailablePosition(temporaryUP);
+    //   }
+    // }
+
+    // if (ingredientsWithChromatics.length === 4) {
+    //   if (ingredients.length === 4) {
+    //     addUnavailablePositions(firstChromaticRow, 0);
+    //     addUnavailablePositions(secondChromaticRow, 1);
+    //     addUnavailablePositions(thirdChromaticRow, 2);
+    //     addUnavailablePositions(fourthChromaticRow, 0);
+    //     setUnavailablePosition(temporaryUP);
+    //   }
+    //   if (ingredients.length === 5) {
+    //     addUnavailablePositions(firstChromaticRow, 0);
+    //     if (firstChromaticRow === 0) {
+    //       if (secondChromaticRow === 1) {
+    //         addUnavailablePositions(secondChromaticRow, 1);
+    //         if (thirdChromaticRow === 2) {
+    //           addUnavailablePositions(thirdChromaticRow, 2);
+    //           addUnavailablePositions(fourthChromaticRow, 0);
+    //         }
+    //         if (thirdChromaticRow === 3) {
+    //           addUnavailablePositions(thirdChromaticRow, 0);
+    //           addUnavailablePositions(fourthChromaticRow, 1);
+    //         }
+    //       }
+    //       if (secondChromaticRow === 2) {
+    //         addUnavailablePositions(secondChromaticRow, 1);
+    //         addUnavailablePositions(thirdChromaticRow, 0);
+    //         addUnavailablePositions(fourthChromaticRow, 2);
+    //       }
+    //     }
+    //     if (firstChromaticRow === 1) {
+    //       addUnavailablePositions(secondChromaticRow, 1);
+    //       addUnavailablePositions(thirdChromaticRow, 2);
+    //       addUnavailablePositions(fourthChromaticRow, 0);
+    //     }
+    //     setUnavailablePosition(temporaryUP);
+    //   }
+    // }
+    // if (ingredientsWithChromatics.length === 5) {
+    //   addUnavailablePositions(firstChromaticRow, 0);
+    //   addUnavailablePositions(secondChromaticRow, 1);
+    //   addUnavailablePositions(thirdChromaticRow, 2);
+    //   addUnavailablePositions(fourthChromaticRow, 0);
+    //   addUnavailablePositions(fifthChromaticRow, 1);
+    //   setUnavailablePosition(temporaryUP);
+    // }
   };
 
   const createSingsForChromatics = () => {
@@ -254,7 +353,7 @@ export function Chord({ note, chordType, chordAdditional }) {
     setSignsForChromatics(temporarySFC);
   };
 
-  console.log(signsForChromatics);
+  // console.log(signsForChromatics);
 
   const writeNote = (noteToWrite, step) => {
     const classPitchDiv = classNames({
