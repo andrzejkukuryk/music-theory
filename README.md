@@ -1,4 +1,4 @@
-First project to get famiiar with React.js
+First project to get familiar with React.js
 
 Written in JavaScript, React.js and Material-UI.
 Optimized for desktops only.
