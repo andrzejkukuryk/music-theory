@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from "react";
 import {
-  circleOfFifths,
-  ingredients as ingredientsOld,
   TYPE_AUGMENTED,
-  TYPE_CHORD,
   TYPE_DIMINISHED,
   TYPE_MAJOR,
   TYPE_MINOR,
@@ -27,54 +24,13 @@ import { createSus4Chord } from "../../data/suspended4Chord";
 export function Chord({ note, chordType, chordAdditional }) {
   const [ingredients, setIngredients] = useState([]);
   const [unavailablePosition, setUnavailablePosition] = useState([]); // [xy, xy... (x-row, y-column) ]
-  const [chordIngredients, setChordIngredients] = useState(["c1", "e1", "g1"]);
   const [signsForChromatics, setSignsForChromatics] = useState([]);
-  const ingredientsReversesed = [...chordIngredients].reverse();
-
-  // useEffect(
-  //   () => circleOfFifths(note, chordType, TYPE_CHORD, chordAdditional),
-  //   [note, chordType, chordAdditional]
-  // );
 
   useEffect(() => {
-    // createIngredients(note, chordType, chordAdditional);
     setIngredients(createIngredients(chordType));
-    setChordIngredients([...ingredientsOld]);
     setPositions();
     createSingsForChromatics();
   }, [note, chordType, chordAdditional]);
-  // useEffect(() => {
-  //   // setPositions();
-  //   createSingsForChromatics();
-  // }, []);
-
-  // const createIngredientsOld = (note, chordType, chordAdditional) => {
-  //   switch (chordType) {
-  //     case TYPE_MAJOR:
-  //       setIngredients(createMajorChord(note, chordAdditional));
-  //       break;
-  //     case TYPE_MINOR:
-  //       setIngredients(createMinorChord(note, chordAdditional));
-  //       break;
-  //     case TYPE_DIMINISHED:
-  //       setIngredients(createDiminishedChord(note, chordAdditional));
-  //       break;
-  //     case TYPE_AUGMENTED:
-  //       setIngredients(createAugmentedChord(note, chordAdditional));
-  //       break;
-  //     case TYPE_SUSPENDEDTWO:
-  //       setIngredients(createSus2Chord(note, chordAdditional));
-  //       break;
-  //     case TYPE_SUSPENDEDFOUR:
-  //       setIngredients(createSus4Chord(note, chordAdditional));
-  //       break;
-  //     default:
-  //       setIngredients(createMajorChord(note, chordAdditional));
-  //       break;
-  //   }
-  // };
-
-  //////////////////////////////
 
   const createIngredients = (chordType) => {
     let choosenChordTtype;
@@ -103,9 +59,6 @@ export function Chord({ note, chordType, chordAdditional }) {
     }
     return choosenChordTtype(note, chordAdditional);
   };
-
-  console.log("z nowej funkcji: ", createIngredients(chordType));
-  //////////////////////////////
 
   const setPositions = () => {
     const ingredientsForChord = createIngredients(chordType);
@@ -166,7 +119,7 @@ export function Chord({ note, chordType, chordAdditional }) {
       ingredientsWithChromatics[0]
     );
 
-    // trzy sąsiadujące składniki mają znaki chromatyczne
+    // unregular chromatic signs schems START
     if (
       ingredientsWithChromatics.length === 3 &&
       ingredientsForChord.indexOf(ingredientsWithChromatics[0]) + 2 ===
@@ -248,101 +201,58 @@ export function Chord({ note, chordType, chordAdditional }) {
         return;
       }
     }
+    // unregular chromatic signs schems END
 
-    // if (ingredientsWithChromatics.length === 1) {
-    //   addUnavailablePositions(firstChromaticRow, 0);
-    //   setUnavailablePosition(temporaryUP);
-    // }
+    const columnSearch = (row) => {
+      for (let column = 0; column < 5; column++) {
+        const searchedPosition = `${row}${column}`;
+        if (!temporaryUP.includes(searchedPosition)) {
+          return column;
+        }
+      }
+    };
 
-    // if (ingredientsWithChromatics.length === 2) {
-    //   addUnavailablePositions(firstChromaticRow, 0);
-    //   if (secondChromaticRow - firstChromaticRow < 3) {
-    //     addUnavailablePositions(secondChromaticRow, 1);
-    //   } else {
-    //     addUnavailablePositions(secondChromaticRow, 0);
-    //   }
-    //   setUnavailablePosition(temporaryUP);
-    // }
+    const doubleSignIn2ndSignsRow = (row) => {
+      if (
+        ingredientsWithChromatics.length === 5 &&
+        row === 0 &&
+        ingredientsWithChromatics[3].length === 4
+      ) {
+        return true;
+      } else {
+        return false;
+      }
+    };
 
-    // if (ingredientsWithChromatics.length === 3) {
-    //   if (ingredients.length === 4) {
-    //     addUnavailablePositions(firstChromaticRow, 0);
-    //     addUnavailablePositions(secondChromaticRow, 1);
-    //     addUnavailablePositions(thirdChromaticRow, 0);
-    //     setUnavailablePosition(temporaryUP);
-    //   }
-    //   if (ingredients.length === 5) {
-    //     addUnavailablePositions(firstChromaticRow, 0);
-    //     if (firstChromaticRow === 0) {
-    //       if (secondChromaticRow === 1 || secondChromaticRow === 2) {
-    //         addUnavailablePositions(secondChromaticRow, 1);
-    //         addUnavailablePositions(thirdChromaticRow, 0);
-    //       }
-    //       if (secondChromaticRow === 3) {
-    //         addUnavailablePositions(secondChromaticRow, 0);
-    //         addUnavailablePositions(thirdChromaticRow, 1);
-    //       }
-    //     }
-    //     if (firstChromaticRow === 1) {
-    //       if (secondChromaticRow === 2 || secondChromaticRow === 3) {
-    //         addUnavailablePositions(secondChromaticRow, 1);
-    //         addUnavailablePositions(thirdChromaticRow, 0);
-    //       }
-    //     }
-    //     setUnavailablePosition(temporaryUP);
-    //   }
-    // }
-
-    // if (ingredientsWithChromatics.length === 4) {
-    //   if (ingredients.length === 4) {
-    //     addUnavailablePositions(firstChromaticRow, 0);
-    //     addUnavailablePositions(secondChromaticRow, 1);
-    //     addUnavailablePositions(thirdChromaticRow, 2);
-    //     addUnavailablePositions(fourthChromaticRow, 0);
-    //     setUnavailablePosition(temporaryUP);
-    //   }
-    //   if (ingredients.length === 5) {
-    //     addUnavailablePositions(firstChromaticRow, 0);
-    //     if (firstChromaticRow === 0) {
-    //       if (secondChromaticRow === 1) {
-    //         addUnavailablePositions(secondChromaticRow, 1);
-    //         if (thirdChromaticRow === 2) {
-    //           addUnavailablePositions(thirdChromaticRow, 2);
-    //           addUnavailablePositions(fourthChromaticRow, 0);
-    //         }
-    //         if (thirdChromaticRow === 3) {
-    //           addUnavailablePositions(thirdChromaticRow, 0);
-    //           addUnavailablePositions(fourthChromaticRow, 1);
-    //         }
-    //       }
-    //       if (secondChromaticRow === 2) {
-    //         addUnavailablePositions(secondChromaticRow, 1);
-    //         addUnavailablePositions(thirdChromaticRow, 0);
-    //         addUnavailablePositions(fourthChromaticRow, 2);
-    //       }
-    //     }
-    //     if (firstChromaticRow === 1) {
-    //       addUnavailablePositions(secondChromaticRow, 1);
-    //       addUnavailablePositions(thirdChromaticRow, 2);
-    //       addUnavailablePositions(fourthChromaticRow, 0);
-    //     }
-    //     setUnavailablePosition(temporaryUP);
-    //   }
-    // }
-    // if (ingredientsWithChromatics.length === 5) {
-    //   addUnavailablePositions(firstChromaticRow, 0);
-    //   addUnavailablePositions(secondChromaticRow, 1);
-    //   addUnavailablePositions(thirdChromaticRow, 2);
-    //   addUnavailablePositions(fourthChromaticRow, 0);
-    //   addUnavailablePositions(fifthChromaticRow, 1);
-    //   setUnavailablePosition(temporaryUP);
-    // }
+    ingredientsForChord.forEach((ingredient, row) => {
+      const column = columnSearch(row);
+      if (ingredient.length > 2) {
+        if (doubleSignIn2ndSignsRow(row)) {
+          // there's double sign below in ingredient's column
+          if (ingredient.length === 3) {
+            addUnavailablePositions1sign2columns(row, column);
+          } else {
+            addUnavailablePositions2signs2columns(row, column);
+          }
+        } else {
+          // there's NO double sign below in ingredient's column
+          if (ingredient.length === 3) {
+            addUnavailablePositions1sign1column(row, column);
+          } else {
+            addUnavailablePositions2signs2columnsFloor(row, column);
+          }
+        }
+      } else {
+        return;
+      }
+    });
+    setUnavailablePosition(temporaryUP);
   };
 
   const createSingsForChromatics = () => {
     const ingredientsForChord = createIngredients(chordType);
     const temporarySFC = [];
-    ingredientsForChord.map((ingredient) => {
+    ingredientsForChord.forEach((ingredient) => {
       if (ingredient.length === 2) {
         temporarySFC.push(" ");
       }
@@ -352,8 +262,6 @@ export function Chord({ note, chordType, chordAdditional }) {
     });
     setSignsForChromatics(temporarySFC);
   };
-
-  // console.log(signsForChromatics);
 
   const writeNote = (noteToWrite, step) => {
     const classPitchDiv = classNames({
@@ -493,8 +401,6 @@ export function Chord({ note, chordType, chordAdditional }) {
       )}
       {ingredients.map((ingr, index) => writeNote(ingr, index))}
       {ingredients.map((ingr, index) => writeChromatics(ingr, index))}
-      {/* {ingredientsReversesed.map((ingr, index) => writeNote(ingr, index))} */}
-      {/* {ingredientsReversesed.map((ingr, index) => writeChromatics(ingr, index))} */}
       <ChordCaption
         note={note}
         chordType={chordType}
